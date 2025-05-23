@@ -1,50 +1,92 @@
-# SubMovies
+# SubMovies – Gemini Subtitle Translator
 
-**Translate subtitles like a pro using Gemini AI. Fully offline-ready, customizable tone, and exportable results.**
+[![GitHub Pages](https://img.shields.io/badge/demo-live-blue?logo=github)](https://geekneuron.github.io/SubMovies)
 
-![GitHub Pages](https://img.shields.io/badge/Live-Demo-blue?style=flat-square)
-![License](https://img.shields.io/github/license/GeekNeuron/SubMovies?style=flat-square)
+Translate SRT subtitle files into 13 global languages using **Gemini AI** with custom tone, formatting, and full client-side privacy. Built for accessibility, precision, and open-source community.
 
-## 🌐 Live App
-> [https://geekneuron.github.io/SubMovies](https://geekneuron.github.io/SubMovies)
+## [Live Demo →](https://geekneuron.github.io/SubMovies)
 
-## ✨ Features
-- Upload `.srt` subtitle files
-- Choose Gemini model (pro, vision, etc.)
-- Select tone: formal, casual, literary, etc.
-- Side-by-side translation view
-- Language selector (13 full translations)
-- Offline support (PWA)
-- Download translated SRT
-- Export translation history
+---
 
-## 🚀 Getting Started
-1. Get your API key from [Google AI Studio](https://makersuite.google.com)
-2. Open the app via `index.html`
-3. Upload your subtitle → Set model + tone → Translate
+## Features
 
-## 🗂 Languages Supported
-- English, Persian, Spanish, French, German, Russian, Portuguese, Turkish, Arabic, Hindi, Chinese, Japanese, Korean
+- **Gemini API** powered subtitle translation
+- **13 Language UI support** with dynamic switcher
+- **Custom tone selection**: Formal, Literary, Casual, etc.
+- **Single / Multi-part translation**
+- **Secure client-side API key usage** (no backend)
+- **Supports .srt upload and preview**
+- **Smart number fixing**, maintains original timestamps
+- **RTL layout detection** (Arabic, Persian, etc.)
+- **Responsive & dark themed UI**
 
-## 🧩 Dev Structure
-```
-landing/{lang}/index.html
-flags/{lang}.svg
-scripts, PWA, manifest, offline
-```
+---
 
-## 🛠 For Developers
+## Usage
+
+1. Paste your [Gemini API key](https://makersuite.google.com/app/apikey)
+2. Choose translation model (free or paid)
+3. Paste subtitle text or upload `.srt` file
+4. Choose tone and formatting
+5. Translate and copy/download result
+
+> No data leaves your browser. Everything runs on your device.
+
+---
+
+## Installation
+
 ```bash
 git clone https://github.com/GeekNeuron/SubMovies.git
-npm install
+cd SubMovies
+npm install  # (optional, for dev tooling)
+```
+
+### Development / Build
+No build needed – it's static.
+But to (re)generate landing pages:
+```bash
 node generate.js
 ```
 
-## ❤️ Support the Project
-[Buy Me a Coffee](https://www.buymeacoffee.com/geekneuron)
+---
 
-## 📄 License
-MIT License
+## Languages Supported
+
+UI is available in:
+- English (en)
+- فارسی (fa)
+- Español (es)
+- Français (fr)
+- Deutsch (de)
+- Русский (ru)
+- Português (pt)
+- Türkçe (tr)
+- العربية (ar)
+- हिन्दी (hi)
+- 中文 (zh)
+- 日本語 (ja)
+- 한국어 (ko)
+
+Translation target is based on selected UI language.
 
 ---
-Built with ❤️ by [GeekNeuron](https://github.com/GeekNeuron)
+
+## Contributing
+
+Pull requests are welcome!
+
+1. Fork project
+2. Add/improve language files in `/lang`
+3. Open PR with explanation
+
+---
+
+## Support & Donate
+If you find this tool helpful, consider ⭐️ starring the repo or [buying a coffee](https://buymeacoffee.com/geekneuron)
+
+---
+
+## License
+
+MIT © GeekNeuron
