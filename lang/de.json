@@ -1,0 +1,16 @@
+{
+  "title": "Gemini Untertitel-Übersetzer",
+  "apiKey": "Füge deinen Gemini-API-Schlüssel ein",
+  "model": "Modell wählen",
+  "translate": "Übersetzen",
+  "placeholder": "Füge Untertiteltext ein oder lade eine .srt-Datei hoch",
+  "tone": "Tonfall wählen",
+  "split": "Übersetzung aufteilen",
+  "models": {
+    "gemini-pro": "Kostenlos – gemini-pro",
+    "gemini-pro:latest": "Kostenlos – gemini-pro:latest",
+    "gemini-1.0-pro": "Kostenpflichtig – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "Kostenpflichtig – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "Kostenpflichtig – gemini-pro-vision"
+  }
+}
