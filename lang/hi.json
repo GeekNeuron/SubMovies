@@ -1,0 +1,16 @@
+{
+  "title": "Gemini उपशीर्षक अनुवादक",
+  "apiKey": "अपना Gemini API कुंजी पेस्ट करें",
+  "model": "मॉडल चुनें",
+  "translate": "अनुवाद करें",
+  "placeholder": "उपशीर्षक पाठ पेस्ट करें या .srt फ़ाइल अपलोड करें",
+  "tone": "शैली चुनें",
+  "split": "अनुवाद विभाजित करें",
+  "models": {
+    "gemini-pro": "नि:शुल्क – gemini-pro",
+    "gemini-pro:latest": "नि:शुल्क – gemini-pro:latest",
+    "gemini-1.0-pro": "पेड – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "पेड – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "पेड – gemini-pro-vision"
+  }
+}
