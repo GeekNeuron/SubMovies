@@ -13,4 +13,10 @@
     "gemini-1.5-pro-latest": "Платно – gemini-1.5-pro-latest",
     "gemini-pro-vision": "Платно – gemini-pro-vision"
   }
+  "tones": ["Официальный", "Нейтральный", "Разговорный", "Уличный", "Литературный", "Классический", "Технический"],
+"splits": ["Один блок", "Несколько частей"],
+"fileChoose": "Выбрать файл",
+"fileNone": "Файл не выбран",
+"errorMissing": "Требуется API-ключ и текст.",
+"errorAPI": "Ошибка от Gemini API"
 }
