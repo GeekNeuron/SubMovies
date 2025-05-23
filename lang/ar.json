@@ -13,4 +13,10 @@
     "gemini-1.5-pro-latest": "مدفوع – gemini-1.5-pro-latest",
     "gemini-pro-vision": "مدفوع – gemini-pro-vision"
   }
+  "tones": ["رسمي", "محايد", "عامي", "شعبي", "أدبي", "كلاسيكي", "تقني"],
+"splits": ["كتلة واحدة", "عدة أجزاء"],
+"fileChoose": "اختر ملف",
+"fileNone": "لم يتم اختيار ملف",
+"errorMissing": "مطلوب مفتاح API والنص.",
+"errorAPI": "خطأ من Gemini API"
 }
