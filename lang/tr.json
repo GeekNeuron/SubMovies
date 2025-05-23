@@ -12,11 +12,11 @@
     "gemini-1.0-pro": "Ücretli – gemini-1.0-pro",
     "gemini-1.5-pro-latest": "Ücretli – gemini-1.5-pro-latest",
     "gemini-pro-vision": "Ücretli – gemini-pro-vision"
-  }
+  },
   "tones": ["Resmi", "Tarafsız", "Günlük", "Sokak", "Edebi", "Klasik", "Teknik"],
-"splits": ["Tek parça", "Çok parça"],
-"fileChoose": "Dosya seç",
-"fileNone": "Dosya seçilmedi",
-"errorMissing": "API anahtarı ve altyazı metni gerekli.",
-"errorAPI": "Gemini API hatası"
+  "splits": ["Tek parça", "Çok parça"],
+  "fileChoose": "Dosya seç",
+  "fileNone": "Dosya seçilmedi",
+  "errorMissing": "API anahtarı ve altyazı metni gerekli.",
+  "errorAPI": "Gemini API hatası"
 }
