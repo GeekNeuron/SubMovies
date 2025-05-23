@@ -55,7 +55,7 @@ sendBtn.addEventListener('click', async () => {
 
   if (!apiKey || !rawText) return alert('API key and text are required');
 
-  responseBox.textContent = 'Translating...';
+  responseBox.textContent = 'Sending request...';
 
   const prompt = `Translate this subtitle text with a ${tone} tone as ${split === 'Multiple Parts' ? 'separated paragraphs' : 'a single paragraph'}:\n\n${rawText}`;
 
@@ -67,14 +67,20 @@ sendBtn.addEventListener('click', async () => {
     });
 
     const data = await res.json();
-    const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received';
+    console.log('Gemini raw response:', data);
 
+    if (!data || data.error) {
+      throw new Error(data.error?.message || 'Unknown error from Gemini API');
+    }
+
+    const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No content received.';
     const fixed = fixNumbers(output);
     responseBox.innerHTML = '';
     responseBox.appendChild(renderCompare(rawText, fixed));
 
   } catch (err) {
-    responseBox.textContent = 'Error: ' + err.message;
+    responseBox.innerHTML = `<pre class="text-red-400">Error: ${err.message}</pre>`;
+    console.error('Gemini Error:', err);
   }
 });
 
