@@ -18,5 +18,5 @@
   "fileChoose": "اختر ملف",
   "fileNone": "لم يتم اختيار ملف",
   "errorMissing": "مطلوب مفتاح API والنص.",
-  "errorAPI": "خطأ من Gemini API"
+  "download": ".srt تحمیل"
 }
