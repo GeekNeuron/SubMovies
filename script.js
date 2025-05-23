@@ -96,7 +96,6 @@ sendBtn.addEventListener('click', async () => {
     responseBox.appendChild(renderCompare(rawText, fixed));
   } catch (err) {
     showToast(err.message);
-    responseBox.innerHTML = `<pre class='text-red-400'>Error: ${err.message}</pre>`;
   }
 });
 
