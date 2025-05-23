@@ -12,11 +12,11 @@
     "gemini-1.0-pro": "پولی – gemini-1.0-pro",
     "gemini-1.5-pro-latest": "پولی – gemini-1.5-pro-latest",
     "gemini-pro-vision": "پولی – gemini-pro-vision"
-  }
   "tones": ["رسمی", "معیار", "محاوره‌ای", "کوچه‌بازاری", "ادبی", "فاخر", "تخصصی"],
 "splits": ["یک‌بخشی", "چندبخشی"],
 "fileChoose": "انتخاب فایل",
 "fileNone": "فایلی انتخاب نشده",
 "errorMissing": "کلید API و متن زیرنویس الزامی است.",
 "errorAPI": "خطا از سمت Gemini"
+      }
 }
