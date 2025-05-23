@@ -1,24 +1,43 @@
-# CONTRIBUTING
+# Contributing to SubMovies
 
-## Welcome, Contributor!
-We’d love your help to improve SubMovies. Here's how to contribute:
+We welcome all contributions to improve SubMovies, including:
 
-### How to Contribute
-1. **Fork** the repository
-2. **Clone** your fork: `git clone https://github.com/YOUR_USERNAME/SubMovies`
-3. **Create a branch**: `git checkout -b feature/my-feature`
-4. **Commit your changes**
-5. **Push** and open a **Pull Request**
+- Language translations (`/lang`)
+- UI enhancements
+- Gemini model updates
+- Bug fixes and suggestions
 
-### Code Style
-- Use plain JS (no frameworks)
-- Tailwind for all styles
-- Keep code modular and readable
+## Getting Started
 
-### Ideas You Can Help With
-- Add translations to more languages
-- Improve UI accessibility
-- Add usage tracking (opt-in)
-- Add unit tests
+1. Fork the repository
+2. Clone it:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/SubMovies.git
+   cd SubMovies
+   ```
+3. Create a branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-Thanks for being awesome!
+## Adding a New Language
+
+1. Copy `lang/en.json` → `lang/xx.json`
+2. Translate all keys
+3. Add the language to the dropdown in `index.html`
+4. Test your translation
+
+## Submitting a Pull Request
+
+- Ensure your branch is up to date:
+  ```bash
+  git pull origin main --rebase
+  ```
+- Commit your changes:
+  ```bash
+  git commit -m "Add new translation: XX"
+  git push origin feature/your-feature-name
+  ```
+- Open a Pull Request and describe your changes
+
+Thanks for contributing!
