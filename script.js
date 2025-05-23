@@ -11,12 +11,12 @@ const translations = {};
 let currentLang = 'en';
 let lastTranslatedText = "";
 
-// filename input
+// filename download field (hidden)
 const filenameInput = document.createElement('input');
 filenameInput.type = 'text';
 filenameInput.id = 'filenameInput';
-filenameInput.className = "w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 mb-2";
-filenameInput.placeholder = "YourFinalSubName.srt";
+filenameInput.className = "hidden";
+filenameInput.placeholder = "ChooseName";
 document.getElementById('formContainer').appendChild(filenameInput);
 
 const downloadBtn = document.createElement('button');
@@ -27,16 +27,16 @@ downloadBtn.style.display = "none";
 document.getElementById('formContainer').appendChild(downloadBtn);
 
 downloadBtn.addEventListener('click', () => {
+  const name = filenameInput.value.trim() || "ChooseName";
   const blob = new Blob([lastTranslatedText], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = filenameInput.value.trim() || "YourFinalSubName.srt";
+  a.download = name + ".srt";
   a.click();
   URL.revokeObjectURL(url);
 });
 
-// tone language target selector
 const langTarget = document.createElement('select');
 langTarget.id = 'langTarget';
 langTarget.className = "w-full md:w-1/2 px-3 py-2 rounded bg-gray-700 text-white mt-2 md:mt-0 md:ml-2";
@@ -117,7 +117,7 @@ sendBtn.addEventListener('click', async () => {
   }
 
   responseBox.textContent = 'Translating...';
-  const prompt = `Translate this subtitle text to ${langOut} in ${tone} tone:\n\n${rawText}`;
+  const prompt = `Translate this subtitle text to ${langOut} in ${tone} tone:\\n\\n${rawText}`;
 
   try {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
@@ -147,7 +147,7 @@ fileInput.addEventListener('change', async (e) => {
 function showToast(msg) {
   const box = document.createElement('div');
   box.className = 'fixed top-4 left-4 bg-red-700 text-white px-4 py-2 rounded shadow z-50';
-  box.innerHTML = `<div class=\"flex justify-between items-center\"><span>${msg}</span><button class=\"ml-3 text-white font-bold\" onclick=\"this.parentNode.parentNode.remove()\">×</button></div>`;
+  box.innerHTML = `<div class="flex justify-between items-center"><span>${msg}</span><button class="ml-3 text-white font-bold" onclick="this.parentNode.parentNode.remove()">×</button></div>`;
   document.body.appendChild(box);
   setTimeout(() => box.remove(), 10000);
 }
