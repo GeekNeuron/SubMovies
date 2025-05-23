@@ -10,6 +10,33 @@ const fileInput = document.getElementById('fileInput');
 
 const translations = {};
 let currentLang = 'en';
+let lastTranslatedText = "";
+
+// download filename input
+const filenameInput = document.createElement('input');
+filenameInput.type = 'text';
+filenameInput.id = 'filenameInput';
+filenameInput.className = "w-full mt-4 px-3 py-2 rounded bg-gray-800 text-white placeholder-gray-400";
+filenameInput.placeholder = "translated.srt";
+document.getElementById('formContainer').appendChild(filenameInput);
+
+// download button
+const downloadBtn = document.createElement('button');
+downloadBtn.id = "downloadBtn";
+downloadBtn.className = "w-full mt-2 bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold";
+downloadBtn.textContent = "Download .srt";
+downloadBtn.style.display = "none";
+document.getElementById('formContainer').appendChild(downloadBtn);
+
+downloadBtn.addEventListener('click', () => {
+  const blob = new Blob([lastTranslatedText], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filenameInput.value.trim() || "translated.srt";
+  a.click();
+  URL.revokeObjectURL(url);
+});
 
 langSelect.addEventListener('change', (e) => {
   const lang = e.target.value;
@@ -70,9 +97,7 @@ function applyLang(lang) {
   const rtlLangs = ['fa', 'ar', 'he', 'ur'];
   document.getElementById('formContainer').dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
 
-  if (downloadBtn) {
-    downloadBtn.textContent = t.download || "Download .srt";
-  }
+  if (downloadBtn) downloadBtn.textContent = t.download || "Download .srt";
 }
 
 async function loadLang(lang) {
@@ -141,8 +166,6 @@ function toEnglish(num) {
   return num.split('').map(c => map[c] || c).join('');
 }
 
-let lastTranslatedText = "";
-
 function renderCompare(orig, translated) {
   lastTranslatedText = translated;
   downloadBtn.style.display = "block";
@@ -160,25 +183,6 @@ function renderCompare(orig, translated) {
   return container;
 }
 
-// Create download button
-const downloadBtn = document.createElement('button');
-downloadBtn.id = "downloadBtn";
-downloadBtn.className = "w-full mt-4 bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold";
-downloadBtn.textContent = "Download .srt";
-downloadBtn.style.display = "none";
-document.getElementById('formContainer').appendChild(downloadBtn);
-
-downloadBtn.addEventListener('click', () => {
-  const blob = new Blob([lastTranslatedText], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = "translated.srt";
-  a.click();
-  URL.revokeObjectURL(url);
-});
-
-// Initialize
 const savedLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'en';
 langSelect.value = savedLang;
 loadLang(savedLang);
