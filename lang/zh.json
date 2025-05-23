@@ -12,11 +12,11 @@
     "gemini-1.0-pro": "付费 – gemini-1.0-pro",
     "gemini-1.5-pro-latest": "付费 – gemini-1.5-pro-latest",
     "gemini-pro-vision": "付费 – gemini-pro-vision"
-  }
+  },
   "tones": ["正式", "中性", "口语", "街头", "文学", "经典", "技术"],
-"splits": ["单段", "多段"],
-"fileChoose": "选择文件",
-"fileNone": "未选择文件",
-"errorMissing": "需要 API 密钥和字幕内容。",
-"errorAPI": "来自 Gemini API 的错误"
+  "splits": ["单段", "多段"],
+  "fileChoose": "选择文件",
+  "fileNone": "未选择文件",
+  "errorMissing": "需要 API 密钥和字幕内容。",
+  "errorAPI": "来自 Gemini API 的错误"
 }
