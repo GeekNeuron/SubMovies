@@ -6,6 +6,52 @@ const sendBtn = document.getElementById('sendBtn');
 const responseBox = document.getElementById('response');
 const modelSelect = document.getElementById('model');
 
+const translations = {};
+let currentLang = 'en';
+
+langSelect.addEventListener('change', (e) => {
+  const lang = e.target.value;
+  localStorage.setItem('lang', lang);
+  loadLang(lang);
+});
+
+function applyLang(lang) {
+  const t = translations[lang];
+  currentLang = lang;
+
+  document.title = t.title;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.innerText = t[key];
+  });
+
+  promptInput.placeholder = t.placeholder;
+
+  [...modelSelect.options].forEach(opt => {
+    const val = opt.value;
+    if (t.models[val]) {
+      opt.textContent = val.startsWith('gemini-pro') ? `🔵 ${t.models[val]}` : `🟢 ${t.models[val]}`;
+    }
+  });
+
+  // RTL support
+  const rtlLangs = ['fa', 'ar', 'he', 'ur'];
+  document.body.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
+}
+
+async function loadLang(lang) {
+  const res = await fetch(`lang/${lang}.json`);
+  const data = await res.json();
+  translations[lang] = data;
+  applyLang(lang);
+}
+
+// init lang: localStorage → browser language fallback
+const savedLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'en';
+langSelect.value = savedLang;
+loadLang(savedLang);
+
 const MODELS = [
   { value: 'gemini-pro', label: '🔵 Free – gemini-pro' },
   { value: 'gemini-pro:latest', label: '🔵 Free – gemini-pro:latest' },
