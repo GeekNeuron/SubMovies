@@ -18,5 +18,5 @@
   "fileChoose": "选择文件",
   "fileNone": "未选择文件",
   "errorMissing": "需要 API 密钥和字幕内容。",
-  "errorAPI": "来自 Gemini API 的错误"
+  "download": "下载 .srt"
 }
