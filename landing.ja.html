@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubMovies - Geminiで字幕翻訳</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+  <header class="text-center p-6">
+    <h1 class="text-3xl font-bold text-blue-400">SubMovies</h1>
+    <p class="text-sm text-gray-300 mt-2">Google Geminiで字幕を翻訳します</p>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 space-y-8">
+    <section class="bg-gray-800 p-6 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold mb-2">機能</h2>
+      <ul class="list-disc list-inside text-sm">
+        <li>SRTファイルをアップロードして翻訳</li>
+        <li>Geminiモデルと翻訳トーンを選択</li>
+        <li>原文と翻訳の比較表示</li>
+        <li>オフラインモードと履歴機能</li>
+        <li>翻訳されたファイルをダウンロード</li>
+      </ul>
+    </section>
+
+    <section class="bg-gray-800 p-6 rounded-xl">
+      <h2 class="text-xl font-semibold mb-2">開始方法</h2>
+      <ol class="list-decimal list-inside text-sm">
+        <li><a href="https://makersuite.google.com" class="text-blue-400 underline">Google AI Studio</a>からAPIキーを取得</li>
+        <li><code>index.html</code> を開く</li>
+        <li>SRTをアップロード → モデルとトーンを選ぶ → 翻訳</li>
+      </ol>
+      <a href="index.html" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm">翻訳を開始</a>
+    </section>
+  </main>
+
+  <footer class="text-center text-xs text-gray-500 mt-10">
+    <p><a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron</a> による開発</p>
+  </footer>
+</body>
+</html>
