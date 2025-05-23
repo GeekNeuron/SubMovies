@@ -1,0 +1,16 @@
+{
+  "title": "Gemini Altyazı Çevirici",
+  "apiKey": "Gemini API anahtarınızı yapıştırın",
+  "model": "Model seçin",
+  "translate": "Çevir",
+  "placeholder": "Altyazı metnini yapıştırın veya .srt dosyası yükleyin",
+  "tone": "Ton seçin",
+  "split": "Çeviriyi böl",
+  "models": {
+    "gemini-pro": "Ücretsiz – gemini-pro",
+    "gemini-pro:latest": "Ücretsiz – gemini-pro:latest",
+    "gemini-1.0-pro": "Ücretli – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "Ücretli – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "Ücretli – gemini-pro-vision"
+  }
+}
