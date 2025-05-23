@@ -5,14 +5,13 @@ const responseBox = document.getElementById('response');
 const modelSelect = document.getElementById('model');
 const langSelect = document.getElementById('lang');
 const toneSelect = document.getElementById('tone');
-const splitSelect = document.getElementById('split');
 const fileInput = document.getElementById('fileInput');
 
 const translations = {};
 let currentLang = 'en';
 let lastTranslatedText = "";
 
-// download filename input
+// filename input
 const filenameInput = document.createElement('input');
 filenameInput.type = 'text';
 filenameInput.id = 'filenameInput';
@@ -38,6 +37,21 @@ downloadBtn.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
+// target language selector beside tone
+const langTarget = document.createElement('select');
+langTarget.id = 'langTarget';
+langTarget.className = "w-full md:w-1/2 px-3 py-2 rounded bg-gray-800 text-white mt-2 md:mt-0 md:ml-2";
+langTarget.setAttribute('placeholder', 'Translation language');
+const langList = new Intl.DisplayNames(['en'], { type: 'language' });
+const sortedLangs = [...Intl.supportedValuesOf('language')].sort();
+sortedLangs.forEach(code => {
+  const opt = document.createElement('option');
+  opt.value = code;
+  opt.textContent = `${langList.of(code)} (${code})`;
+  langTarget.appendChild(opt);
+});
+document.getElementById('tone').parentElement.appendChild(langTarget);
+
 langSelect.addEventListener('change', (e) => {
   const lang = e.target.value;
   localStorage.setItem('lang', lang);
@@ -49,7 +63,6 @@ function applyLang(lang) {
   currentLang = lang;
 
   document.title = t.title;
-
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key]) el.innerText = t[key];
@@ -67,24 +80,12 @@ function applyLang(lang) {
     });
   }
 
-  if (t.splits && splitSelect) {
-    splitSelect.innerHTML = "";
-    t.splits.forEach(txt => {
-      const opt = document.createElement("option");
-      opt.textContent = txt;
-      splitSelect.appendChild(opt);
-    });
-  }
-
   const fileLabel = fileInput?.previousElementSibling;
   if (fileLabel?.tagName === "LABEL") {
     fileLabel.textContent = t.fileChoose || "Choose file";
   }
-
   const fileNameText = document.getElementById("fileNameText");
-  if (fileNameText) {
-    fileNameText.textContent = t.fileNone || "No file chosen";
-  }
+  if (fileNameText) fileNameText.textContent = t.fileNone || "No file chosen";
 
   [...modelSelect.options].forEach(opt => {
     const val = opt.value;
@@ -96,8 +97,7 @@ function applyLang(lang) {
 
   const rtlLangs = ['fa', 'ar', 'he', 'ur'];
   document.getElementById('formContainer').dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
-
-  if (downloadBtn) downloadBtn.textContent = t.download || "Download .srt";
+  downloadBtn.textContent = t.download || "Download .srt";
 }
 
 async function loadLang(lang) {
@@ -112,15 +112,14 @@ sendBtn.addEventListener('click', async () => {
   const rawText = promptInput.value.trim();
   const model = modelSelect.value;
   const tone = toneSelect.value;
-  const split = splitSelect.value;
+  const langOut = langTarget.value;
 
   if (!apiKey || !rawText) {
     return showToast(translations[currentLang]?.errorMissing || 'Missing input.');
   }
 
   responseBox.textContent = 'Translating...';
-
-  const prompt = `Translate this subtitle text with a ${tone} tone as ${split === 'Multiple Parts' ? 'separated paragraphs' : 'a single paragraph'}:\n\n${rawText}`;
+  const prompt = `Translate this subtitle text to ${langOut} in ${tone} tone:\n\n${rawText}`;
 
   try {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
@@ -129,7 +128,6 @@ sendBtn.addEventListener('click', async () => {
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
     });
     const data = await res.json();
-    if (!data || data.error) throw new Error(translations[currentLang]?.errorAPI || 'No response');
     const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No content.';
     const fixed = fixNumbers(output);
     responseBox.innerHTML = '';
@@ -142,9 +140,7 @@ sendBtn.addEventListener('click', async () => {
 fileInput.addEventListener('change', async (e) => {
   const file = e.target.files[0];
   const fileNameText = document.getElementById("fileNameText");
-  if (fileNameText) {
-    fileNameText.textContent = file ? file.name : translations[currentLang]?.fileNone || "No file chosen";
-  }
+  if (fileNameText) fileNameText.textContent = file ? file.name : translations[currentLang]?.fileNone || "No file chosen";
   if (!file) return;
   const text = await file.text();
   promptInput.value = text;
@@ -169,7 +165,6 @@ function toEnglish(num) {
 function renderCompare(orig, translated) {
   lastTranslatedText = translated;
   downloadBtn.style.display = "block";
-
   const container = document.createElement('div');
   container.className = 'grid grid-cols-2 gap-4 mt-6';
   const left = document.createElement('pre');
