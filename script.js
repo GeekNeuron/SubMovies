@@ -34,8 +34,9 @@ function applyLang(lang) {
   [...modelSelect.options].forEach(opt => {
     const val = opt.value;
     if (t.models[val]) {
-      opt.textContent = val.startsWith('gemini-pro') ? `🔵 ${t.models[val]}` : `🟢 ${t.models[val]}`;
-    }
+  const isFree = val === 'gemini-pro' || val === 'gemini-pro:latest';
+  opt.textContent = isFree ? 🔵 ${t.models[val]} : 🟢 ${t.models[val]};
+}
   });
 
   // RTL layout
