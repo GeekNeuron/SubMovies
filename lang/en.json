@@ -1,0 +1,16 @@
+{
+  "title": "Gemini Subtitle Translator",
+  "apiKey": "Paste your Gemini API Key",
+  "model": "Choose model",
+  "translate": "Translate",
+  "placeholder": "Paste subtitle text or upload .srt file",
+  "tone": "Choose tone",
+  "split": "Split translation",
+  "models": {
+    "gemini-pro": "Free – gemini-pro",
+    "gemini-pro:latest": "Free – gemini-pro:latest",
+    "gemini-1.0-pro": "Paid – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "Paid – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "Paid – gemini-pro-vision"
+  }
+}
