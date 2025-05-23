@@ -31,7 +31,6 @@ function applyLang(lang) {
   promptInput.placeholder = t.placeholder;
   apiKeyInput.placeholder = t.apiKey;
 
-  // Tone select
   if (t.tones && toneSelect) {
     toneSelect.innerHTML = "";
     t.tones.forEach(txt => {
@@ -41,7 +40,6 @@ function applyLang(lang) {
     });
   }
 
-  // Split select
   if (t.splits && splitSelect) {
     splitSelect.innerHTML = "";
     t.splits.forEach(txt => {
@@ -51,12 +49,16 @@ function applyLang(lang) {
     });
   }
 
-  // File choose label
-  if (fileInput?.previousElementSibling?.tagName === "LABEL") {
-    fileInput.previousElementSibling.textContent = t.fileChoose || "Choose file";
+  const fileLabel = fileInput?.previousElementSibling;
+  if (fileLabel?.tagName === "LABEL") {
+    fileLabel.textContent = t.fileChoose || "Choose file";
   }
 
-  // Model select
+  const fileNameText = document.getElementById("fileNameText");
+  if (fileNameText) {
+    fileNameText.textContent = t.fileNone || "No file chosen";
+  }
+
   [...modelSelect.options].forEach(opt => {
     const val = opt.value;
     if (t.models[val]) {
@@ -65,9 +67,12 @@ function applyLang(lang) {
     }
   });
 
-  // RTL layout
   const rtlLangs = ['fa', 'ar', 'he', 'ur'];
   document.getElementById('formContainer').dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
+
+  if (downloadBtn) {
+    downloadBtn.textContent = t.download || "Download .srt";
+  }
 }
 
 async function loadLang(lang) {
@@ -111,6 +116,10 @@ sendBtn.addEventListener('click', async () => {
 
 fileInput.addEventListener('change', async (e) => {
   const file = e.target.files[0];
+  const fileNameText = document.getElementById("fileNameText");
+  if (fileNameText) {
+    fileNameText.textContent = file ? file.name : translations[currentLang]?.fileNone || "No file chosen";
+  }
   if (!file) return;
   const text = await file.text();
   promptInput.value = text;
@@ -132,7 +141,12 @@ function toEnglish(num) {
   return num.split('').map(c => map[c] || c).join('');
 }
 
+let lastTranslatedText = "";
+
 function renderCompare(orig, translated) {
+  lastTranslatedText = translated;
+  downloadBtn.style.display = "block";
+
   const container = document.createElement('div');
   container.className = 'grid grid-cols-2 gap-4 mt-6';
   const left = document.createElement('pre');
@@ -145,6 +159,24 @@ function renderCompare(orig, translated) {
   container.appendChild(right);
   return container;
 }
+
+// Create download button
+const downloadBtn = document.createElement('button');
+downloadBtn.id = "downloadBtn";
+downloadBtn.className = "w-full mt-4 bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold";
+downloadBtn.textContent = "Download .srt";
+downloadBtn.style.display = "none";
+document.getElementById('formContainer').appendChild(downloadBtn);
+
+downloadBtn.addEventListener('click', () => {
+  const blob = new Blob([lastTranslatedText], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = "translated.srt";
+  a.click();
+  URL.revokeObjectURL(url);
+});
 
 // Initialize
 const savedLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'en';
