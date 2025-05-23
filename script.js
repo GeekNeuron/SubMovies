@@ -5,6 +5,23 @@ const promptInput = document.getElementById('prompt');
 const sendBtn = document.getElementById('sendBtn');
 const responseBox = document.getElementById('response');
 const modelSelect = document.getElementById('model');
+
+const MODELS = [
+  { value: 'gemini-pro', label: '🔵 Free – gemini-pro' },
+  { value: 'gemini-pro:latest', label: '🔵 Free – gemini-pro:latest' },
+  { value: 'gemini-1.0-pro', label: '🟢 Paid – gemini-1.0-pro' },
+  { value: 'gemini-1.5-pro-latest', label: '🟢 Paid – gemini-1.5-pro-latest' },
+  { value: 'gemini-pro-vision', label: '🟢 Paid – gemini-pro-vision' },
+];
+
+modelSelect.innerHTML = '';
+MODELS.forEach(({ value, label }) => {
+  const opt = document.createElement('option');
+  opt.value = value;
+  opt.innerText = label;
+  modelSelect.appendChild(opt);
+});
+
 const langSelect = document.getElementById('lang');
 
 const TONE_OPTIONS = ['Formal', 'Neutral', 'Casual', 'Street', 'Literary', 'Classic', 'Technical'];
