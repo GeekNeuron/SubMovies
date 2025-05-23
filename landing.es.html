@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubMovies - Traductor de Subtítulos con Gemini</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+  <header class="text-center p-6">
+    <h1 class="text-3xl font-bold text-blue-400">SubMovies</h1>
+    <p class="text-sm text-gray-300 mt-2">Traduce subtítulos con Google Gemini</p>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 space-y-8">
+    <section class="bg-gray-800 p-6 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold mb-2">Funciones</h2>
+      <ul class="list-disc list-inside text-sm">
+        <li>Sube y traduce archivos SRT</li>
+        <li>Elige modelo de Gemini y tono de traducción</li>
+        <li>Vista comparativa original y traducción</li>
+        <li>Modo offline con historial y caché</li>
+        <li>Descargar archivo traducido</li>
+      </ul>
+    </section>
+
+    <section class="bg-gray-800 p-6 rounded-xl">
+      <h2 class="text-xl font-semibold mb-2">Comenzar</h2>
+      <ol class="list-decimal list-inside text-sm">
+        <li>Obtén tu API key desde <a href="https://makersuite.google.com" class="text-blue-400 underline">Google AI Studio</a></li>
+        <li>Abre la app: <code>index.html</code></li>
+        <li>Sube el archivo SRT → Configura modelo y tono → Traducir</li>
+      </ol>
+      <a href="index.html" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm">Comenzar traducción</a>
+    </section>
+  </main>
+
+  <footer class="text-center text-xs text-gray-500 mt-10">
+    <p>Hecho por <a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron</a></p>
+  </footer>
+</body>
+</html>
