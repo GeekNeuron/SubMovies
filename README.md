@@ -47,4 +47,4 @@ node generate.js
 MIT License
 
 ---
-Built with love by [GeekNeuron](https://github.com/GeekNeuron)
+Built with ❤️ by [GeekNeuron](https://github.com/GeekNeuron)
