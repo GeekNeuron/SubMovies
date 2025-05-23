@@ -13,4 +13,10 @@
     "gemini-1.5-pro-latest": "Paid – gemini-1.5-pro-latest",
     "gemini-pro-vision": "Paid – gemini-pro-vision"
   }
+  "tones": ["Formal", "Neutral", "Casual", "Street", "Literary", "Classic", "Technical"],
+"splits": ["Single Block", "Multiple Parts"],
+"fileChoose": "Choose file",
+"fileNone": "No file chosen",
+"errorMissing": "API key and subtitle text required.",
+"errorAPI": "Error from Gemini API"
 }
