@@ -11,7 +11,6 @@ const translations = {};
 let currentLang = 'en';
 let lastTranslatedText = "";
 
-// filename download field (hidden)
 const filenameInput = document.createElement('input');
 filenameInput.type = 'text';
 filenameInput.id = 'filenameInput';
