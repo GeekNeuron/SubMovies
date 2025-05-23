@@ -1,0 +1,16 @@
+{
+  "title": "Tradutor de legendas Gemini",
+  "apiKey": "Cole sua chave de API do Gemini",
+  "model": "Escolher modelo",
+  "translate": "Traduzir",
+  "placeholder": "Cole o texto da legenda ou carregue um arquivo .srt",
+  "tone": "Escolher tom",
+  "split": "Dividir tradução",
+  "models": {
+    "gemini-pro": "Grátis – gemini-pro",
+    "gemini-pro:latest": "Grátis – gemini-pro:latest",
+    "gemini-1.0-pro": "Pago – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "Pago – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "Pago – gemini-pro-vision"
+  }
+}
