@@ -3,6 +3,48 @@ const promptInput = document.getElementById('prompt');
 const sendBtn = document.getElementById('sendBtn');
 const responseBox = document.getElementById('response');
 const modelSelect = document.getElementById('model');
+const langSelect = document.getElementById('lang');
+
+const translations = {};
+let currentLang = 'en';
+
+// Toast
+function showToast(msg) {
+  const box = document.createElement('div');
+  box.className = 'fixed top-4 left-4 bg-red-700 text-white px-4 py-2 rounded shadow z-50';
+  box.innerHTML = `<div class="flex justify-between items-center"><span>${msg}</span><button class="ml-3 text-white font-bold" onclick="this.parentNode.parentNode.remove()">×</button></div>`;
+  document.body.appendChild(box);
+  setTimeout(() => box.remove(), 10000);
+}
+
+// Load language file
+async function loadLang(lang) {
+  const res = await fetch(`lang/${lang}.json`);
+  const data = await res.json();
+  translations[lang] = data;
+  applyLang(lang);
+}
+
+function applyLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+  document.title = t.title;
+  document.querySelector('label[for="apiKey"]').innerText = t.apiKey;
+  document.querySelector('label[for="model"]').innerText = t.model;
+  sendBtn.innerText = t.translate;
+  promptInput.placeholder = t.placeholder;
+  document.querySelector('label[for="tone"]').innerText = t.tone;
+  document.querySelector('label[for="split"]').innerText = t.split;
+
+  [...modelSelect.options].forEach(opt => {
+    opt.textContent = opt.value.includes('pro') ? `🔵 ${t.models[opt.value] || opt.value}` : `🟢 ${t.models[opt.value] || opt.value}`;
+  });
+}
+
+langSelect.addEventListener('change', (e) => loadLang(e.target.value));
+
+// Default language
+loadLang('en');
 
 // Rebuild model selector with free/paid markers
 const MODELS = [
