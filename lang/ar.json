@@ -1,0 +1,16 @@
+{
+  "title": "مترجم الترجمة جميني",
+  "apiKey": "الصق مفتاح Gemini API الخاص بك",
+  "model": "اختر النموذج",
+  "translate": "ترجمة",
+  "placeholder": "الصق نص الترجمة أو ارفع ملف .srt",
+  "tone": "اختر النبرة",
+  "split": "تقسيم الترجمة",
+  "models": {
+    "gemini-pro": "مجاني – gemini-pro",
+    "gemini-pro:latest": "مجاني – gemini-pro:latest",
+    "gemini-1.0-pro": "مدفوع – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "مدفوع – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "مدفوع – gemini-pro-vision"
+  }
+}
