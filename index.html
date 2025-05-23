@@ -1,62 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SubMovies Gemini Client</title>
+  <title data-i18n="title">Gemini Subtitle Translator</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="shortcut icon" href="favicon.ico">
-  <script defer src="script.js"></script>
+  <script defer src="script.js?v=6"></script>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-start px-4 py-10">
-
-  <div class="w-full max-w-2xl bg-gray-800 p-6 rounded-2xl shadow-xl">
-    <h1 class="text-2xl font-bold mb-4">SubMovies Gemini Client</h1>
-
-<div class="w-full max-w-2xl text-right mb-4">
-  <select id="lang" class="bg-gray-800 text-white p-2 rounded border border-gray-600">
-    <option value="en">English (en)</option>
-    <option value="fa">فارسی (fa)</option>
-    <option value="es">Español (es)</option>
-    <option value="fr">Français (fr)</option>
-    <option value="de">Deutsch (de)</option>
-    <option value="ru">Русский (ru)</option>
-    <option value="pt">Português (pt)</option>
-    <option value="tr">Türkçe (tr)</option>
-    <option value="ar">العربية (ar)</option>
-    <option value="hi">हिन्दी (hi)</option>
-    <option value="zh">中文 (zh)</option>
-    <option value="ja">日本語 (ja)</option>
-    <option value="ko">한국어 (ko)</option>
-  </select>
-</div>
-    
-    <label class="block mb-2 text-sm font-medium">Gemini API Key</label>
-    <input id="apiKey" type="password" placeholder="Paste your API key here"
-           class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" />
-
-    <label class="block mb-2 text-sm font-medium">Choose Model</label>
-    <select id="model" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
-      <option value="gemini-pro">gemini-pro</option>
-      <option value="gemini-1.5-pro-latest">gemini-1.5-pro-latest</option>
-      <option value="gemini-1.0-pro">gemini-1.0-pro</option>
-      <option value="gemini-pro-vision">gemini-pro-vision</option>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-start px-4 py-10">  <div class="w-full max-w-2xl text-right mb-4">
+    <select id="lang" class="bg-gray-800 text-white p-2 rounded border border-gray-600">
+      <option value="en">English (en)</option>
+      <option value="fa">فارسی (fa)</option>
+      <option value="es">Español (es)</option>
+      <option value="fr">Français (fr)</option>
+      <option value="de">Deutsch (de)</option>
+      <option value="ru">Русский (ru)</option>
+      <option value="pt">Português (pt)</option>
+      <option value="tr">Türkçe (tr)</option>
+      <option value="ar">العربية (ar)</option>
+      <option value="hi">हिन्दी (hi)</option>
+      <option value="zh">中文 (zh)</option>
+      <option value="ja">日本語 (ja)</option>
+      <option value="ko">한국어 (ko)</option>
     </select>
-    
-    <textarea id="prompt" placeholder="Paste subtitle text or upload file"
-              class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4"></textarea>
+  </div>  <div class="w-full max-w-2xl bg-gray-800 p-6 rounded-2xl shadow-xl">
+    <h1 class="text-2xl font-bold mb-4" data-i18n="title">Gemini Subtitle Translator</h1><label class="block mb-2 text-sm font-medium" for="apiKey" data-i18n="apiKey">Paste your Gemini API Key</label>
+<input id="apiKey" type="password" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" />
 
-    <button id="sendBtn"
-            class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-white font-semibold">
-      Translate
-    </button>
-  </div>
+<label class="block mb-2 text-sm font-medium" for="model" data-i18n="model">Choose model</label>
+<select id="model" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white"></select>
 
-  <div id="response" class="max-w-2xl mt-6 w-full text-sm whitespace-pre-wrap"></div>
+<label class="block mb-2 text-sm font-medium" for="tone" data-i18n="tone">Choose tone</label>
+<select id="tone" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white"></select>
 
-  <footer class="text-center text-xs text-gray-500 mt-10">
+<label class="block mb-2 text-sm font-medium" for="split" data-i18n="split">Split translation</label>
+<select id="split" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white"></select>
+
+<input id="fileInput" type="file" accept=".srt" class="mb-4" />
+
+<textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4"
+          placeholder="Paste subtitle text or upload .srt file"></textarea>
+
+<button id="sendBtn"
+        class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-white font-semibold"
+        data-i18n="translate">
+  Translate
+</button>
+
+  </div>  <div id="response" class="max-w-2xl mt-6 w-full text-sm whitespace-pre-wrap"></div>  <footer class="text-center text-xs text-gray-500 mt-10">
     <p>Made with ❤️ by <a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron</a></p>
   </footer>
 </body>
