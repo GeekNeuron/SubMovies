@@ -13,4 +13,10 @@
     "gemini-1.5-pro-latest": "Kostenpflichtig – gemini-1.5-pro-latest",
     "gemini-pro-vision": "Kostenpflichtig – gemini-pro-vision"
   }
+  "tones": ["Formell", "Neutral", "Umgangssprachlich", "Straßensprache", "Literarisch", "Klassisch", "Technisch"],
+"splits": ["Einzelner Block", "Mehrere Teile"],
+"fileChoose": "Datei auswählen",
+"fileNone": "Keine Datei gewählt",
+"errorMissing": "API-Schlüssel und Text erforderlich.",
+"errorAPI": "Fehler von der Gemini-API"
 }
