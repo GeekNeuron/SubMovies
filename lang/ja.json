@@ -1,0 +1,16 @@
+{
+  "title": "Gemini 字幕翻訳ツール",
+  "apiKey": "Gemini APIキーを貼り付けてください",
+  "model": "モデルを選択",
+  "translate": "翻訳する",
+  "placeholder": "字幕テキストを貼り付けるか .srt ファイルをアップロードしてください",
+  "tone": "トーンを選択",
+  "split": "翻訳を分割する",
+  "models": {
+    "gemini-pro": "無料 – gemini-pro",
+    "gemini-pro:latest": "無料 – gemini-pro:latest",
+    "gemini-1.0-pro": "有料 – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "有料 – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "有料 – gemini-pro-vision"
+  }
+}
