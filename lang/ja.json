@@ -12,11 +12,11 @@
     "gemini-1.0-pro": "有料 – gemini-1.0-pro",
     "gemini-1.5-pro-latest": "有料 – gemini-1.5-pro-latest",
     "gemini-pro-vision": "有料 – gemini-pro-vision"
-  }
+  },
   "tones": ["フォーマル", "中立", "カジュアル", "ストリート", "文学的", "クラシック", "テクニカル"],
-"splits": ["単一ブロック", "複数パート"],
-"fileChoose": "ファイルを選択",
-"fileNone": "ファイルが選択されていません",
-"errorMissing": "APIキーとテキストが必要です。",
-"errorAPI": "Gemini API のエラー"
+  "splits": ["単一ブロック", "複数パート"],
+  "fileChoose": "ファイルを選択",
+  "fileNone": "ファイルが選択されていません",
+  "errorMissing": "APIキーとテキストが必要です。",
+  "errorAPI": "Gemini API のエラー"
 }
