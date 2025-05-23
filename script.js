@@ -97,7 +97,7 @@ sendBtn.addEventListener('click', async () => {
       body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
     });
     const data = await res.json();
-    if (!data || data.error) throw new Error(data.error?.message || 'No response');
+    if (!data || data.error) throw new Error(translations[currentLang]?.errorAPI || 'No response');
     const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No content.';
     const fixed = fixNumbers(output);
     responseBox.innerHTML = '';
