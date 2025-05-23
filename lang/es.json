@@ -12,11 +12,11 @@
     "gemini-1.0-pro": "Pago – gemini-1.0-pro",
     "gemini-1.5-pro-latest": "Pago – gemini-1.5-pro-latest",
     "gemini-pro-vision": "Pago – gemini-pro-vision"
-  }
+  },
   "tones": ["Formal", "Neutral", "Informal", "Callejera", "Literaria", "Clásica", "Técnica"],
-"splits": ["Bloque único", "Múltiples partes"],
-"fileChoose": "Elegir archivo",
-"fileNone": "Ningún archivo seleccionado",
-"errorMissing": "Se requiere clave API y subtítulos.",
-"errorAPI": "Error del API de Gemini"
+  "splits": ["Bloque único", "Múltiples partes"],
+  "fileChoose": "Elegir archivo",
+  "fileNone": "Ningún archivo seleccionado",
+  "errorMissing": "Se requiere clave API y subtítulos.",
+  "errorAPI": "Error del API de Gemini"
 }
