@@ -1,0 +1,16 @@
+{
+  "title": "مترجم زیرنویس جمینای",
+  "apiKey": "کلید API جمینای خود را وارد کنید",
+  "model": "انتخاب مدل",
+  "translate": "ترجمه",
+  "placeholder": "متن زیرنویس را وارد کنید یا فایل .srt آپلود کنید",
+  "tone": "انتخاب لحن",
+  "split": "تقسیم ترجمه",
+  "models": {
+    "gemini-pro": "رایگان – gemini-pro",
+    "gemini-pro:latest": "رایگان – gemini-pro:latest",
+    "gemini-1.0-pro": "پولی – gemini-1.0-pro",
+    "gemini-1.5-pro-latest": "پولی – gemini-1.5-pro-latest",
+    "gemini-pro-vision": "پولی – gemini-pro-vision"
+  }
+}
