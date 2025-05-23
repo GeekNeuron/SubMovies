@@ -12,11 +12,11 @@
     "gemini-1.0-pro": "유료 – gemini-1.0-pro",
     "gemini-1.5-pro-latest": "유료 – gemini-1.5-pro-latest",
     "gemini-pro-vision": "유료 – gemini-pro-vision"
-  }
+  },
   "tones": ["격식", "중립", "일상", "거리말", "문학적", "고전", "기술적"],
-"splits": ["단일 블록", "여러 부분"],
-"fileChoose": "파일 선택",
-"fileNone": "선택된 파일 없음",
-"errorMissing": "API 키와 자막 텍스트가 필요합니다.",
-"errorAPI": "Gemini API 오류"
+  "splits": ["단일 블록", "여러 부분"],
+  "fileChoose": "파일 선택",
+  "fileNone": "선택된 파일 없음",
+  "errorMissing": "API 키와 자막 텍스트가 필요합니다.",
+  "errorAPI": "Gemini API 오류"
 }
