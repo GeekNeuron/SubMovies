@@ -18,5 +18,5 @@
   "fileChoose": "फ़ाइल चुनें",
   "fileNone": "कोई फ़ाइल चयनित नहीं",
   "errorMissing": "API कुंजी और पाठ आवश्यक हैं।",
-  "errorAPI": "Gemini API से त्रुटि"
+  "download": ".srt डाउनलोड करें"
 }
