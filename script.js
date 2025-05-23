@@ -29,6 +29,8 @@ function applyLang(lang) {
   });
 
   promptInput.placeholder = t.placeholder;
+  apiKeyInput.placeholder = t.apiKey;
+
   // Tone select
   if (t.tones && toneSelect) {
     toneSelect.innerHTML = "";
@@ -53,14 +55,14 @@ function applyLang(lang) {
   if (fileInput?.previousElementSibling?.tagName === "LABEL") {
     fileInput.previousElementSibling.textContent = t.fileChoose || "Choose file";
   }
-  apiKeyInput.placeholder = t.apiKey;
 
+  // Model select
   [...modelSelect.options].forEach(opt => {
     const val = opt.value;
     if (t.models[val]) {
-  const isFree = val === 'gemini-pro' || val === 'gemini-pro:latest';
-  opt.textContent = isFree ? 🔵 ${t.models[val]} : 🟢 ${t.models[val]};
-}
+      const isFree = val === 'gemini-pro' || val === 'gemini-pro:latest';
+      opt.textContent = isFree ? `🔵 ${t.models[val]}` : `🟢 ${t.models[val]}`;
+    }
   });
 
   // RTL layout
@@ -83,8 +85,8 @@ sendBtn.addEventListener('click', async () => {
   const split = splitSelect.value;
 
   if (!apiKey || !rawText) {
-  return showToast(translations[currentLang]?.errorMissing || 'Missing input.');
-}
+    return showToast(translations[currentLang]?.errorMissing || 'Missing input.');
+  }
 
   responseBox.textContent = 'Translating...';
 
