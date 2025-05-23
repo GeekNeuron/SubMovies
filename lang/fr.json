@@ -18,5 +18,5 @@
   "fileChoose": "Choisir un fichier",
   "fileNone": "Aucun fichier choisi",
   "errorMissing": "Clé API et texte requis.",
-  "errorAPI": "Erreur de l'API Gemini"
+  "download": "Télécharger .srt"
 }
