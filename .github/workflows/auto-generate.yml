@@ -1,0 +1,20 @@
+name: Auto Generate Landing Pages
+
+on:
+  push:
+    paths: ['landing.en.html', 'generate.js']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: { node-version: '18' }
+      - run: node generate.js
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add landing.*.html
+          git commit -m \"Auto generate landing pages\"
+          git push
