@@ -2,6 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://geekneuron.github.io/SubMovies/</loc></url>
   <url><loc>https://geekneuron.github.io/SubMovies/index.html</loc></url>
-  <url><loc>https://geekneuron.github.io/SubMovies/landing.en.html</loc></url>
-  <!-- ... other language pages ... -->
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/en/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/fa/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/es/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/fr/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/de/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/ru/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/pt/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/tr/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/ar/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/hi/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/zh/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/ja/</loc></url>
+  <url><loc>https://geekneuron.github.io/SubMovies/landing/ko/</loc></url>
 </urlset>
