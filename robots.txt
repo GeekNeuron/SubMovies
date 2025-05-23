@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://geekneuron.github.io/SubMovies/sitemap.xml
