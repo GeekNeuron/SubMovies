@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SubMovies Gemini Client</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script defer src="script.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-start px-4 py-10">
+
+  <!-- Language Selector injected dynamically -->
+
+  <div class="w-full max-w-2xl bg-gray-800 p-6 rounded-2xl shadow-xl">
+    <h1 class="text-2xl font-bold mb-4">SubMovies Gemini Client</h1>
+
+    <div class="mb-4 flex justify-between items-center">
+      <label class="text-sm font-medium">Dark Mode</label>
+      <input type="checkbox" id="themeToggle" class="ml-2">
+    </div>
+
+    <label class="block mb-2 text-sm font-medium">Gemini API Key</label>
+    <input id="apiKey" type="password" placeholder="Paste your API key here"
+           class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" />
+
+    <label class="block mb-2 text-sm font-medium">Choose Model</label>
+    <select id="model" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
+      <option value="gemini-pro">gemini-pro</option>
+      <option value="gemini-1.5-pro-latest">gemini-1.5-pro-latest</option>
+      <option value="gemini-1.0-pro">gemini-1.0-pro</option>
+      <option value="gemini-pro-vision">gemini-pro-vision</option>
+    </select>
+
+    <!-- Tone, Split, File Upload, Prompt, Send Btn, Response Container -->
+  </div>
+
+  <footer class="text-center text-xs text-gray-500 mt-10 space-y-4">
+    <div>
+      <button onclick="generateShareLink()" class="bg-blue-500 text-white px-4 py-2 rounded text-sm">Copy Share Link</button>
+      <button onclick="exportHistory()" class="bg-yellow-500 text-black px-4 py-2 rounded text-sm ml-2">Export History</button>
+    </div>
+    <p>Made by <a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron/SubMovies</a></p>
+    <div class="mt-4">
+      <p class="text-sm">حمایت از توسعه‌دهنده:</p>
+      <a href="https://www.buymeacoffee.com/geekneuron" target="_blank" class="inline-block mt-1 text-blue-400 underline">buymeacoffee.com/geekneuron</a>
+    </div>
+  </footer>
+</body>
+</html>
