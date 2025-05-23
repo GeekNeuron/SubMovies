@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubMovies - Gemini 자막 번역기</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+  <header class="text-center p-6">
+    <h1 class="text-3xl font-bold text-blue-400">SubMovies</h1>
+    <p class="text-sm text-gray-300 mt-2">Google Gemini로 자막을 번역하세요</p>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 space-y-8">
+    <section class="bg-gray-800 p-6 rounded-xl shadow-xl">
+      <h2 class="text-xl font-semibold mb-2">기능</h2>
+      <ul class="list-disc list-inside text-sm">
+        <li>SRT 파일 업로드 및 번역</li>
+        <li>Gemini 모델 및 톤 선택</li>
+        <li>번역 및 원본 비교 보기</li>
+        <li>오프라인 모드 및 히스토리</li>
+        <li>번역된 파일 다운로드</li>
+      </ul>
+    </section>
+
+    <section class="bg-gray-800 p-6 rounded-xl">
+      <h2 class="text-xl font-semibold mb-2">시작하기</h2>
+      <ol class="list-decimal list-inside text-sm">
+        <li><a href="https://makersuite.google.com" class="text-blue-400 underline">Google AI Studio</a>에서 API 키 받기</li>
+        <li>앱 열기: <code>index.html</code></li>
+        <li>SRT 업로드 → 모델 및 톤 선택 → 번역</li>
+      </ol>
+      <a href="index.html" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded text-sm">지금 번역하기</a>
+    </section>
+  </main>
+
+  <footer class="text-center text-xs text-gray-500 mt-10">
+    <p><a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron</a> 개발</p>
+  </footer>
+</body>
+</html>
