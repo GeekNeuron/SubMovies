@@ -11,15 +11,8 @@
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-start px-4 py-10">
 
-  <!-- Language Selector injected dynamically -->
-
   <div class="w-full max-w-2xl bg-gray-800 p-6 rounded-2xl shadow-xl">
     <h1 class="text-2xl font-bold mb-4">SubMovies Gemini Client</h1>
-
-    <div class="mb-4 flex justify-between items-center">
-      <label class="text-sm font-medium">Dark Mode</label>
-      <input type="checkbox" id="themeToggle" class="ml-2">
-    </div>
 
     <label class="block mb-2 text-sm font-medium">Gemini API Key</label>
     <input id="apiKey" type="password" placeholder="Paste your API key here"
@@ -33,19 +26,20 @@
       <option value="gemini-pro-vision">gemini-pro-vision</option>
     </select>
 
-    <!-- Tone, Split, File Upload, Prompt, Send Btn, Response Container -->
+    <textarea id="prompt" placeholder="Paste subtitle text or upload file"
+              class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4"></textarea>
+
+    <button id="sendBtn"
+            class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-white font-semibold">
+      Translate
+    </button>
   </div>
 
-  <footer class="text-center text-xs text-gray-500 mt-10 space-y-4">
-    <div>
-      <button onclick="generateShareLink()" class="bg-blue-500 text-white px-4 py-2 rounded text-sm">Copy Share Link</button>
-      <button onclick="exportHistory()" class="bg-yellow-500 text-black px-4 py-2 rounded text-sm ml-2">Export History</button>
-    </div>
-    <p>Made by <a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron/SubMovies</a></p>
-    <div class="mt-4">
-      <p class="text-sm">حمایت از توسعه‌دهنده:</p>
-      <a href="https://www.buymeacoffee.com/geekneuron" target="_blank" class="inline-block mt-1 text-blue-400 underline">buymeacoffee.com/geekneuron</a>
-    </div>
+  <div id="response" class="max-w-2xl mt-6 w-full text-sm whitespace-pre-wrap"></div>
+
+  <footer class="text-center text-xs text-gray-500 mt-10">
+    <p>Made by <a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron</a></p>
   </footer>
 </body>
 </html>
+```
