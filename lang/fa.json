@@ -18,6 +18,5 @@
   "fileChoose": "انتخاب فایل",
   "fileNone": "فایلی انتخاب نشده",
   "errorMissing": "کلید API و متن زیرنویس الزامی است.",
-  "errorAPI": "خطا از سمت Gemini"
   "download": ".srt دانلود"
 }
