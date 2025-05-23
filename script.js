@@ -15,14 +15,13 @@ let lastTranslatedText = "";
 const filenameInput = document.createElement('input');
 filenameInput.type = 'text';
 filenameInput.id = 'filenameInput';
-filenameInput.className = "w-full mt-4 px-3 py-2 rounded bg-gray-800 text-white placeholder-gray-400";
-filenameInput.placeholder = "translated.srt";
+filenameInput.className = "w-full px-3 py-2 rounded bg-gray-700 text-white placeholder-gray-400 mb-2";
+filenameInput.placeholder = "YourFinalSubName.srt";
 document.getElementById('formContainer').appendChild(filenameInput);
 
-// download button
 const downloadBtn = document.createElement('button');
 downloadBtn.id = "downloadBtn";
-downloadBtn.className = "w-full mt-2 bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold";
+downloadBtn.className = "w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold mb-2";
 downloadBtn.textContent = "Download .srt";
 downloadBtn.style.display = "none";
 document.getElementById('formContainer').appendChild(downloadBtn);
@@ -32,16 +31,15 @@ downloadBtn.addEventListener('click', () => {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = filenameInput.value.trim() || "translated.srt";
+  a.download = filenameInput.value.trim() || "YourFinalSubName.srt";
   a.click();
   URL.revokeObjectURL(url);
 });
 
-// target language selector beside tone
+// tone language target selector
 const langTarget = document.createElement('select');
 langTarget.id = 'langTarget';
-langTarget.className = "w-full md:w-1/2 px-3 py-2 rounded bg-gray-800 text-white mt-2 md:mt-0 md:ml-2";
-langTarget.setAttribute('placeholder', 'Translation language');
+langTarget.className = "w-full md:w-1/2 px-3 py-2 rounded bg-gray-700 text-white mt-2 md:mt-0 md:ml-2";
 const langList = new Intl.DisplayNames(['en'], { type: 'language' });
 const sortedLangs = [...Intl.supportedValuesOf('language')].sort();
 sortedLangs.forEach(code => {
@@ -50,7 +48,7 @@ sortedLangs.forEach(code => {
   opt.textContent = `${langList.of(code)} (${code})`;
   langTarget.appendChild(opt);
 });
-document.getElementById('tone').parentElement.appendChild(langTarget);
+toneSelect?.parentElement?.parentElement?.appendChild(langTarget);
 
 langSelect.addEventListener('change', (e) => {
   const lang = e.target.value;
@@ -149,7 +147,7 @@ fileInput.addEventListener('change', async (e) => {
 function showToast(msg) {
   const box = document.createElement('div');
   box.className = 'fixed top-4 left-4 bg-red-700 text-white px-4 py-2 rounded shadow z-50';
-  box.innerHTML = `<div class="flex justify-between items-center"><span>${msg}</span><button class="ml-3 text-white font-bold" onclick="this.parentNode.parentNode.remove()">×</button></div>`;
+  box.innerHTML = `<div class=\"flex justify-between items-center\"><span>${msg}</span><button class=\"ml-3 text-white font-bold\" onclick=\"this.parentNode.parentNode.remove()\">×</button></div>`;
   document.body.appendChild(box);
   setTimeout(() => box.remove(), 10000);
 }
