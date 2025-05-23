@@ -29,6 +29,30 @@ function applyLang(lang) {
   });
 
   promptInput.placeholder = t.placeholder;
+  // Tone select
+  if (t.tones && toneSelect) {
+    toneSelect.innerHTML = "";
+    t.tones.forEach(txt => {
+      const opt = document.createElement("option");
+      opt.textContent = txt;
+      toneSelect.appendChild(opt);
+    });
+  }
+
+  // Split select
+  if (t.splits && splitSelect) {
+    splitSelect.innerHTML = "";
+    t.splits.forEach(txt => {
+      const opt = document.createElement("option");
+      opt.textContent = txt;
+      splitSelect.appendChild(opt);
+    });
+  }
+
+  // File choose label
+  if (fileInput?.previousElementSibling?.tagName === "LABEL") {
+    fileInput.previousElementSibling.textContent = t.fileChoose || "Choose file";
+  }
   apiKeyInput.placeholder = t.apiKey;
 
   [...modelSelect.options].forEach(opt => {
@@ -58,7 +82,9 @@ sendBtn.addEventListener('click', async () => {
   const tone = toneSelect.value;
   const split = splitSelect.value;
 
-  if (!apiKey || !rawText) return showToast('API key and subtitle text required.');
+  if (!apiKey || !rawText) {
+  return showToast(translations[currentLang]?.errorMissing || 'Missing input.');
+}
 
   responseBox.textContent = 'Translating...';
 
