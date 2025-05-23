@@ -13,4 +13,10 @@
     "gemini-1.5-pro-latest": "Payant – gemini-1.5-pro-latest",
     "gemini-pro-vision": "Payant – gemini-pro-vision"
   }
+  "tones": ["Formel", "Neutre", "Familier", "Populaire", "Littéraire", "Classique", "Technique"],
+"splits": ["Bloc unique", "Plusieurs parties"],
+"fileChoose": "Choisir un fichier",
+"fileNone": "Aucun fichier choisi",
+"errorMissing": "Clé API et texte requis.",
+"errorAPI": "Erreur de l'API Gemini"
 }
