@@ -149,18 +149,23 @@ async function loadLang(lang) {
 }
 
 function applyLang(lang) {
-  currentLang = lang;
   const t = translations[lang];
+  currentLang = lang;
+
   document.title = t.title;
-  document.querySelector('label[for="apiKey"]').innerText = t.apiKey;
-  document.querySelector('label[for="model"]').innerText = t.model;
-  toneLabel.innerText = t.tone;
-  splitLabel.innerText = t.split;
-  sendBtn.innerText = t.translate;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) el.innerText = t[key];
+  });
+
   promptInput.placeholder = t.placeholder;
 
   [...modelSelect.options].forEach(opt => {
-    opt.textContent = opt.value.includes('pro') ? `🔵 ${t.models[opt.value] || opt.value}` : `🟢 ${t.models[opt.value] || opt.value}`;
+    const val = opt.value;
+    if (t.models[val]) {
+      opt.textContent = val.includes('pro') ? `🔵 ${t.models[val]}` : `🟢 ${t.models[val]}`;
+    }
   });
 }
 
