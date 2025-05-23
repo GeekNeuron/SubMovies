@@ -1,4 +1,4 @@
-# CONTRIBUTING.md
+# CONTRIBUTING
 
 ## Welcome, Contributor!
 We’d love your help to improve SubMovies. Here's how to contribute:
