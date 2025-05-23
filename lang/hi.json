@@ -13,4 +13,10 @@
     "gemini-1.5-pro-latest": "पेड – gemini-1.5-pro-latest",
     "gemini-pro-vision": "पेड – gemini-pro-vision"
   }
+  "tones": ["औपचारिक", "निरपेक्ष", "बोलचाल", "गली भाषा", "साहित्यिक", "शास्त्रीय", "तकनीकी"],
+"splits": ["एकल खंड", "एकाधिक भाग"],
+"fileChoose": "फ़ाइल चुनें",
+"fileNone": "कोई फ़ाइल चयनित नहीं",
+"errorMissing": "API कुंजी और पाठ आवश्यक हैं।",
+"errorAPI": "Gemini API से त्रुटि"
 }
