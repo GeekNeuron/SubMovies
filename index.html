@@ -46,11 +46,19 @@
       </select>
 
       <div class="flex flex-col md:flex-row md:items-center gap-4">
-        <div class="w-full md:w-1/2">
-          <label for="tone" data-i18n="tone" class="block mb-2 text-sm font-medium">Choose tone</label>
-          <select id="tone" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white mb-2"></select>
-        </div>
-        <!-- Language target dropdown inserted by script.js -->
+  <div class="w-full md:w-1/2">
+    <label for="tone" data-i18n="tone" class="block mb-2 text-sm font-medium">Choose tone</label>
+    <select id="tone" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white"></select>
+  </div>
+  <div class="w-full md:w-1/2">
+    <label for="langTarget" data-i18n="langTarget" class="block mb-2 text-sm font-medium">Choose target language</label>
+    <select id="langTarget" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white"></select>
+  </div>
+</div>
+        <label for="langTarget" data-i18n="langTarget" class="block mb-2 text-sm font-medium">Choose target language</label>
+<select id="langTarget" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white">
+  <!-- Options will be populated by script.js -->
+</select>
       </div>
 
       <input id="fileInput" type="file" accept=".srt" class="mb-2 w-full" />
