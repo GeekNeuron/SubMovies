@@ -92,13 +92,14 @@ sendBtn.addEventListener('click', async () => {
     });
 
     const data = await res.json();
-    if (!data || data.error) throw new Error(translations[currentLang]?.errorAPI || 'No response');
+    if (!data || data.error) throw new Error(data.error?.message || 'No response received');
+
     const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No content.';
     const fixed = fixNumbers(output);
     responseBox.innerHTML = '';
     responseBox.appendChild(renderCompare(rawText, fixed));
   } catch (err) {
-    showToast(err.message || "Translation failed.");
+    showToast(err.message || 'An error occurred.');
   }
 });
 
