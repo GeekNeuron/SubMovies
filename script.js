@@ -134,8 +134,8 @@ sendBtn.addEventListener('click', async () => {
 
   responseBox.textContent = 'Translating...';
 
-  const prompt = `Translate the following subtitles to ${langOut} using ${tone} tone:\n\n${rawText}`;
-
+const translationPrompt = `Translate the following subtitles to ${langOut} using ${tone} tone:\n\n${rawText}`;
+  
   try {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
       method: 'POST',
