@@ -140,7 +140,7 @@ const translationPrompt = `Translate the following subtitles to ${langOut} using
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+      body: JSON.stringify({ contents: [{ parts: [{ text: translationPrompt }] }] })
     });
 
     const data = await res.json();
