@@ -1,6 +1,6 @@
 {
   "title": "Gemini Subtitle Translator",
-  "apiKey": "Gemini API Key",
+  "apiKey": "Gemini API Key:",
   "model": "Model:",
   "tone": "Tone:",
   "translate": "Translate",
