@@ -53,10 +53,6 @@ function applyLang(lang) {
     fileLabel.textContent = t.fileChoose || "Choose file";
   }
 
-  if (fileNameText) {
-    fileNameText.textContent = t.fileNone || "No file chosen";
-  }
-
   [...modelSelect.options].forEach(opt => {
     const val = opt.value;
     if (t.models[val]) {
