@@ -7,24 +7,44 @@ const langSelect = document.getElementById('lang');
 const toneSelect = document.getElementById('tone');
 const splitSelect = document.getElementById('split');
 const fileInput = document.getElementById('fileInput');
+const langTarget = document.getElementById('langTarget');
+const langList = new Intl.DisplayNames(['en'], { type: 'language' });
+const sortedLangs = [...Intl.supportedValuesOf('language')].sort();
+sortedLangs.forEach(code => {
+  const opt = document.createElement('option');
+  opt.value = code;
+  opt.textContent = `${langList.of(code)} (${code})`;
+  langTarget.appendChild(opt);
+});
 
 const translations = {};
 let currentLang = 'en';
 let lastTranslatedText = "";
 
 // download filename input
+const form = document.getElementById('formContainer');
+
 const filenameInput = document.createElement('input');
 filenameInput.type = 'text';
 filenameInput.id = 'filenameInput';
-filenameInput.className = "w-full mt-4 px-3 py-2 rounded bg-gray-800 text-white placeholder-gray-400";
-filenameInput.placeholder = "translated.srt";
-document.getElementById('formContainer').appendChild(filenameInput);
+filenameInput.className = "w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white";
+filenameInput.placeholder = "ChooseName";
+
+const label = document.createElement('label');
+label.htmlFor = 'filenameInput';
+label.setAttribute('data-i18n', 'filename');
+label.className = 'block mb-2 text-sm font-medium';
+label.textContent = 'Choose file name';
+
+form.insertBefore(label, document.getElementById('sendBtn'));
+form.insertBefore(filenameInput, document.getElementById('sendBtn'));
 
 // download button
 const downloadBtn = document.createElement('button');
 downloadBtn.id = "downloadBtn";
 downloadBtn.className = "w-full mt-2 bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold";
 downloadBtn.textContent = "Download .srt";
+langTarget.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
 downloadBtn.style.display = "none";
 document.getElementById('formContainer').appendChild(downloadBtn);
 
@@ -120,7 +140,7 @@ sendBtn.addEventListener('click', async () => {
 
   responseBox.textContent = 'Translating...';
 
-  const prompt = `Translate this subtitle text with a ${tone} tone as ${split === 'Multiple Parts' ? 'separated paragraphs' : 'a single paragraph'}:\n\n${rawText}`;
+  const prompt = `Translate the following subtitles to ${langOut} using ${tone} tone:\n\n${rawText}`;
 
   try {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
@@ -185,4 +205,5 @@ function renderCompare(orig, translated) {
 
 const savedLang = localStorage.getItem('lang') || navigator.language.slice(0, 2) || 'en';
 langSelect.value = savedLang;
+localStorage.setItem('lang', savedLang);
 loadLang(savedLang);
