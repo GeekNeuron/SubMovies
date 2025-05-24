@@ -114,11 +114,15 @@ fileInput.addEventListener('change', async (e) => {
 });
 
 downloadBtn.addEventListener('click', () => {
+  let filename = filenameInput.value.trim();
+  if (!filename.toLowerCase().endsWith('.srt')) {
+    filename += '.srt';
+  }
   const blob = new Blob([lastTranslatedText], { type: 'text/plain;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = filenameInput.value.trim() || "translated.srt";
+  a.download = filename || "Subtitle.srt";
   a.click();
   URL.revokeObjectURL(url);
 });
