@@ -118,18 +118,15 @@
         <label for="langTarget" data-i18n="langTarget" class="block mb-2 text-sm font-medium">Choose target language</label>
 <select id="langTarget" class="w-full p-2 rounded bg-gray-700 border border-gray-600 text-white">
   <!-- Options will be populated by script.js -->
-</select>
-      </div>
-  
-      <label for="split" data-i18n="split" class="block mb-2 text-sm font-medium">Split translation</label>
-      <select id="split" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
-        <option>Single Block</option>
-        <option>Multiple Parts</option>
-      </select>
 
       <input id="fileInput" type="file" accept=".srt" class="mb-4 w-full" />
+      <div id="fileNameText" class="text-sm text-gray-400 mb-4" data-i18n="fileNone">No file chosen</div>
 
       <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4" placeholder="Paste subtitle text or upload .srt file"></textarea>
+
+      <input id="filenameInput" type="text" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="ChooseName" />
+  
+      <button id="downloadBtn" style="display:none" class="w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold mb-2" data-i18n="download">Download .srt</button>
 
       <button id="sendBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-white font-semibold" data-i18n="translate">Translate</button>
     </div>
