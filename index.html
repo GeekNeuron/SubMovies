@@ -33,10 +33,10 @@
     <div id="formContainer" class="bg-gray-800 p-6 rounded-2xl shadow-xl">
       <h1 class="text-2xl font-bold mb-4" data-i18n="title">Gemini Subtitle Translator</h1>
 
-      <label for="apiKey" data-i18n="apiKey" class="block mb-2 text-sm font-medium">Gemini API Key</label>
+      <label for="apiKey" data-i18n="apiKey" class="block mb-2 text-sm font-medium">Gemini API Key:</label>
       <input id="apiKey" type="password" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="Paste your Gemini API Key" />
 
-      <label for="model" data-i18n="model" class="block mb-2 text-sm font-medium">Model</label>
+      <label for="model" data-i18n="model" class="block mb-2 text-sm font-medium">Model:</label>
       <select id="model" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
         <option value="gemini-pro">🔵 Free – gemini-pro</option>
         <option value="gemini-pro:latest">🔵 Free – gemini-pro:latest</option>
@@ -45,7 +45,7 @@
         <option value="gemini-pro-vision">🟢 Paid – gemini-pro-vision</option>
       </select>
 
-      <label for="tone" data-i18n="tone" class="block mb-2 text-sm font-medium">Tone</label>
+      <label for="tone" data-i18n="tone" class="block mb-2 text-sm font-medium">Tone:</label>
       <select id="tone" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
         <option>Formal</option>
         <option>Neutral</option>
@@ -56,7 +56,7 @@
         <option>Technical</option>
       </select>
 
-  <label for="langTarget" data-i18n="langTarget" class="block mb-2 text-sm font-medium">Target language</label>
+  <label for="langTarget" data-i18n="langTarget" class="block mb-2 text-sm font-medium">Target language:</label>
 <select id="langTarget" class="w-full mb-4 p-2 rounded bg-gray-700 border border-gray-600 text-white">
   <option value="en">English (en)</option>
   <option value="es">Español (es)</option>
@@ -116,7 +116,7 @@
       
       <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4" placeholder="Paste subtitle text or upload .srt file"></textarea>
 
-      <label for="filenameInput" data-i18n="filename" class="block mb-2 text-sm font-medium">File name</label>
+      <label for="filenameInput" data-i18n="filename" class="block mb-2 text-sm font-medium">File name:</label>
 <input id="filenameInput" type="text" value="subtitle" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="Subtitle" />
   
       <button id="downloadBtn" style="display:none" class="w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold mb-2" data-i18n="download">Download .srt</button>
