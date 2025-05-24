@@ -32,7 +32,7 @@ label.textContent = 'File name';
 const filenameInput = document.createElement('input');
 filenameInput.type = 'text';
 filenameInput.id = 'filenameInput';
-filenameInput.value = 'subtitle';
+filenameInput.value = 'Subtitle.srt';
 filenameInput.className = "w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white";
 filenameInput.placeholder = "Subtitle.srt";
 
