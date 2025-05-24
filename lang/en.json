@@ -1,8 +1,8 @@
 {
   "title": "Gemini Subtitle Translator",
-  "apiKey": "Paste your Gemini API Key",
-  "model": "Choose model",
-  "tone": "Choose tone",
+  "apiKey": "Gemini API Key",
+  "model": "Model:",
+  "tone": "Tone:",
   "translate": "Translate",
   "fileChoose": "Choose file",
   "fileNone": "No file chosen",
@@ -10,11 +10,11 @@
   "download": "Download .srt",
   "placeholder": "Paste subtitle text or upload .srt file",
   "models": {
-    "gemini-pro": "Free – gemini-pro",
-    "gemini-pro:latest": "Free – gemini-pro:latest",
-    "gemini-1.0-pro": "Paid – gemini-1.0-pro",
-    "gemini-1.5-pro-latest": "Paid – gemini-1.5-pro-latest",
-    "gemini-pro-vision": "Paid – gemini-pro-vision"
+    "gemini-pro": "Free – Gemini pro",
+    "gemini-pro:latest": "Free – Gemini Pro (Latest)",
+    "gemini-1.0-pro": "Paid – Gemini 1.0 Pro",
+    "gemini-1.5-pro-latest": "Paid – Gemini 1.5 Pro (Latest)",
+    "gemini-pro-vision": "Paid – Gemini Pro Vision"
   },
   "tones": ["Formal", "Neutral", "Casual", "Street", "Literary", "Classic", "Technical"]
 }
