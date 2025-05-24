@@ -5,7 +5,6 @@ const responseBox = document.getElementById('response');
 const modelSelect = document.getElementById('model');
 const langSelect = document.getElementById('lang');
 const toneSelect = document.getElementById('tone');
-const splitSelect = document.getElementById('split');
 const fileInput = document.getElementById('fileInput');
 const langTarget = document.getElementById('langTarget');
 const langList = new Intl.DisplayNames(['en'], { type: 'language' });
@@ -67,6 +66,8 @@ langSelect.addEventListener('change', (e) => {
 function applyLang(lang) {
   const t = translations[lang];
   currentLang = lang;
+  const rtlLangs = ['fa', 'ar', 'he', 'ur'];
+document.documentElement.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
 
   document.title = t.title;
 
@@ -84,15 +85,6 @@ function applyLang(lang) {
       const opt = document.createElement("option");
       opt.textContent = txt;
       toneSelect.appendChild(opt);
-    });
-  }
-
-  if (t.splits && splitSelect) {
-    splitSelect.innerHTML = "";
-    t.splits.forEach(txt => {
-      const opt = document.createElement("option");
-      opt.textContent = txt;
-      splitSelect.appendChild(opt);
     });
   }
 
@@ -132,7 +124,6 @@ sendBtn.addEventListener('click', async () => {
   const rawText = promptInput.value.trim();
   const model = modelSelect.value;
   const tone = toneSelect.value;
-  const split = splitSelect.value;
 
   if (!apiKey || !rawText) {
     return showToast(translations[currentLang]?.errorMissing || 'Missing input.');
@@ -140,7 +131,8 @@ sendBtn.addEventListener('click', async () => {
 
   responseBox.textContent = 'Translating...';
 
-  const prompt = `Translate the following subtitles to ${langOut} using ${tone} tone:\n\n${rawText}`;
+  const langOut = langTarget.value;
+const prompt = `Translate the following subtitles to ${langOut} using ${tone} tone:\n\n${rawText}`;
 
   try {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
