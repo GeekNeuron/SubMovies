@@ -44,7 +44,6 @@ const downloadBtn = document.createElement('button');
 downloadBtn.id = "downloadBtn";
 downloadBtn.className = "w-full mt-2 bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold";
 downloadBtn.textContent = "Download .srt";
-langTarget.dir = rtlLangs.includes(lang) ? 'rtl' : 'ltr';
 downloadBtn.style.display = "none";
 document.getElementById('formContainer').appendChild(downloadBtn);
 
