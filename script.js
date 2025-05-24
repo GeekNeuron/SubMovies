@@ -23,17 +23,18 @@ let lastTranslatedText = "";
 // download filename input
 const form = document.getElementById('formContainer');
 
-const filenameInput = document.createElement('input');
-filenameInput.type = 'text';
-filenameInput.id = 'filenameInput';
-filenameInput.className = "w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white";
-filenameInput.placeholder = "ChooseName";
-
 const label = document.createElement('label');
 label.htmlFor = 'filenameInput';
 label.setAttribute('data-i18n', 'filename');
 label.className = 'block mb-2 text-sm font-medium';
-label.textContent = 'Choose file name';
+label.textContent = 'File name';
+
+const filenameInput = document.createElement('input');
+filenameInput.type = 'text';
+filenameInput.id = 'filenameInput';
+filenameInput.value = 'subtitle';
+filenameInput.className = "w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white";
+filenameInput.placeholder = "Subtitle.srt";
 
 form.insertBefore(label, document.getElementById('sendBtn'));
 form.insertBefore(filenameInput, document.getElementById('sendBtn'));
