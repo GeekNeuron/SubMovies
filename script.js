@@ -156,45 +156,6 @@ sendBtn.addEventListener('click', async () => {
   }
 });
 
-    const data = await res.json();
-    console.log('Gemini response:', data);
-
-    const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No content.';
-    const fixed = fixNumbers(output);
-    responseBox.innerHTML = '';
-    responseBox.appendChild(renderCompare(rawText, fixed));
-  } catch (err) {
-    console.error("Translate failed:", err);
-    showToast(err.message || "An unknown error occurred.");
-  }
-});
-
-  if (!apiKey || !rawText) {
-    return showToast(translations[currentLang]?.errorMissing || 'Missing input.');
-  }
-
-  responseBox.textContent = 'Translating...';
-
-  const langOut = langTarget.value;
-const prompt = `Translate the following subtitles to ${langOut} using ${tone} tone:\n\n${rawText}`;
-
-  try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-    });
-    const data = await res.json();
-    if (!data || data.error) throw new Error(translations[currentLang]?.errorAPI || 'No response');
-    const output = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No content.';
-    const fixed = fixNumbers(output);
-    responseBox.innerHTML = '';
-    responseBox.appendChild(renderCompare(rawText, fixed));
-  } catch (err) {
-    showToast(err.message);
-  }
-});
-
 fileInput.addEventListener('change', async (e) => {
   const file = e.target.files[0];
   const fileNameText = document.getElementById("fileNameText");
