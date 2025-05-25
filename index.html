@@ -33,10 +33,10 @@
     <div id="formContainer" class="bg-gray-800 p-6 rounded-2xl shadow-xl">
       <h1 class="text-2xl font-bold mb-4" data-i18n="title">Gemini Subtitle Translator</h1>
 
-      <label for="apiKey" data-i18n="apiKey" class="block mb-2 text-sm font-medium">Gemini API Key:</label>
-      <input id="apiKey" type="password" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="Paste your Gemini API Key" />
-
-      <label for="model" data-i18n="model" class="block mb-2 text-sm font-medium">Model:</label>
+      <label for="apiKey" class="block mb-2 text-sm font-medium" data-i18n="apiKey">Gemini API Key:</label>
+      <input id="apiKey" type="password" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="Paste your Gemini API Key" data-i18n="apiKey" />
+      
+      <label for="model" class="block mb-2 text-sm font-medium" data-i18n="model">Model:</label>
       <select id="model" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
         <option value="gemini-pro">🔵 Free – Gemini Pro</option>
         <option value="gemini-pro:latest">🔵 Free – Gemini Pro (Latest)</option>
@@ -45,8 +45,8 @@
         <option value="gemini-pro-vision">🟢 Paid – Gemini Pro Vision</option>
       </select>
 
-      <label for="tone" data-i18n="tone" class="block mb-2 text-sm font-medium">Tone:</label>
-      <select id="tone" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white">
+      <label for="tone" class="block mb-2 text-sm font-medium" data-i18n="tone">Tone:</label>
+      <select id="tone" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white"></select>
         <option>Formal</option>
         <option>Neutral</option>
         <option>Casual</option>
@@ -56,8 +56,8 @@
         <option>Technical</option>
       </select>
 
-  <label for="langTarget" data-i18n="langTarget" class="block mb-2 text-sm font-medium">Target language:</label>
-<select id="langTarget" class="w-full mb-4 p-2 rounded bg-gray-700 border border-gray-600 text-white">
+  <label for="langTarget" class="block mb-2 text-sm font-medium" data-i18n="langTarget">Target language:</label>
+      <select id="langTarget" class="w-full mb-4 p-2 rounded bg-gray-700 border border-gray-600 text-white"></select>
   <option value="en">English (en)</option>
   <option value="es">Español (es)</option>
   <option value="fr">Français (fr)</option>
@@ -108,21 +108,24 @@
   <option value="hr">Hrvatski (hr)</option>
   <option value="et">Eesti (et)</option>
 </select>
-  <!-- Options will be populated by script.js -->
+  
 
                   <input id="fileInput" type="file" accept=".srt" class="mb-4 w-full" />
-      
-      <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4" placeholder="Paste subtitle text or upload .srt file"></textarea>
+      <label for="fileInput" class="block mb-2 text-sm font-medium" data-i18n="fileChoose">Choose file</label>
+      <input id="fileInput" type="file" accept=".srt" class="mb-2 w-full" />
+      <div id="fileNameText" class="text-sm text-gray-400 mb-4" data-i18n="fileNone">No file chosen</div>
 
-      <label for="filenameInput" data-i18n="filename" class="block mb-2 text-sm font-medium">File name:</label>
-<input id="filenameInput" type="text" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="Enter the subtitle name like Subtitle.srt" />
-  
+      <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-700 border border-gray-600 text-white mb-4" placeholder="Paste subtitle text or upload .srt file" data-i18n="placeholder"></textarea>
+
+      <label for="filenameInput" class="block mb-2 text-sm font-medium" data-i18n="filename">File name:</label>
+      <input id="filenameInput" type="text" class="w-full p-2 mb-4 rounded bg-gray-700 border border-gray-600 text-white" placeholder="Enter the subtitle name like Subtitle.srt" data-i18n="filename" />
+      
       <button id="downloadBtn" style="display:none" class="w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold mb-2" data-i18n="download">Download .srt</button>
 
       <button id="sendBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-white font-semibold" data-i18n="translate">Translate</button>
     </div>
 
-    <div id="response" class="max-w-2xl mt-6 w-full text-sm whitespace-pre-wrap"></div>
+    <div id="response" class="max-w-2xl mt-6 w-full text-sm whitespace-pre-wrap" data-i18n="Translating"></div
 
     <footer class="text-center text-xs text-gray-500 mt-10">
       <p>Made with ❤️ by <a href="https://github.com/GeekNeuron/SubMovies" class="underline">GeekNeuron</a></p>
