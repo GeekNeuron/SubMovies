@@ -4,6 +4,7 @@
   "apiKeyLabel": "کلید API جمینای:",
   "apiKeyPlaceholder": "کلید API جمینای خود را وارد کنید",
   "modelLabel": "انتخاب مدل:",
+  "modelInfoFreeTier": "*مدل‌های سطح رایگان دارای محدودیت استفاده هستند. مدل‌های پولی نیازمند پروژه Cloud با قابلیت صورتحساب فعال می‌باشند.",
   "toneLabel": "انتخاب لحن:",
   "langTargetLabel": "زبان مقصد:",
   "filenameLabel": "نام فایل خروجی:",
@@ -22,11 +23,10 @@
   "themeToggleLight": "تغییر به حالت روشن",
   "themeToggleDark": "تغییر به حالت تاریک",
   "models": {
-    "gemini-pro": "رایگان – gemini-pro",
-    "gemini-pro:latest": "رایگان – gemini-pro (آخرین)",
-    "gemini-1.0-pro": "پولی – gemini-1.0-pro",
-    "gemini-1.5-pro-latest": "پولی – gemini-1.5-pro (آخرین)",
-    "gemini-pro-vision": "پولی – gemini-pro-vision"
+    "gemini-1.5-flash-latest": "سطح رایگان* – Gemini 1.5 Flash (آخرین)",
+    "gemini-pro": "سطح رایگان* – Gemini Pro (قدیمی)",
+    "gemini-1.0-pro": "پولی – Gemini 1.0 Pro",
+    "gemini-1.5-pro-latest": "پولی – Gemini 1.5 Pro (آخرین)"
   },
   "tones": ["رسمی", "معیار", "محاوره‌ای", "کوچه‌بازاری", "ادبی", "فاخر", "تخصصی"],
   "footerMadeWith": "ساخته شده با",
