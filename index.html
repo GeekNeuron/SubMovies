@@ -7,10 +7,77 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
+    /* متغیرهای تم روشن (پیش‌فرض) */
+    body {
+      --body-bg: #f3f4f6; /* Tailwind gray-100 */
+      --text-color-primary: #1f2937; /* Tailwind gray-800 */
+      --container-bg: #ffffff; /* white */
+      --input-bg: #f9fafb; /* Tailwind gray-50 */
+      --input-border: #d1d5db; /* Tailwind gray-300 */
+      --input-text: #111827; /* Tailwind gray-900 */
+      --button-bg: #3b82f6; /* Tailwind blue-500 */
+      --button-text: #ffffff;
+      --button-hover-bg: #2563eb; /* Tailwind blue-600 */
+      --select-bg: #e5e7eb; /* Tailwind gray-200 */
+      --select-text: #111827; /* Tailwind gray-900 */
+      --select-border: #9ca3af; /* Tailwind gray-400 */
+      --theme-toggle-icon-color: #4b5563; /* Tailwind gray-600 for light theme icon */
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* متغیرهای تم تاریک شما */
+    body.dark-theme {
+      --body-bg: #0d1117;
+      --text-color-primary: #c9d1d9;
+      --container-bg: #161b22;
+      --input-bg: #374151; /* Tailwind gray-700 (example) */
+      --input-border: #4b5563; /* Tailwind gray-600 (example) */
+      --input-text: #f3f4f6; /* Tailwind gray-100 (example) */
+      --button-bg: #3282b8;
+      --button-text: #ffffff;
+      --button-hover-bg: #1d4357;
+      --select-bg: #374151; /* Tailwind gray-800 (example) */
+      --select-text: #f3f4f6; /* Tailwind gray-100 (example) */
+      --select-border: #6b7280; /* Tailwind gray-600 (example) */
+      --theme-toggle-icon-color: #9ca3af; /* Tailwind gray-400 for dark theme icon */
+      /* سایر متغیرهای شما مانند --grid-bg و غیره در اینجا قرار می‌گیرند اگر مستقیماً در این صفحه استفاده شوند */
+    }
+
+    /* اعمال متغیرها به عناصر اصلی - شما می‌توانید این استایل‌ها را گسترش دهید */
+    body {
+      background-color: var(--body-bg);
+      color: var(--text-color-primary);
+    }
+    #formContainer, 
+    #responseContainer > div /* #response div */ {
+      background-color: var(--container-bg);
+      /* Tailwind shadow-xl و rounded-2xl همچنان اعمال می‌شوند */
+    }
+    input[type="password"], input[type="text"], textarea, select {
+      background-color: var(--input-bg);
+      border-color: var(--input-border);
+      color: var(--input-text);
+    }
+    /* استایل برای دکمه اصلی ترجمه و دانلود */
+    #sendBtn, #downloadBtn {
+       background-color: var(--button-bg) !important; /* Important to override Tailwind potentially */
+       color: var(--button-text) !important;
+    }
+     #sendBtn:hover, #downloadBtn:hover {
+       background-color: var(--button-hover-bg) !important;
+    }
+    /* استایل برای select ها با استفاده از متغیرها */
+    select#lang, select#model, select#tone, select#langTarget {
+        background-color: var(--select-bg);
+        color: var(--select-text);
+        border-color: var(--select-border);
+    }
+
+
     .theme-toggle-button {
       background: none;
       border: none;
-      color: inherit; /* Inherit color from parent for better theme switching */
+      color: var(--theme-toggle-icon-color); /* Use CSS variable for icon color */
       cursor: pointer;
       font-size: 1.5rem;
       padding: 0.5rem;
@@ -20,40 +87,21 @@
     .theme-toggle-button:hover {
       opacity: 1;
     }
-    /* Icon visibility based on <html> class */
     .sun-icon { display: inline; }
     .moon-icon { display: none; }
-    html.dark .sun-icon { display: none; }
-    html.dark .moon-icon { display: inline; }
-
-    /* Hide scrollbar for textarea but still scrollable */
-    /* For Webkit browsers */
-    /*
-    textarea::-webkit-scrollbar {
-        width: 0px;
-        background: transparent; 
-    }
-    */
-    /* For Firefox */
-    /*
-    textarea {
-        scrollbar-width: none; 
-    }
-    */
+    body.dark-theme .sun-icon { display: none; }
+    body.dark-theme .moon-icon { display: inline; }
   </style>
-  <script defer src="script.js?v=final_v3"></script>
+  <script defer src="script.js?v=final_v4"></script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen px-4 py-10 transition-colors duration-300">
-
-  <div class="max-w-2xl mx-auto">
+<body> <div class="max-w-2xl mx-auto">
     <div class="text-right mb-4">
-      <select id="lang" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded border border-gray-400 dark:border-gray-600">
-        <option value="en">English (en)</option>
+      <select id="lang"> <option value="en">English (en)</option>
         <option value="fa">فارسی (fa)</option>
       </select>
     </div>
 
-    <div id="formContainer" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl">
+    <div id="formContainer" class="p-6 rounded-2xl shadow-xl">
       <div class="flex justify-between items-center mb-4">
         <h1 id="appTitleH1" class="text-2xl font-bold" data-i18n="appTitleH1">Gemini Subtitle Translator</h1>
         <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Toggle theme">
@@ -63,26 +111,23 @@
       </div>
 
       <label for="apiKey" class="block mb-2 text-sm font-medium" data-i18n="apiKeyLabel">Gemini API Key:</label>
-      <input id="apiKey" type="password" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white" data-i18n-placeholder="apiKeyPlaceholder" placeholder="Paste your Gemini API Key" />
+      <input id="apiKey" type="password" class="w-full p-2 mb-4 rounded border" data-i18n-placeholder="apiKeyPlaceholder" placeholder="Paste your Gemini API Key" />
       
       <label for="model" class="block mb-2 text-sm font-medium" data-i18n="modelLabel">Model:</label>
-      <select id="model" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
-        <option value="gemini-1.5-flash-latest">🔵 Free Tier* – Gemini 1.5 Flash (Latest)</option>
-        <option value="gemini-pro">🔵 Free Tier* – Gemini Pro (Legacy)</option> 
-        <option value="gemini-1.0-pro">🟢 Paid – Gemini 1.0 Pro</option>
-        <option value="gemini-1.5-pro-latest">🟢 Paid – Gemini 1.5 Pro (Latest)</option>
+      <select id="model" class="w-full p-2 mb-4 rounded border">
+        <option value="gemini-1.5-flash-latest">🔵 Gemini 1.5 Flash (Latest)</option>
+        <option value="gemini-1.5-pro-latest">🟢 Gemini 1.5 Pro (Latest)</option>
+        <option value="gemini-1.0-pro">🟢 Gemini 1.0 Pro</option> 
         </select>
-      <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" data-i18n="modelInfoFreeTier">
-        *Free tier models are subject to usage limits. Paid models require a billing-enabled Cloud project.
-      </p>
-
+      <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" data-i18n="modelInfo">
+         </p>
 
       <label for="tone" class="block mb-2 text-sm font-medium" data-i18n="toneLabel">Tone:</label>
-      <select id="tone" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
+      <select id="tone" class="w-full p-2 mb-4 rounded border">
       </select>
 
       <label for="langTarget" class="block mb-2 text-sm font-medium" data-i18n="langTargetLabel">Target language:</label>
-      <select id="langTarget" class="w-full mb-4 p-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
+      <select id="langTarget" class="w-full mb-4 p-2 rounded border">
         <option value="en">English (en)</option>
         <option value="fa">فارسی (fa)</option>
         <option value="es">Español (es)</option>
@@ -97,21 +142,24 @@
         <option value="tr">Türkçe (tr)</option>
         <option value="pt">Português (pt)</option>
         <option value="it">Italiano (it)</option>
-        </select>
+      </select>
       
       <label id="fileInputLabel" for="fileInput" class="block mb-2 text-sm font-medium" data-i18n="fileChooseLabel">Choose .srt file:</label>
       <input id="fileInput" type="file" accept=".srt" class="mb-1 w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:border-gray-300 dark:file:border-gray-600 file:text-sm file:font-medium file:bg-gray-50 dark:file:bg-gray-700 file:text-gray-700 dark:file:text-gray-200 hover:file:bg-gray-100 dark:hover:file:bg-gray-600 cursor-pointer"/>
-      <div id="fileNameText" class="text-xs text-gray-500 dark:text-gray-400 mb-4 h-4" data-i18n="fileNone">No file chosen</div> <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white mb-4" data-i18n-placeholder="promptPlaceholder" placeholder="Paste subtitle text or upload .srt file"></textarea>
+      <div id="fileNameText" class="text-xs text-gray-500 dark:text-gray-400 mb-4 h-4" data-i18n="fileNone">No file chosen</div>
+
+      <textarea id="prompt" class="w-full h-48 p-2 rounded border" data-i18n-placeholder="promptPlaceholder" placeholder="Paste subtitle text or upload .srt file"></textarea>
 
       <label for="filenameInput" class="block mb-2 text-sm font-medium" data-i18n="filenameLabel">Output file name:</label>
-      <input id="filenameInput" type="text" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white" data-i18n-placeholder="filenamePlaceholder" placeholder="Enter the subtitle name (e.g., Subtitle.srt)" />
+      <input id="filenameInput" type="text" class="w-full p-2 mb-4 rounded border" data-i18n-placeholder="filenamePlaceholder" placeholder="Enter the subtitle name (e.g., Subtitle.srt)" />
       
-      <button id="sendBtn" class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-white font-semibold mb-2" data-i18n="translateBtn">Translate</button>
-      <button id="downloadBtn" style="display:none" class="w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold" data-i18n="downloadBtn">Download .srt</button>
+      <button id="sendBtn" class="w-full py-2 rounded text-white font-semibold mb-2" data-i18n="translateBtn">Translate</button>
+      <button id="downloadBtn" style="display:none" class="w-full py-2 rounded text-white font-semibold" data-i18n="downloadBtn">Download .srt</button>
     </div>
 
-    <div id="responseContainer" class="mt-6" style="display:none;"> <h2 id="responseTitle" class="text-xl font-semibold mb-2" data-i18n="responseTitle">Translation Result:</h2>
-      <div id="response" class="w-full text-sm whitespace-pre-wrap p-4 rounded bg-white dark:bg-gray-800 shadow-md"></div>
+    <div id="responseContainer" class="mt-6" style="display:none;">
+      <h2 id="responseTitle" class="text-xl font-semibold mb-2" data-i18n="responseTitle">Translation Result:</h2>
+      <div id="response" class="w-full text-sm whitespace-pre-wrap p-4 rounded shadow-md"></div>
     </div>
 
     <footer class="text-center text-xs text-gray-600 dark:text-gray-500 mt-10">
