@@ -2,22 +2,42 @@ name: Auto Generate Language Pages
 
 on:
   push:
+    branches:
+      - main # Or your default branch
     paths:
-      - generate.js
-      - landing/**/*.html
+      - 'generate.js' # Trigger only if the generator script changes
+      - 'lang/**.json' # Or if any language file (source for descriptions) changes
+      # Add other direct dependencies of generate.js if any
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Updated to v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # Updated to v4
         with:
-          node-version: 18
-      - run: node generate.js
-      - run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add landing/
-          git commit -m "Auto-generated language landing pages"
-          git push
+          node-version: 18 # Or your preferred LTS version
+
+      - name: Generate landing pages
+        run: node generate.js
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          # Check if there are any changes in the landing directory
+          if ! git diff --quiet landing/; then
+            git add landing/
+            git commit -m "Auto-generate: Update language landing pages"
+            git push
+            echo "Landing pages committed and pushed."
+          else
+            echo "No changes to landing pages."
+          fi
