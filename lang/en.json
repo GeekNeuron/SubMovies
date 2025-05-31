@@ -4,6 +4,7 @@
   "apiKeyLabel": "Gemini API Key:",
   "apiKeyPlaceholder": "Paste your Gemini API Key",
   "modelLabel": "Model:",
+  "modelInfoFreeTier": "*Free tier models are subject to usage limits. Paid models require a billing-enabled Cloud project.",
   "toneLabel": "Tone:",
   "langTargetLabel": "Target language:",
   "filenameLabel": "Output file name:",
@@ -22,11 +23,10 @@
   "themeToggleLight": "Switch to Light Mode",
   "themeToggleDark": "Switch to Dark Mode",
   "models": {
-    "gemini-pro": "Free – Gemini Pro",
-    "gemini-pro:latest": "Free – Gemini Pro (Latest)",
+    "gemini-1.5-flash-latest": "Free Tier* – Gemini 1.5 Flash (Latest)",
+    "gemini-pro": "Free Tier* – Gemini Pro (Legacy)",
     "gemini-1.0-pro": "Paid – Gemini 1.0 Pro",
-    "gemini-1.5-pro-latest": "Paid – Gemini 1.5 Pro (Latest)",
-    "gemini-pro-vision": "Paid – Gemini Pro Vision"
+    "gemini-1.5-pro-latest": "Paid – Gemini 1.5 Pro (Latest)"
   },
   "tones": ["Formal", "Neutral", "Casual", "Street", "Literary", "Classic", "Technical"],
   "footerMadeWith": "Made with",
