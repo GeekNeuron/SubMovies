@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"> <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="appTitle">Gemini Subtitle Translator</title>
@@ -8,23 +7,41 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    /* Basic styles for theme toggle button */
     .theme-toggle-button {
       background: none;
       border: none;
-      color: white;
+      color: inherit; /* Inherit color from parent for better theme switching */
       cursor: pointer;
-      font-size: 1.5rem; /* Adjust size as needed */
+      font-size: 1.5rem;
       padding: 0.5rem;
       line-height: 1;
+      opacity: 0.7;
     }
-    /* Simple sun/moon icons using text characters */
-    .theme-toggle-button .sun-icon { display: inline; }
-    .theme-toggle-button .moon-icon { display: none; }
-    html.dark .theme-toggle-button .sun-icon { display: none; }
-    html.dark .theme-toggle-button .moon-icon { display: inline; }
+    .theme-toggle-button:hover {
+      opacity: 1;
+    }
+    /* Icon visibility based on <html> class */
+    .sun-icon { display: inline; }
+    .moon-icon { display: none; }
+    html.dark .sun-icon { display: none; }
+    html.dark .moon-icon { display: inline; }
+
+    /* Hide scrollbar for textarea but still scrollable */
+    /* For Webkit browsers */
+    /*
+    textarea::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; 
+    }
+    */
+    /* For Firefox */
+    /*
+    textarea {
+        scrollbar-width: none; 
+    }
+    */
   </style>
-  <script defer src="script.js?v=final_v2"></script>
+  <script defer src="script.js?v=final_v3"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen px-4 py-10 transition-colors duration-300">
 
@@ -33,23 +50,12 @@
       <select id="lang" class="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white p-2 rounded border border-gray-400 dark:border-gray-600">
         <option value="en">English (en)</option>
         <option value="fa">فارسی (fa)</option>
-        <option value="es">Español (es)</option>
-        <option value="fr">Français (fr)</option>
-        <option value="de">Deutsch (de)</option>
-        <option value="ru">Русский (ru)</option>
-        <option value="pt">Português (pt)</option>
-        <option value="tr">Türkçe (tr)</option>
-        <option value="ar">العربية (ar)</option>
-        <option value="hi">हिन्दी (hi)</option>
-        <option value="zh">中文 (zh)</option>
-        <option value="ja">日本語 (ja)</option>
-        <option value="ko">한국어 (ko)</option>
       </select>
     </div>
 
     <div id="formContainer" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl">
       <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold" data-i18n="appTitleH1">Gemini Subtitle Translator</h1>
+        <h1 id="appTitleH1" class="text-2xl font-bold" data-i18n="appTitleH1">Gemini Subtitle Translator</h1>
         <button id="themeToggleBtn" class="theme-toggle-button" aria-label="Toggle theme">
           <span class="sun-icon">☀️</span>
           <span class="moon-icon">🌙</span>
@@ -61,20 +67,24 @@
       
       <label for="model" class="block mb-2 text-sm font-medium" data-i18n="modelLabel">Model:</label>
       <select id="model" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
-        <option value="gemini-pro">🔵 Free – Gemini Pro</option>
-        <option value="gemini-pro:latest">🔵 Free – Gemini Pro (Latest)</option>
+        <option value="gemini-1.5-flash-latest">🔵 Free Tier* – Gemini 1.5 Flash (Latest)</option>
+        <option value="gemini-pro">🔵 Free Tier* – Gemini Pro (Legacy)</option> 
         <option value="gemini-1.0-pro">🟢 Paid – Gemini 1.0 Pro</option>
         <option value="gemini-1.5-pro-latest">🟢 Paid – Gemini 1.5 Pro (Latest)</option>
-        <option value="gemini-pro-vision">🟢 Paid – Gemini Pro Vision</option>
-      </select>
+        </select>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mb-3" data-i18n="modelInfoFreeTier">
+        *Free tier models are subject to usage limits. Paid models require a billing-enabled Cloud project.
+      </p>
+
 
       <label for="tone" class="block mb-2 text-sm font-medium" data-i18n="toneLabel">Tone:</label>
       <select id="tone" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
-        </select>
+      </select>
 
       <label for="langTarget" class="block mb-2 text-sm font-medium" data-i18n="langTargetLabel">Target language:</label>
       <select id="langTarget" class="w-full mb-4 p-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white">
         <option value="en">English (en)</option>
+        <option value="fa">فارسی (fa)</option>
         <option value="es">Español (es)</option>
         <option value="fr">Français (fr)</option>
         <option value="de">Deutsch (de)</option>
@@ -82,54 +92,16 @@
         <option value="zh">中文 (zh)</option>
         <option value="ja">日本語 (ja)</option>
         <option value="ko">한국어 (ko)</option>
-        <option value="fa">فارسی (fa)</option>
         <option value="ar">العربية (ar)</option>
-        <option value_to_complete="tr">Türkçe (tr)</option> 
-        <option value_to_complete="hi">हिन्दी (hi)</option>
-        <option value_to_complete="it">Italiano (it)</option>
-        <option value_to_complete="nl">Nederlands (nl)</option>
-        <option value_to_complete="sv">Svenska (sv)</option>
-        <option value_to_complete="pl">Polski (pl)</option>
-        <option value_to_complete="uk">Українська (uk)</option>
-        <option value_to_complete="id">Bahasa Indonesia (id)</option>
-        <option value_to_complete="th">ไทย (th)</option>
-        <option value_to_complete="vi">Tiếng Việt (vi)</option>
-        <option value_to_complete="ro">Română (ro)</option>
-        <option value_to_complete="cs">Čeština (cs)</option>
-        <option value_to_complete="el">Ελληνικά (el)</option>
-        <option value_to_complete="he">עברית (he)</option>
-        <option value_to_complete="ms">Bahasa Melayu (ms)</option>
-        <option value_to_complete="da">Dansk (da)</option>
-        <option value_to_complete="hu">Magyar (hu)</option>
-        <option value_to_complete="no">Norsk (no)</option>
-        <option value_to_complete="fi">Suomi (fi)</option>
-        <option value_to_complete="bn">বাংলা (bn)</option>
-        <option value_to_complete="ta">தமிழ் (ta)</option>
-        <option value_to_complete="te">తెలుగు (te)</option>
-        <option value_to_complete="ml">മലയാളം (ml)</option>
-        <option value_to_complete="ur">اردو (ur)</option>
-        <option value_to_complete="am">አማርኛ (am)</option>
-        <option value_to_complete="sw">Kiswahili (sw)</option>
-        <option value_to_complete="az">Azərbaycan (az)</option>
-        <option value_to_complete="eu">Euskara (eu)</option>
-        <option value_to_complete="gl">Galego (gl)</option>
-        <option value_to_complete="hy">Հայերեն (hy)</option>
-        <option value_to_complete="ka">ქართული (ka)</option>
-        <option value_to_complete="kk">Қазақ тілі (kk)</option>
-        <option value_to_complete="lt">Lietuvių (lt)</option>
-        <option value_to_complete="lv">Latviešu (lv)</option>
-        <option value_to_complete="sr">Српски (sr)</option>
-        <option value_to_complete="sk">Slovenčina (sk)</option>
-        <option value_to_complete="sl">Slovenščina (sl)</option>
-        <option value_to_complete="hr">Hrvatski (hr)</option>
-        <option value_to_complete="et">Eesti (et)</option>
-      </select>
+        <option value="hi">हिन्दी (hi)</option>
+        <option value="tr">Türkçe (tr)</option>
+        <option value="pt">Português (pt)</option>
+        <option value="it">Italiano (it)</option>
+        </select>
       
       <label id="fileInputLabel" for="fileInput" class="block mb-2 text-sm font-medium" data-i18n="fileChooseLabel">Choose .srt file:</label>
-      <input id="fileInput" type="file" accept=".srt" class="mb-2 w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 dark:file:bg-blue-900 file:text-blue-700 dark:file:text-blue-300 hover:file:bg-blue-100 dark:hover:file:bg-blue-800" />
-      <div id="fileNameText" class="text-sm text-gray-500 dark:text-gray-400 mb-4" data-i18n="fileNone">No file chosen</div>
-
-      <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white mb-4" data-i18n-placeholder="promptPlaceholder" placeholder="Paste subtitle text or upload .srt file"></textarea>
+      <input id="fileInput" type="file" accept=".srt" class="mb-1 w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:border-gray-300 dark:file:border-gray-600 file:text-sm file:font-medium file:bg-gray-50 dark:file:bg-gray-700 file:text-gray-700 dark:file:text-gray-200 hover:file:bg-gray-100 dark:hover:file:bg-gray-600 cursor-pointer"/>
+      <div id="fileNameText" class="text-xs text-gray-500 dark:text-gray-400 mb-4 h-4" data-i18n="fileNone">No file chosen</div> <textarea id="prompt" class="w-full h-48 p-2 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white mb-4" data-i18n-placeholder="promptPlaceholder" placeholder="Paste subtitle text or upload .srt file"></textarea>
 
       <label for="filenameInput" class="block mb-2 text-sm font-medium" data-i18n="filenameLabel">Output file name:</label>
       <input id="filenameInput" type="text" class="w-full p-2 mb-4 rounded bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white" data-i18n-placeholder="filenamePlaceholder" placeholder="Enter the subtitle name (e.g., Subtitle.srt)" />
@@ -138,9 +110,8 @@
       <button id="downloadBtn" style="display:none" class="w-full bg-green-600 hover:bg-green-700 py-2 rounded text-white font-semibold" data-i18n="downloadBtn">Download .srt</button>
     </div>
 
-    <div id="responseContainer" class="mt-6">
-      <h2 id="responseTitle" class="text-xl font-semibold mb-2" data-i18n="responseTitle" style="display:none;">Translation Result:</h2>
-      <div id="response" class="w-full text-sm whitespace-pre-wrap p-4 rounded bg-white dark:bg-gray-800 shadow-md" data-i18n-placeholder="translatingPlaceholder"></div>
+    <div id="responseContainer" class="mt-6" style="display:none;"> <h2 id="responseTitle" class="text-xl font-semibold mb-2" data-i18n="responseTitle">Translation Result:</h2>
+      <div id="response" class="w-full text-sm whitespace-pre-wrap p-4 rounded bg-white dark:bg-gray-800 shadow-md"></div>
     </div>
 
     <footer class="text-center text-xs text-gray-600 dark:text-gray-500 mt-10">
