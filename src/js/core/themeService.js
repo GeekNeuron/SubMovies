@@ -1,35 +1,35 @@
 // src/js/core/themeService.js
-import * as DOM from '../ui/domElements.js'; // Assuming titleThemeToggleContainer is in domElements.js
+// import * as DOM from '../ui/domElements.js'; // Not directly needed if using getElementById here
 import { LS_THEME } from '../utils/constants.js';
 
-let currentTranslationObjectForTheme = {};
+let currentTranslationObjectForTheme = {}; // Stores current language translations for ARIA labels
 
 function updateToggleButtonVisualState(isDark) {
-    // This function now just ensures the body class is correct for CSS to handle icon visibility
-    // The sun/moon icons are directly in HTML now, managed by CSS based on body.dark-theme
-    // However, we still need to update the ARIA label.
+    // The sun/moon icons are in HTML, CSS handles their visibility via body.dark-theme
+    // This function primarily updates the ARIA label of the clickable title container.
     const t = currentTranslationObjectForTheme || {};
     const key = isDark ? 'themeToggleLight' : 'themeToggleDark';
-    const fallbackText = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'; // English fallback
+    const fallbackText = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
 
-    // If titleThemeToggleContainer is the button, set ARIA label there.
-    // If a separate button was used, target that. We assume titleThemeToggleContainer.
-    const toggleContainer = document.getElementById('titleThemeToggleContainer');
-    if(toggleContainer) {
-        toggleContainer.setAttribute('aria-label', t[key] || fallbackText);
+    const titleContainer = document.getElementById('titleThemeToggleContainer');
+    if (titleContainer) {
+        titleContainer.setAttribute('aria-label', t[key] || fallbackText);
     }
 }
 
-export function applyTheme(theme) { 
+export function applyTheme(theme) { // theme is 'dark' or 'light'
   if (theme === 'dark') {
     document.body.classList.add('dark-theme');
   } else {
     document.body.classList.remove('dark-theme');
   }
-  updateToggleButtonVisualState(theme === 'dark');
+  updateToggleButtonVisualState(theme === 'dark'); // Update ARIA label
   localStorage.setItem(LS_THEME, theme);
 }
 
+/**
+ * Attaches the theme toggle functionality to the title container.
+ */
 export function attachThemeToggleToTitle() {
     const titleContainer = document.getElementById('titleThemeToggleContainer');
     if (titleContainer) {
@@ -39,10 +39,14 @@ export function attachThemeToggleToTitle() {
             applyTheme(newTheme);
         });
     } else {
-        console.warn("Title theme toggle container not found.");
+        console.warn("Theme toggle trigger element ('titleThemeToggleContainer') not found.");
     }
 }
 
+/**
+ * Applies the theme on initial page load based on localStorage or system preference.
+ * This should be called early, before full i18n might be ready for ARIA labels.
+ */
 export function applyThemeOnLoad() {
     const savedTheme = localStorage.getItem(LS_THEME) || 
                        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -51,18 +55,27 @@ export function applyThemeOnLoad() {
     } else {
         document.body.classList.remove('dark-theme');
     }
-    // ARIA label will be updated once translations are loaded via updateThemeServiceTranslations
+    // Initial ARIA label update with fallbacks; will be refined by i18nService
+    updateToggleButtonVisualState(savedTheme === 'dark');
 }
 
-export function initializeTheme(getTranslationsFunc) {
-    // The main purpose now is to ensure ARIA label gets updated when translations are ready
-    // The actual toggle attachment is separated.
-    // applyThemeOnLoad already set the initial theme class.
-    // We store the getter to be used when translations are loaded.
-    // This function might be simplified if getTranslationsFunc is directly used in updateThemeServiceTranslations
-}
-
+/**
+ * Called by i18nService after its translations are loaded/changed
+ * to update ARIA labels on the theme toggle trigger.
+ * @param {object} newTranslations - The newly loaded translation object for the current language.
+ */
 export function updateThemeServiceTranslations(newTranslations) {
     currentTranslationObjectForTheme = newTranslations || {};
     updateToggleButtonVisualState(document.body.classList.contains('dark-theme'));
+}
+
+/**
+ * Initializes the theme service. For now, this mainly ensures that
+ * updateThemeServiceTranslations can be called by i18nService.
+ * The actual toggle attachment is now separated.
+ */
+export function initializeTheme() {
+    // applyThemeOnLoad already set the initial theme class.
+    // ARIA labels will be updated when i18nService calls updateThemeServiceTranslations.
+    // The event listener for the toggle is attached by attachThemeToggleToTitle in main.js.
 }
