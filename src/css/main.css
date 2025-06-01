@@ -1,30 +1,34 @@
-/* src/css/main.css */
+/* src/css/main.css - Comprehensive Theming Version */
 
-/\* Light theme (default) variables */
 body {
-\--body-bg-color-actual: \#f0f2f5;
+\--primary-accent: \#007bff;
+\--primary-accent-dark: \#0056b3;
+\--danger-color: \#dc3545;
+\--success-color: \#28a745;
+\--warning-color: \#ffc107;
+
+/\* Light Theme Defaults */
+\--body-bg-actual: \#f0f2f5;
 \--text-color-primary-actual: \#1c1e21;
 \--text-color-secondary-actual: \#606770;
-\--card-bg-color-actual: \#ffffff;
-\--input-bg-color-actual: \#f5f6f7;
-\--input-border-color-actual: \#ccd0d5;
+\--card-bg-actual: \#ffffff;
+\--card-shadow-actual: rgba(0,0,0,0.08);
+\--input-bg-actual: \#ffffff; /* Inputs white on light theme */
+\--input-border-actual: \#ccd0d5;
 \--input-text-actual: \#1f2937;
 \--input-focus-border-actual: var(--primary-accent);
+\--input-focus-shadow-actual: rgba(0,123,255,0.2);
 \--button-main-bg-actual: var(--primary-accent);
 \--button-main-text-actual: \#ffffff;
 \--button-main-hover-bg-actual: var(--primary-accent-dark);
 \--button-secondary-bg-actual: \#e9ecef;
 \--button-secondary-text-actual: \#495057;
 \--button-secondary-border-actual: \#ced4da;
-\--select-bg-actual: \#f5f6f7; /* For select elements \*/
+\--button-secondary-hover-bg-actual: \#d1d5db;
+\--select-bg-actual: \#ffffff;
 \--select-text-actual: \#1f2937;
 \--select-border-actual: \#ccd0d5;
-
-\--primary-accent: \#007bff;
-\--primary-accent-dark: \#0056b3;
-\--danger-color: \#dc3545;
-\--success-color: \#28a745;
-\--warning-color: \#ffc107;
+\--hr-color-actual: \#e5e7eb; /* Tailwind gray-200 \*/
 
 \--file-btn-bg-actual: \#f8f9fa;
 \--file-btn-text-actual: var(--primary-accent);
@@ -33,8 +37,12 @@ body {
 
 \--lang-circle-bg-actual: \#e9ecef;
 \--lang-circle-text-actual: \#495057;
+\--lang-circle-border-actual: var(--input-border-color-actual);
 \--lang-circle-active-bg-actual: var(--primary-accent);
 \--lang-circle-active-text-actual: \#ffffff;
+\--lang-circle-active-border-actual: var(--primary-accent);
+\--lang-circle-active-shadow-outer: var(--primary-accent);
+\--lang-circle-active-shadow-inner: var(--card-bg-actual);
 
 font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 transition: background-color 0.3s ease, color 0.3s ease;
@@ -42,23 +50,32 @@ margin: 0;
 line-height: 1.6;
 }
 
-/\* Dark Theme Variable Overrides */
 body.dark-theme {
-\--body-bg-color-actual: \#18191a;
-\--text-color-primary-actual: \#e4e6eb;
-\--text-color-secondary-actual: \#b0b3b8;
-\--card-bg-color-actual: \#242526;
-\--input-bg-color-actual: \#3a3b3c;
-\--input-border-color-actual: \#4e4f50;
-\--input-text-actual: \#e4e6eb;
-/* --button-main-bg-actual: var(--primary-accent); -- Can be same or a dark theme specific accent */
-/* --button-main-hover-bg-actual: var(--primary-accent-dark); \*/
-\--button-secondary-bg-actual: \#4a4a4f;
-\--button-secondary-text-actual: \#e4e6eb;
-\--button-secondary-border-actual: \#5a5a5f;
-\--select-bg-actual: \#3a3b3c;
-\--select-text-actual: \#e4e6eb;
-\--select-border-actual: \#4e4f50;
+\--body-bg-actual: \#121212; /\* Darker than \#18191a for more depth */
+\--text-color-primary-actual: \#e0e0e0; /* Slightly off-white */
+\--text-color-secondary-actual: \#a0a0a0; /* Lighter secondary text */
+\--card-bg-actual: \#1e1e1e; /* Common dark card color */
+\--card-shadow-actual: rgba(0,0,0,0.3);
+\--input-bg-actual: \#2c2c2c;
+\--input-border-actual: \#4a4a4a;
+\--input-text-actual: \#e0e0e0;
+/* --input-focus-border-actual: var(--primary-accent); */ /* Can keep same accent or use a dark-theme specific one */
+/* --input-focus-shadow-actual: rgba(0,123,255,0.25); */ /* Adjust shadow color if needed */
+\--button-main-bg-actual: var(--primary-accent); /* Use primary accent, could be different for dark */
+\--button-main-text-actual: \#ffffff;
+\--button-main-hover-bg-actual: var(--primary-accent-dark);
+\--button-secondary-bg-actual: \#3a3a3a;
+\--button-secondary-text-actual: \#e0e0e0;
+\--button-secondary-border-actual: \#5a5a5a;
+\--button-secondary-hover-bg-actual: \#4a4a4a;
+\--select-bg-actual: \#2c2c2c;
+\--select-text-actual: \#e0e0e0;
+\--select-border-actual: \#4a4a4a;
+\--hr-color-actual: \#3a3a3a; /* Darker hr \*/
+
+/\* Using the user-provided dark theme primary accent if different */
+/* --primary-accent: \#3282b8; */
+/* --primary-accent-dark: \#1d4357; \*/
 
 \--file-btn-bg-actual: \#495057;
 \--file-btn-text-actual: \#ffffff;
@@ -69,76 +86,136 @@ body.dark-theme {
 \--lang-circle-text-actual: \#e4e6eb;
 \--lang-circle-active-bg-actual: var(--primary-accent);
 \--lang-circle-active-text-actual: \#ffffff;
+\--lang-circle-active-border-actual: var(--primary-accent);
+\--lang-circle-active-shadow-outer: var(--primary-accent);
+\--lang-circle-active-shadow-inner: var(--card-bg-actual);
 }
 
-/\* Applying base theme colors using the '-actual' suffixed variables \*/
+/\* Base element styling using CSS variables \*/
 body {
-background-color: var(--body-bg-color-actual);
+background-color: var(--body-bg-actual);
 color: var(--text-color-primary-actual);
 }
 
 .card {
-background-color: var(--card-bg-color-actual);
+background-color: var(--card-bg-actual);
 color: var(--text-color-primary-actual);
-/\* Tailwind classes for rounded, shadow, padding are in HTML \*/
+border-radius: 0.75rem;
+box-shadow: 0 6px 18px var(--card-shadow-actual); /\* Softer, more modern shadow */
+padding: 1.75rem; /* Slightly more padding \*/
 }
 
 input[type="password"],
 input[type="text"],
 textarea,
 select {
-background-color: var(--input-bg-color-actual);
-border: 1px solid var(--input-border-color-actual); /\* Ensure border width is set */
+background-color: var(--input-bg-actual);
+border: 1px solid var(--input-border-actual);
 color: var(--input-text-actual);
-/* Tailwind classes for padding, rounded, width, focus rings are in HTML */
+border-radius: 0.5rem; /\* Slightly more rounded */
+padding: 0.85rem 1.1rem;
+width: 100%;
+transition: border-color 0.2s ease, box-shadow 0.2s ease;
+font-size: 0.95rem;
 }
 input[type="checkbox"] {
-background-color: var(--input-bg-color-actual);
-border-color: var(--input-border-color-actual);
-/* Tailwind classes for h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 */
+width: auto;
+background-color: var(--input-bg-actual);
+border-color: var(--input-border-actual);
+border-radius: 0.25rem;
+/* Tailwind classes for h-4 w-4 text-indigo-600 focus:ring-indigo-500 are good \*/
 }
 input[type="checkbox"]:checked {
-background-color: var(--primary-accent); /* This will override Tailwind's text-indigo-600 for bg \*/
+background-color: var(--primary-accent);
 border-color: var(--primary-accent);
 }
 
-/\* Focus styles (can be enhanced beyond Tailwind's default if needed) */
-input:focus, textarea:focus, select:focus {
-border-color: var(--input-focus-border-actual); /* Use themed focus border */
-/* Tailwind's focus:ring-indigo-500 and box-shadow can provide the ring \*/
+input:focus,
+textarea:focus,
+select:focus {
+outline: none;
+border-color: var(--input-focus-border-actual);
+box-shadow: 0 0 0 3px var(--input-focus-shadow-actual);
+}
+
+textarea {
+min-height: 10rem;
+resize: vertical;
 }
 
 label {
+display: block;
+margin-bottom: 0.6rem; /\* Slightly more space */
+font-weight: 500; /* Medium weight */
 color: var(--text-color-secondary-actual);
-/\* Tailwind classes for block, mb-2, text-sm, font-medium are in HTML */
+font-size: 0.9rem;
 }
-label[for="saveApiKeyCheckbox"] { /* Specific label */
+label[for="saveApiKeyCheckbox"] {
 color: var(--text-color-secondary-actual);
-/* Tailwind: ml-2 text-sm font-normal mb-0 \*/
+font-weight: normal; /* Lighter weight for checkbox label \*/
+margin-bottom: 0;
 }
 
-/\* Main action buttons (Translate, Download) */
-/* These primarily use Tailwind classes for bg, text, hover in HTML. */
-/* If you want to override with CSS vars: */
-/*
-button\#translateBtn, button\#downloadBtn {
-background-color: var(--button-main-bg-actual) \!important;
-color: var(--button-main-text-actual) \!important;
+/\* Button styling (Primary and Download) */
+.btn {
+background-color: var(--button-main-bg-actual);
+color: var(--button-main-text-actual);
+padding: 0.85rem 1.75rem; /* More padding */
+border-radius: 0.5rem; /* More rounded */
+font-weight: 600;
+cursor: pointer;
+transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+text-align: center;
+display: inline-block;
+border: none;
+user-select: none;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-button\#translateBtn:hover, button\#downloadBtn:hover {
-background-color: var(--button-main-hover-bg-actual) \!important;
+.btn:hover {
+background-color: var(--button-main-hover-bg-actual);
+transform: translateY(-2px); /* More lift \*/
+box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
-\*/
+.btn:active {
+transform: translateY(0px);
+box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/\* Specific styling for Download button if different (example: green) */
+button\#downloadBtn.btn {
+background-color: var(--success-color); /* Use success color */
+}
+button\#downloadBtn.btn:hover {
+background-color: \#1e7e34; /* Darker green \*/
+}
 
 /\* Secondary button (Copy) */
-button\#copyTranslatedBtn.btn-secondary { /* More specific selector */
-background-color: var(--button-secondary-bg-actual) \!important;
-color: var(--button-secondary-text-actual) \!important;
-border: 1px solid var(--button-secondary-border-actual) \!important;
-/* Tailwind: text-sm py-1 px-3 */
+.btn-secondary {
+background-color: var(--button-secondary-bg-actual);
+color: var(--button-secondary-text-actual);
+border: 1px solid var(--button-secondary-border-actual);
+padding: 0.4rem 0.9rem; /* Adjusted for "text-sm" in HTML */
+font-size: 0.875rem; /* Tailwind text-sm */
+border-radius: 0.375rem; /* Tailwind rounded-md */
+font-weight: 500;
+transition: background-color 0.2s ease, transform 0.1s ease;
 }
-button\#copyTranslatedBtn.btn-secondary:hover {
-opacity: 0.85; /* Simple hover \*/
+.btn-secondary:hover {
+background-color: var(--button-secondary-hover-bg-actual);
+border-color: var(--button-secondary-hover-bg-actual); /* Make border consistent on hover \*/
+transform: translateY(-1px);
+}
+
+/\* Clickable Title Area for Theme Toggle */
+\#titleThemeToggleContainer {
+/* Tailwind classes: text-center cursor-pointer group w-max mx-auto */
+/* Text color for H1 will be var(--text-color-primary-actual) due to inheritance */
+}
+\#titleThemeToggleContainer h1 {
+color: var(--text-color-primary-actual); /* Explicitly set if needed \*/
+}
+p[data-i18n="appSubtitle"] {
+color: var(--text-color-secondary-actual);
 }
 
 /\* Language Circle Switcher \*/
@@ -154,7 +231,7 @@ font-weight: 600;
 cursor: pointer;
 background-color: var(--lang-circle-bg-actual);
 color: var(--lang-circle-text-actual);
-border: 1px solid var(--input-border-color-actual);
+border: 1px solid var(--lang-circle-border-actual);
 transition: background-color 0.2s, color 0.2s, transform 0.1s, box-shadow 0.2s, border-color 0.2s;
 user-select: none;
 box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -162,13 +239,14 @@ box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 .lang-circle:hover {
 opacity: 0.9;
 transform: scale(1.08);
+box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 .lang-circle.active {
 background-color: var(--lang-circle-active-bg-actual);
 color: var(--lang-circle-active-text-actual);
-border-color: var(--lang-circle-active-bg-actual);
+border-color: var(--lang-circle-active-border-actual);
 font-weight: 700;
-box-shadow: 0 0 0 2px var(--card-bg-color-actual), 0 0 0 4px var(--lang-circle-active-bg-actual);
+box-shadow: 0 0 0 2px var(--card-bg-color-actual), 0 0 0 4px var(--lang-circle-active-shadow-outer);
 }
 
 /\* Custom File Input Button (Label) \*/
@@ -194,15 +272,20 @@ input[type="file"].hidden { display: none; }
 
 /\* Response box and preformatted text styling */
 \#responseBox {
-background-color: var(--input-bg-color-actual); /* Background for the div itself */
-border: 1px solid var(--input-border-color-actual); /* Border for the div */
-/* Tailwind classes for padding, rounded, shadow are in HTML */
+background-color: var(--input-bg-actual);
+border: 1px solid var(--input-border-actual);
+border-radius: 0.375rem; /* Tailwind rounded-md */
+padding: 1rem; /* Tailwind p-4 */
+min-height: 200px; /* From HTML */
+box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* Tailwind shadow-inner */
+}
+body.dark-theme \#responseBox {
+box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 \#responseBox pre {
-/* Pre tag itself should be transparent if \#responseBox has bg and padding */
-background-color: transparent;
+background-color: transparent; /* Pre should be transparent if \#responseBox has bg \*/
 border: none;
-padding: 0.5rem; /* Minimal padding for pre, main padding on \#responseBox \*/
+padding: 0.5rem;
 max-h: 24rem;
 overflow-y: auto;
 font-size: 0.875rem;
@@ -212,11 +295,11 @@ white-space: pre-wrap;
 word-wrap: break-word;
 }
 
-/\* Range input custom styling (Temperature) \*/
+/\* Range input custom styling (Temperature) */
 input[type="range"] {
 \-webkit-appearance: none; appearance: none;
 width: 100%; height: 0.5rem;
-background: var(--input-border-color-actual);
+background: var(--input-border-actual);
 border-radius: 0.25rem;
 outline: none; opacity: 0.9;
 transition: opacity .15s ease-in-out;
@@ -229,26 +312,23 @@ width: 1.25rem; height: 1.25rem;
 background: var(--primary-accent);
 border-radius: 50%; cursor: pointer;
 border: 2px solid var(--card-bg-color-actual);
-box-shadow: 0 0 2px rgba(0,0,0,0.2);
+box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Softer shadow for thumb \*/
 }
 input[type="range"]::-moz-range-thumb {
 width: 1.25rem; height: 1.25rem;
 background: var(--primary-accent);
 border-radius: 50%; cursor: pointer;
 border: 2px solid var(--card-bg-color-actual);
-box-shadow: 0 0 2px rgba(0,0,0,0.2);
+box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 /\* Horizontal rule styling */
-hr.custom-hr { /* If using a class for HR in HTML */
+hr {
 border: 0;
 height: 1px;
-background-color: var(--input-border-color-actual);
-opacity: 0.5;
+background-color: var(--hr-color-actual);
+opacity: 0.5; /* From your HTML, can be adjusted \*/
 }
-/* If using Tailwind classes for HR in HTML, those will apply. */
-/* Example: border-b border-gray-200 dark:border-gray-700 opacity-70 */
-/* The HTML from response \#83 uses Tailwind classes for the HR \*/
 
 /\* Vazirmatn Font for Persian \*/
 html[lang="fa"] body,
@@ -265,7 +345,7 @@ font-family: "Vazirmatn", sans-serif;
 .icon-label span[role="img"] { margin-right: 0.5rem; font-size: 1.1em; opacity: 0.7; }
 html[lang="fa"] .icon-label span[role="img"] { margin-left: 0.5rem; margin-right: 0; }
 
-/\* Ensure secondary texts also adapt color */
+/\* Text color for secondary/helper texts \*/
 \#temperatureValueDisplay,
 \#charCountDisplay,
 \#fileNameText,
@@ -275,7 +355,7 @@ footer p, footer span {
 color: var(--text-color-secondary-actual);
 }
 footer a {
-color: var(--primary-accent) \!important; /* Ensure link color uses accent \*/
+color: var(--primary-accent) \!important;
 }
 p[data-i18n="appSubtitle"] {
 color: var(--text-color-secondary-actual);
