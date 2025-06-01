@@ -2,7 +2,7 @@
 import * as DOM from './domElements.js';
 import { getCurrentTranslations } from '../core/i18nService.js';
 import { showToast } from '../core/toastService.js';
-import { isValidSRT, isValidVTT } from '../core/subtitleParser.js'; // For basic validation
+import { isValidSRT, isValidVTT } from '../core/subtitleParser.js';
 import { CHAR_COUNT_WARNING_THRESHOLD } from '../utils/constants.js';
 
 let currentOriginalFileType = 'srt'; // To store the detected type of the uploaded file ('srt' or 'vtt')
@@ -16,15 +16,16 @@ export function initializeFileHandling() {
         DOM.fileInput.addEventListener('change', handleFileSelect);
     }
     if (DOM.promptInput) {
-        DOM.promptInput.addEventListener('input', ()_=> {
+        // Corrected arrow function syntax here:
+        DOM.promptInput.addEventListener('input', () => { 
             updateCharCountUI(); // Update char count on manual input
             // If user types directly, we can't be sure of the file type.
             // The main translation logic will attempt to parse based on content.
-            // For download purposes, if text is pasted, we might default to 'srt' or let user choose.
-            // For now, fileNameText is cleared as it's not from a file.
-            if (DOM.fileNameText) {
+            // For download purposes, if text is pasted, we might default to 'srt'.
+            if (DOM.fileNameText) { // Clear file name if text is manually entered/changed
                 const t = getCurrentTranslations();
-                DOM.fileNameText.textContent = t.fileNone !== undefined ? t.fileNone : '';
+                // Ensure t and t.fileNone exist before using, or provide a hardcoded fallback if necessary
+                DOM.fileNameText.textContent = (t && t.fileNone !== undefined) ? t.fileNone : ''; 
             }
             currentOriginalFileType = 'srt'; // Default if text is pasted
         });
@@ -39,12 +40,13 @@ export function initializeFileHandling() {
 
 /**
  * Handles the file selection event from the file input.
- * Reads the file content, validates basic format, and updates the UI.
+ * Reads the file content and updates the UI.
  * @param {Event} event - The file input change event.
  */
 async function handleFileSelect(event) {
     const file = event.target.files[0];
-    const t = getCurrentTranslations(); // Get current translations for messages
+    const t = getCurrentTranslations(); 
+    currentOriginalFileType = 'srt'; // Default
 
     if (DOM.fileNameText) {
         DOM.fileNameText.textContent = file ? file.name : (t.fileNone !== undefined ? t.fileNone : '');
@@ -56,7 +58,6 @@ async function handleFileSelect(event) {
         return;
     }
 
-    // Determine file type by extension for initial validation and download type
     if (file.name.toLowerCase().endsWith('.vtt')) {
         currentOriginalFileType = 'vtt';
     } else if (file.name.toLowerCase().endsWith('.srt')) {
@@ -66,22 +67,20 @@ async function handleFileSelect(event) {
         if (DOM.fileNameText) DOM.fileNameText.textContent = t.fileNone !== undefined ? t.fileNone : '';
         if (DOM.promptInput) DOM.promptInput.value = '';
         updateCharCountUI();
-        event.target.value = ''; // Reset file input to allow re-selection of the same file if needed
+        event.target.value = ''; // Reset file input
         return;
     }
 
     try {
         const text = await file.text();
         if (DOM.promptInput) DOM.promptInput.value = text;
-        updateCharCountUI(); // Update char count after loading file content
+        updateCharCountUI(); 
 
-        // Perform basic validation based on detected type
+        // Perform basic validation based on detected type after loading content
         if (currentOriginalFileType === 'vtt' && !isValidVTT(text)) {
             showToast(t.fileValidationVTTError || "Invalid VTT file. Missing WEBVTT header or malformed.", "error");
-            // Optionally clear prompt: DOM.promptInput.value = ''; updateCharCountUI();
         } else if (currentOriginalFileType === 'srt' && !isValidSRT(text)) {
             showToast(t.fileValidationSRTError || "Invalid SRT file. Please check format.", "error");
-            // Optionally clear prompt
         }
 
     } catch (err) {
@@ -105,36 +104,27 @@ function updateCharCountUI() {
     const t = getCurrentTranslations();
     
     const charCountLabelKey = 'charCountLabel';
-    const charCountText = (t[charCountLabelKey] || "Characters: {count}").replace('{count}', charLength);
-    DOM.charCountDisplay.textContent = charCountText;
+    // Provide a safe fallback for the label itself if t or t[charCountLabelKey] is undefined
+    const charCountTextTemplate = (t && t[charCountLabelKey] !== undefined) ? t[charCountLabelKey] : "Characters: {count}";
+    DOM.charCountDisplay.textContent = charCountTextTemplate.replace('{count}', charLength);
 
     if (charLength > CHAR_COUNT_WARNING_THRESHOLD) {
-        DOM.charCountDisplay.style.color = 'var(--danger-color)'; // Uses CSS variable
-        // A one-time toast warning might be too intrusive on every input.
-        // Consider a more subtle, persistent visual cue or a debounced toast.
+        DOM.charCountDisplay.style.color = 'var(--danger-color)';
     } else {
         DOM.charCountDisplay.style.color = 'var(--text-color-secondary)';
     }
 }
-
 // Expose globally for i18nService to call after language change.
-// This is a common pattern but can be improved with event emitters or direct module calls if preferred.
 window.updateCharCountGlobal = updateCharCountUI;
 
 
 /**
  * Gets the detected original file type ('srt' or 'vtt') of the currently loaded/pasted content.
- * This is used by other modules (e.g., translationController for download).
  * @returns {string} The file type string.
  */
 export function getOriginalFileType() {
-    // If text was pasted, this might be less accurate.
-    // The translation logic in main.js does a content-based check.
-    // This function primarily reflects the type from file upload.
     if (DOM.promptInput && DOM.promptInput.value.trim().startsWith("WEBVTT")) {
         return 'vtt';
     }
-    // Add more sophisticated checks if needed for pasted content,
-    // otherwise default to currentOriginalFileType which is updated on file select.
     return currentOriginalFileType;
 }
