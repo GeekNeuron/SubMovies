@@ -21,7 +21,7 @@ body {
   --danger-color: #dc3545;
   --success-color: #28a745;
   --warning-color: #ffc107;
-  /* --theme-toggle-icon-color: #4b5563; -- No longer needed for a separate icon button */
+  /* --theme-toggle-icon-color: #4b5563; -- Not directly used for a separate icon button anymore */
   --lang-circle-bg: #e9ecef;
   --lang-circle-text: #495057;
   --lang-circle-active-bg: var(--primary-accent);
@@ -45,7 +45,7 @@ body.dark-theme {
   --select-bg: #3a3b3c;
   --select-text: #e4e6eb;
   --select-border: #4e4f50;
-  /* --theme-toggle-icon-color: #b0b3b8; -- No longer needed */
+  /* --theme-toggle-icon-color: #b0b3b8; -- Not directly used */
   --lang-circle-bg: #3a3b3c;
   --lang-circle-text: #e4e6eb;
   --lang-circle-active-bg: var(--primary-accent);
@@ -149,13 +149,11 @@ label {
     border-color: var(--select-border);
 }
 
-/* Theme Toggle (No specific icon styles needed anymore as they are removed) */
-/* The #titleThemeToggleContainer itself has cursor:pointer from Tailwind if needed, or add here */
+/* Theme Toggle (Clickable Title Area) */
 #titleThemeToggleContainer {
-    /* If you want to ensure the H1 text color changes with theme, ensure H1 uses var(--text-color-primary) */
-    /* Or rely on body's color inheritance */
+    /* w-max mx-auto in HTML handles width based on content and centering */
+    /* No specific icon styles needed here as icons are removed */
 }
-
 
 /* Language Circle Switcher */
 .lang-circle {
@@ -171,7 +169,7 @@ label {
     background-color: var(--lang-circle-bg);
     color: var(--lang-circle-text);
     border: 1px solid var(--input-border);
-    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s, border-color 0.2s;
     user-select: none;
 }
 .lang-circle:hover {
@@ -185,6 +183,7 @@ label {
     font-weight: 700;
     transform: scale(1.05);
 }
+
 
 /* Specific styling for Persian font */
 html[lang="fa"] body,
@@ -212,31 +211,27 @@ html[lang="fa"] .icon-label span[role="img"] {
     margin-right: 0;
 }
 
-/* File input specific styling */
-#fileInput {
-    padding: 0; 
-}
-#fileInput::file-selector-button {
-    margin-right: 1rem;
-    padding: 0.65rem 1rem;
-    border-radius: 0.25rem;
-    border: 1px solid var(--input-border);
-    font-weight: 500;
-    background-color: var(--input-bg);
-    color: var(--text-color-primary);
+/* Custom File Input Button Styling */
+.custom-file-upload {
+    display: inline-block; /* Or block if you want it full width */
+    padding: 0.75rem 1.5rem; /* Match .btn */
     cursor: pointer;
+    /* Inherit button styles or define specific ones */
+    background-color: var(--input-bg); /* Example: secondary button style */
+    color: var(--text-color-primary);
+    border: 1px solid var(--input-border);
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-align: center;
     transition: background-color 0.2s;
 }
-html[lang="fa"] #fileInput::file-selector-button {
-    margin-left: 1rem;
-    margin-right: 0;
+.custom-file-upload:hover {
+    background-color: var(--select-border); /* Example hover */
 }
-#fileInput::file-selector-button:hover {
-    background-color: var(--select-border); 
+input[type="file"].hidden {
+    display: none; /* Hide the actual input */
 }
-body.dark-theme #fileInput::file-selector-button {
-    border-color: var(--select-border);
-}
+
 
 /* Response box styling */
 #responseBox pre { 
@@ -281,6 +276,6 @@ input[type="range"]::-moz-range-thumb {
 hr {
     border: 0;
     height: 1px;
-    background-color: var(--input-border);
-    opacity: 0.5;
+    /* background-color: var(--input-border); -- Already styled in HTML */
+    /* opacity: 0.5; */
 }
