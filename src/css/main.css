@@ -2,9 +2,9 @@
 
 /* Light theme (default) variables */
 body {
-  --body-bg: #f0f2f5;
-  --text-color-primary: #1c1e21;
-  --text-color-secondary: #606770;
+  --body-bg: #f0f2f5; 
+  --text-color-primary: #1c1e21; 
+  --text-color-secondary: #606770; 
   --container-bg: #ffffff;
   --input-bg: #f5f6f7;
   --input-border: #ccd0d5;
@@ -16,12 +16,16 @@ body {
   --select-bg: #f5f6f7;
   --select-text: #1c1e21;
   --select-border: #ccd0d5;
-  --primary-accent: #007bff;
+  --primary-accent: #007bff; 
   --primary-accent-dark: #0056b3;
   --danger-color: #dc3545;
   --success-color: #28a745;
   --warning-color: #ffc107;
-  --theme-toggle-icon-color: #4b5563;
+  --theme-toggle-icon-color: #4b5563; /* For icon inside H1 title */
+  --lang-circle-bg: #e9ecef;
+  --lang-circle-text: #495057;
+  --lang-circle-active-bg: var(--primary-accent);
+  --lang-circle-active-text: #ffffff;
   
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -36,13 +40,16 @@ body.dark-theme {
   --input-bg: #3a3b3c;
   --input-border: #4e4f50;
   --input-text: #e4e6eb;
-  --button-bg: var(--primary-accent); /* Can be same as light or different */
-  /* --button-text: #ffffff; */
-  /* --button-hover-bg: var(--primary-accent-dark); */
+  --button-bg: var(--primary-accent); 
+  --button-hover-bg: var(--primary-accent-dark);
   --select-bg: #3a3b3c;
   --select-text: #e4e6eb;
   --select-border: #4e4f50;
   --theme-toggle-icon-color: #b0b3b8;
+  --lang-circle-bg: #3a3b3c;
+  --lang-circle-text: #e4e6eb;
+  --lang-circle-active-bg: var(--primary-accent);
+  --lang-circle-active-text: #ffffff;
 }
 
 /* General body application of variables */
@@ -56,9 +63,9 @@ body {
 /* Card styling */
 .card {
   background-color: var(--container-bg);
-  border-radius: 0.75rem;
+  border-radius: 0.75rem; 
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 1.5rem;
+  padding: 1.5rem; 
 }
 body.dark-theme .card {
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -72,12 +79,23 @@ select {
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
   color: var(--input-text);
-  border-radius: 0.375rem;
-  padding: 0.75rem 1rem;
+  border-radius: 0.375rem; 
+  padding: 0.75rem 1rem; 
   width: 100%;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-size: 0.95rem;
 }
+input[type="checkbox"] { /* Specific styling for checkbox */
+    width: auto; /* Override width: 100% */
+    background-color: var(--input-bg);
+    border-color: var(--input-border);
+    /* Tailwind's focus:ring-offset-0 might need to be applied via JS if default focus is an issue */
+}
+input[type="checkbox"]:checked {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+}
+
 
 input:focus,
 textarea:focus,
@@ -88,7 +106,7 @@ select:focus {
 }
 
 textarea {
-    min-height: 10rem; /* 160px */
+    min-height: 10rem; 
     resize: vertical;
 }
 
@@ -129,29 +147,52 @@ label {
     border: 1px solid var(--input-border);
 }
 .btn-secondary:hover {
-    background-color: var(--select-border); /* Using select-border for a subtle hover */
+    background-color: var(--select-border); 
     border-color: var(--select-border);
 }
 
-/* Theme Toggle Button specific styles */
-.theme-toggle-button {
-  background: none;
-  border: none;
+/* Theme Toggle (Icon part, if inside H1 wrapper) */
+#titleThemeToggleContainer .theme-icon-container { /* Wrapper for icons if placed next to H1 text */
   color: var(--theme-toggle-icon-color);
-  cursor: pointer;
-  font-size: 1.25rem;
-  padding: 0.25rem;
-  line-height: 1;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
+  /* opacity: 0.7; */ /* Handled by group-hover on parent */
+  /* transition: opacity 0.2s ease; */
 }
-.theme-toggle-button:hover {
-  opacity: 1;
-}
+/* #titleThemeToggleContainer:hover .theme-icon-container { opacity: 1; } */
+
 .sun-icon { display: inline; }
 .moon-icon { display: none; }
 body.dark-theme .sun-icon { display: none; }
 body.dark-theme .moon-icon { display: inline; }
+
+/* Language Circle Switcher */
+.lang-circle {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem; /* 12px */
+    font-weight: 600;
+    cursor: pointer;
+    background-color: var(--lang-circle-bg);
+    color: var(--lang-circle-text);
+    border: 1px solid var(--input-border);
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+    user-select: none;
+}
+.lang-circle:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+.lang-circle.active {
+    background-color: var(--lang-circle-active-bg);
+    color: var(--lang-circle-active-text);
+    border-color: var(--lang-circle-active-bg);
+    font-weight: 700;
+    transform: scale(1.05);
+}
+
 
 /* Specific styling for Persian font */
 html[lang="fa"] body,
@@ -169,9 +210,9 @@ html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, h
     display: flex;
     align-items: center;
 }
-.icon-label span[role="img"] {
+.icon-label span[role="img"] { 
     margin-right: 0.5rem;
-    font-size: 1.1em;
+    font-size: 1.1em; 
     opacity: 0.7;
 }
 html[lang="fa"] .icon-label span[role="img"] {
@@ -199,58 +240,55 @@ html[lang="fa"] #fileInput::file-selector-button {
     margin-right: 0;
 }
 #fileInput::file-selector-button:hover {
-    background-color: var(--select-border); /* Using a var for consistency */
+    background-color: var(--select-border); 
 }
 body.dark-theme #fileInput::file-selector-button {
-    border-color: var(--select-border); /* Better contrast in dark mode */
+    border-color: var(--select-border);
 }
 
 /* Response box styling */
-#responseBox pre { /* Applied if renderCompare still uses <pre> internally */
-    background-color: var(--input-bg); /* Use input-bg for pre backgrounds */
+#responseBox pre { 
+    background-color: var(--input-bg); 
     border: 1px solid var(--input-border);
     padding: 1rem;
     border-radius: 0.375rem;
-    max-h: 24rem; /* 384px */
+    max-height: 24rem; 
     overflow-y: auto;
-    font-size: 0.875rem; /* 14px */
+    font-size: 0.875rem; 
     line-height: 1.5;
-    color: var(--input-text); /* Ensure text color matches theme */
+    color: var(--input-text); 
 }
 
 /* Range input custom styling (Temperature) */
 input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 0.5rem; /* 8px */
-    background: var(--input-border); /* Track color */
-    border-radius: 0.25rem; /* 4px */
-    outline: none;
-    opacity: 0.9;
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 0.5rem; 
+    background: var(--input-border); 
+    border-radius: 0.25rem; 
+    outline: none; opacity: 0.9;
     transition: opacity .15s ease-in-out;
-    padding: 0; /* Override default padding */
+    padding: 0; 
 }
-input[type="range"]:hover {
-    opacity: 1;
-}
+input[type="range"]:hover { opacity: 1; }
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 1.25rem; /* 20px */
-    height: 1.25rem; /* 20px */
-    background: var(--primary-accent); /* Thumb color */
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid var(--container-bg); /* Border to make it pop */
+    -webkit-appearance: none; appearance: none;
+    width: 1.25rem; height: 1.25rem; 
+    background: var(--primary-accent); 
+    border-radius: 50%; cursor: pointer;
+    border: 2px solid var(--container-bg); 
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 input[type="range"]::-moz-range-thumb {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.25rem; height: 1.25rem;
     background: var(--primary-accent);
-    border-radius: 50%;
-    cursor: pointer;
+    border-radius: 50%; cursor: pointer;
     border: 2px solid var(--container-bg);
     box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--input-border);
+    opacity: 0.5;
 }
