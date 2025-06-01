@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr"> <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="appTitle">SubMovies - AI Subtitle Translator</title> <link rel="manifest" href="manifest.json" />
+  <title data-i18n="appTitle">SubMovies - AI Subtitle Translator</title>
+  <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,16 +11,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="src/css/main.css"> <script type="module" src="src/js/main.js" defer></script> </head>
+  <link rel="stylesheet" href="src/css/main.css"> 
+  
+  <script type="module" src="src/js/main.js" defer></script>
+</head>
 <body> <div class="min-h-screen flex flex-col items-center justify-center p-4">
     <div class="w-full max-w-4xl">
       <header class="mb-8 text-center">
         <div class="flex items-center justify-center mb-2">
-            <img src="favicon.svg" alt="SubMovies Logo" class="w-10 h-10 mr-3"> <h1 id="appTitleH1" class="text-4xl font-bold" data-i18n="appTitleH1">SubMovies AI Translator</h1>
+            <img src="favicon.svg" alt="SubMovies Logo" class="w-10 h-10 mr-3">
+            <h1 id="appTitleH1" class="text-4xl font-bold" data-i18n="appTitleH1">SubMovies AI Translator</h1>
         </div>
         <p class="text-lg" data-i18n="appSubtitle" style="color: var(--text-color-secondary);">Translate your subtitles effortlessly.</p>
          <div class="absolute top-4 right-4 flex items-center space-x-2">
-             <select id="langSelect" class="p-2 rounded border text-sm"> <option value="en">English</option>
+             <select id="langSelect" class="p-2 rounded border text-sm">
+                <option value="en">English</option>
                 <option value="fa">فارسی</option>
             </select>
             <button id="themeToggleBtn" class="theme-toggle-button text-2xl">
@@ -110,8 +116,7 @@
           <div class="flex justify-between items-center">
             <h2 id="responseTitle" class="text-2xl font-semibold" data-i18n="responseTitle">Result:</h2>
             <button id="copyTranslatedBtn" class="btn btn-secondary text-sm py-1 px-3" data-i18n="copyBtn" style="display:none;">
-                <span role="img" aria-label="copy">📋</span> Copy
-            </button>
+                <span role="img" aria-label="copy">📋</span> <span data-i18n="copyBtnText">Copy</span> </button>
           </div>
           <div id="responseBox" class="w-full text-sm whitespace-pre-wrap p-4 rounded" style="background-color: var(--input-bg); min-height: 200px;"></div>
           <button id="downloadBtn" style="display:none" class="w-full btn" data-i18n="downloadBtn">Download</button>
