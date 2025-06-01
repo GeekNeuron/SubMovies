@@ -30,8 +30,59 @@
 ---
 
 ## 📁 Project Structure (Professional & Galactic)
+```
+/ (Project Root)
+|
+|-- index.html                     # Main application entry point
+|-- manifest.json                  # PWA configuration
+|-- robots.txt                     # For search engines
+|-- sitemap.xml                    # Sitemap (can be auto-generated)
+|-- favicon.svg                    # Site icon
+|-- favicon.ico                    # Site icon
+|
+|-- src/                           # Main application source code
+|   |-- js/                        # JavaScript code
+|   |   |-- main.js                # Main JS entry point, app initialization
+|   |   |-- core/                  # Core modules and services
+|   |   |   |-- apiService.js      # Logic for all Gemini API communications
+|   |   |   |-- i18nService.js     # Language loading and translation application
+|   |   |   |-- themeService.js    # Dark/Light theme management
+|   |   |   |-- subtitleParser.js  # SRT/VTT parsing and validation functions
+|   |   |   |-- toastService.js    # Toast notification display logic
+|   |   |-- ui/                    # UI related modules
+|   |   |   |-- domElements.js     # DOM element selectors
+|   |   |   |-- settingsController.js # Manages settings (API key, model, tone, creativity)
+|   |   |   |-- fileController.js    # Manages file upload, name display, char count
+|   |   |   |-- translationController.js # Manages display of original/translated text, download/copy
+|   |   |-- utils/                 # General utility functions
+|   |       |-- helpers.js         # Miscellaneous helper functions
+|   |-- css/                       # CSS styles
+|   |   |-- main.css               # General styles and theme CSS variables
+|   |-- lang/                      # JSON translation files
+|   |   |-- en.json
+|   |   |-- fa.json
+|   |-- assets/                    # Other static assets (e.g., UI icons)
+|
+|-- service-worker.js              # Service worker for PWA functionality
+|
+|-- scripts/                       # Helper Node.js scripts
+|   |-- generate-landing-pages.js
+|
+|-- .github/
+|   |-- workflows/
+|       |-- auto-generate-landing-pages.yml
+|
+|-- docs/                          # Project documentation
+|
+|-- landing/                       # Auto-generated landing pages
+|
+README.md
+CONTRIBUTING.md
+CHANGELOG.md
+LICENSE
+.gitignore
+```
 
-/ (Project Root)||-- index.html                     # Main application entry point|-- manifest.json                  # PWA configuration|-- robots.txt                     # For search engines|-- sitemap.xml                    # Sitemap (can be auto-generated)|-- favicon.svg                    # Site icon|-- favicon.ico                    # Site icon||-- src/                           # Main application source code|   |-- js/                        # JavaScript code|   |   |-- main.js                # Main JS entry point, app initialization|   |   |-- core/                  # Core modules and services|   |   |   |-- apiService.js      # Logic for all Gemini API communications|   |   |   |-- i18nService.js     # Language loading and translation application|   |   |   |-- themeService.js    # Dark/Light theme management|   |   |   |-- subtitleParser.js  # SRT/VTT parsing and validation functions|   |   |   |-- toastService.js    # Toast notification display logic|   |   |-- ui/                    # UI related modules|   |   |   |-- domElements.js     # DOM element selectors|   |   |   |-- settingsController.js # Manages settings (API key, model, tone, creativity)|   |   |   |-- fileController.js    # Manages file upload, name display, char count|   |   |   |-- translationController.js # Manages display of original/translated text, download/copy|   |   |-- utils/                 # General utility functions|   |       |-- helpers.js         # Miscellaneous helper functions|   |-- css/                       # CSS styles|   |   |-- main.css               # General styles and theme CSS variables|   |-- lang/                      # JSON translation files|   |   |-- en.json|   |   |-- fa.json|   |-- assets/                    # Other static assets (e.g., UI icons)||-- service-worker.js              # Service worker for PWA functionality||-- scripts/                       # Helper Node.js scripts|   |-- generate-landing-pages.js||-- .github/|   |-- workflows/|       |-- auto-generate-landing-pages.yml||-- docs/                          # Project documentation||-- landing/                       # Auto-generated landing pages|README.mdCONTRIBUTING.mdCHANGELOG.mdLICENSE.gitignore
 ---
 
 ## 🛠️ Technology Stack
