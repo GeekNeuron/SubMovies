@@ -11,44 +11,45 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="src/css/main.css"> 
+  <link rel="stylesheet" href="src/css/main.css">
   
   <script type="module" src="src/js/main.js" defer></script>
 </head>
-<body> <div class="min-h-screen flex flex-col items-center justify-center p-4">
-    <div class="w-full max-w-4xl">
-      <header class="mb-8 text-center">
-        <div class="flex items-center justify-center mb-2">
-            <img src="favicon.svg" alt="SubMovies Logo" class="w-10 h-10 mr-3">
-            <h1 id="appTitleH1" class="text-4xl font-bold" data-i18n="appTitleH1">SubMovies AI Translator</h1>
-        </div>
-        <p class="text-lg" data-i18n="appSubtitle" style="color: var(--text-color-secondary);">Translate your subtitles effortlessly.</p>
-         <div class="absolute top-4 right-4 flex items-center space-x-2">
-             <select id="langSelect" class="p-2 rounded border text-sm">
-                <option value="en">English</option>
-                <option value="fa">فارسی</option>
-            </select>
-            <button id="themeToggleBtn" class="theme-toggle-button text-2xl">
-                <span class="sun-icon">☀️</span>
-                <span class="moon-icon">🌙</span>
-            </button>
-        </div>
-      </header>
+<body>
 
+  <div class="min-h-screen flex flex-col items-center p-4 pt-8 md:pt-12"> <div class="w-full max-w-4xl">
+      
       <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <section class="card space-y-4" id="settingsCard">
+        <section class="card space-y-5" id="settingsCard">
+          <div class="relative">
+            <div id="titleThemeToggleContainer" class="flex items-center justify-center mb-1 cursor-pointer group">
+                <img src="favicon.svg" alt="SubMovies Logo" class="w-8 h-8 mr-2 md:w-10 md:h-10"> <h1 id="appTitleH1" class="text-2xl md:text-3xl font-bold group-hover:opacity-80 transition-opacity" data-i18n="appHeaderTitle"></h1>
+                <span class="theme-icon-container ml-2 text-xl md:text-2xl opacity-70 group-hover:opacity-100 transition-opacity">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </span>
+            </div>
+            <p class="text-sm md:text-base text-center mb-4" data-i18n="appSubtitle" style="color: var(--text-color-secondary);"></p>
+            <hr style="border-color: var(--input-border); opacity:0.5; margin-bottom: 1.25rem;"/>
+
+            <div id="langSwitcherContainer" class="absolute top-0 right-0 flex space-x-1 md:space-x-2 p-1">
+                <button id="langToggleEn" data-lang="en" class="lang-circle">en</button>
+                <button id="langToggleFa" data-lang="fa" class="lang-circle">فا</button>
+            </div>
+          </div>
+          
           <div>
-            <label for="apiKeyInput" class="icon-label"><span role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel">API Key:</span></label>
-            <input id="apiKeyInput" type="password" data-i18n-placeholder="apiKeyPlaceholder" placeholder="Paste API Key" />
+            <label for="apiKeyInput" class="icon-label"><span role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel"></span></label>
+            <input id="apiKeyInput" type="password" data-i18n-placeholder="apiKeyPlaceholder" />
             <div class="mt-1 flex items-center">
-                <input type="checkbox" id="saveApiKeyCheckbox" class="h-4 w-4 rounded">
-                <label for="saveApiKeyCheckbox" class="ml-2 text-sm" data-i18n="saveApiKeyLabel" style="color: var(--text-color-secondary); font-weight:normal; margin-bottom:0;">Save API Key</label>
+                <input type="checkbox" id="saveApiKeyCheckbox" class="h-4 w-4 rounded focus:ring-offset-0" style="background-color: var(--input-bg); border-color: var(--input-border);">
+                <label for="saveApiKeyCheckbox" class="ml-2 text-sm" data-i18n="saveApiKeyLabel" style="color: var(--text-color-secondary); font-weight:normal; margin-bottom:0;"></label>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label for="modelSelect" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel">Model:</span></label>
+              <label for="modelSelect" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
               <select id="modelSelect">
                 <option value="gemini-2.5-pro-latest">Gemini 2.5 Pro</option> 
                 <option value="gemini-2.5-flash-latest">Gemini 2.5 Flash</option> 
@@ -59,21 +60,21 @@
               </select>
             </div>
             <div>
-              <label for="temperatureInput" class="icon-label" data-i18n="temperatureLabel">Creativity:</label>
+              <label for="temperatureInput" class="icon-label" data-i18n="temperatureLabel"></label>
               <input type="range" id="temperatureInput" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 rounded-lg appearance-none cursor-pointer">
               <div class="text-xs text-center mt-1" id="temperatureValueDisplay" style="color: var(--text-color-secondary);">0.7</div>
-              <p class="text-xs mt-1" data-i18n="temperatureTooltip" style="color: var(--text-color-secondary); opacity: 0.8;">Controls randomness.</p>
+              <p class="text-xs mt-1" data-i18n="temperatureTooltip" style="color: var(--text-color-secondary); opacity: 0.8;"></p>
             </div>
           </div>
-           <p class="text-xs" data-i18n="modelInfo" style="color: var(--text-color-secondary); opacity: 0.8;">Model info here.</p>
+           <p class="text-xs" data-i18n="modelInfo" style="color: var(--text-color-secondary); opacity: 0.8;"></p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label for="toneSelect" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel">Tone:</span></label>
+              <label for="toneSelect" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
               <select id="toneSelect"></select>
             </div>
             <div>
-              <label for="langTargetSelect" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel">Target Lang:</span></label>
+              <label for="langTargetSelect" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
               <select id="langTargetSelect">
                 <option value="en">English (en)</option>
                 <option value="fa">فارسی (fa)</option>
@@ -94,37 +95,37 @@
           </div>
 
           <div>
-            <label id="fileInputLabelEl" for="fileInput" class="icon-label"><span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel">Choose File:</span></label>
+            <label id="fileInputLabelEl" for="fileInput" class="icon-label"><span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span></label>
             <input id="fileInput" type="file" accept=".srt,.vtt" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:font-medium hover:file:opacity-80 cursor-pointer" />
-            <div id="fileNameText" class="text-xs mt-1 h-4" data-i18n="fileNone" style="color: var(--text-color-secondary);">No file chosen</div>
-          </div>
+            <div id="fileNameText" class="text-xs mt-1 h-4" style="color: var(--text-color-secondary);"></div> </div>
           
           <div>
-            <textarea id="promptInput" class="w-full h-40" data-i18n-placeholder="promptPlaceholder" placeholder="Paste subtitle text"></textarea>
-            <div class="text-xs text-right mt-1" id="charCountDisplay" style="color: var(--text-color-secondary);">Chars: 0</div>
+            <textarea id="promptInput" class="w-full h-40" data-i18n-placeholder="promptPlaceholder"></textarea>
+            <div class="text-xs text-right mt-1" id="charCountDisplay" style="color: var(--text-color-secondary);"></div>
           </div>
 
           <div>
-            <label for="filenameInput" class="icon-label"><span role="img" aria-label="disk">💾</span> <span data-i18n="filenameLabel">Output Name:</span></label>
-            <input id="filenameInput" type="text" data-i18n-placeholder="filenamePlaceholder" placeholder="e.g., translated.srt"/>
+            <label for="filenameInput" class="icon-label"><span role="img" aria-label="disk">💾</span> <span data-i18n="filenameLabel"></span></label>
+            <input id="filenameInput" type="text" data-i18n-placeholder="filenamePlaceholder" />
           </div>
           
-          <button id="translateBtn" class="w-full btn" data-i18n="translateBtn">Translate</button>
+          <button id="translateBtn" class="w-full btn" data-i18n="translateBtn"></button>
         </section>
 
         <section id="responseSection" class="card space-y-4" style="display:none;">
           <div class="flex justify-between items-center">
-            <h2 id="responseTitle" class="text-2xl font-semibold" data-i18n="responseTitle">Result:</h2>
-            <button id="copyTranslatedBtn" class="btn btn-secondary text-sm py-1 px-3" data-i18n="copyBtn" style="display:none;">
-                <span role="img" aria-label="copy">📋</span> <span data-i18n="copyBtnText">Copy</span> </button>
+            <h2 id="responseTitle" class="text-2xl font-semibold" data-i18n="responseTitle"></h2>
+            <button id="copyTranslatedBtn" class="btn btn-secondary text-sm py-1 px-3" style="display:none;">
+                <span role="img" aria-label="copy">📋</span> <span data-i18n="copyBtnText"></span>
+            </button>
           </div>
           <div id="responseBox" class="w-full text-sm whitespace-pre-wrap p-4 rounded" style="background-color: var(--input-bg); min-height: 200px;"></div>
-          <button id="downloadBtn" style="display:none" class="w-full btn" data-i18n="downloadBtn">Download</button>
+          <button id="downloadBtn" style="display:none" class="w-full btn" data-i18n="downloadBtn"></button>
         </section>
       </main>
 
       <footer class="text-center text-xs mt-10 py-6" style="color: var(--text-color-secondary); opacity: 0.8;">
-        <p><span data-i18n="footerMadeWith">Made with</span> ❤️ <span data-i18n="footerBy">by</span> <a href="https://github.com/GeekNeuron/SubMovies" class="underline" data-i18n="footerAuthor" style="color: var(--primary-accent);">GeekNeuron</a></p>
+        <p><span data-i18n="footerMadeWith"></span> ❤️ <span data-i18n="footerBy"></span> <a href="https://github.com/GeekNeuron/SubMovies" class="underline" data-i18n="footerAuthor" style="color: var(--primary-accent);">GeekNeuron</a></p>
       </footer>
     </div>
   </div>
