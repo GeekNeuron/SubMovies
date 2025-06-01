@@ -15,19 +15,23 @@
   
   <script type="module" src="src/js/main.js" defer></script>
 </head>
-<body> <div class="min-h-screen flex flex-col items-center p-4 pt-8 md:pt-12">
+<body>
+
+  <div class="min-h-screen flex flex-col items-center p-4 pt-8 md:pt-12">
     <div class="w-full max-w-4xl">
       
       <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <section class="card space-y-5" id="settingsCard">
-          <div class="relative">
-            <div id="titleThemeToggleContainer" class="flex items-center justify-center mb-1 cursor-pointer group" aria-label="Toggle theme"> <img src="favicon.svg" alt="SubMovies Logo" class="w-8 h-8 mr-2 md:w-10 md:h-10">
-                <h1 id="appTitleH1" class="text-2xl md:text-3xl font-bold group-hover:opacity-80 transition-opacity" data-i18n="appHeaderTitle"></h1>
+          <div class="relative border-b pb-4 mb-4" style="border-color: var(--input-border); opacity:0.7;">
+            <div id="titleThemeToggleContainer" class="text-center cursor-pointer group w-max mx-auto" aria-label="Toggle theme">
+                <div class="flex items-center justify-center">
+                    <img src="favicon.svg" alt="SubMovies Logo" class="w-8 h-8 mr-2 md:w-9 md:h-9">
+                    <h1 id="appTitleH1" class="text-2xl md:text-3xl font-bold group-hover:opacity-80 transition-opacity" data-i18n="appHeaderTitle"></h1>
                 </div>
-            <p class="text-sm md:text-base text-center mb-4" data-i18n="appSubtitle" style="color: var(--text-color-secondary);"></p>
-            <hr style="border-color: var(--input-border); opacity:0.5; margin-bottom: 1.25rem;"/>
-
-            <div id="langSwitcherContainer" class="absolute top-0 right-0 flex space-x-1 md:space-x-2 p-1">
+            </div>
+            <p class="text-sm md:text-base text-center mt-1" data-i18n="appSubtitle" style="color: var(--text-color-secondary);"></p>
+            
+            <div id="langSwitcherContainer" class="absolute top-0 right-0 flex space-x-1 md:space-x-1.5 p-0.5">
                 <button id="langToggleEn" data-lang="en" class="lang-circle">en</button>
                 <button id="langToggleFa" data-lang="fa" class="lang-circle">فا</button>
             </div>
@@ -66,7 +70,8 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label for="toneSelect" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
-              <select id="toneSelect"></select> </div>
+              <select id="toneSelect"></select>
+            </div>
             <div>
               <label for="langTargetSelect" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
               <select id="langTargetSelect">
@@ -89,8 +94,11 @@
           </div>
 
           <div>
-            <label id="fileInputLabelEl" for="fileInput" class="icon-label"><span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span></label>
-            <input id="fileInput" type="file" accept=".srt,.vtt" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:font-medium hover:file:opacity-80 cursor-pointer" />
+            <label for="fileInput" class="block mb-2 text-sm font-medium icon-label">
+                <span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span>
+            </label>
+            <label class="custom-file-upload btn btn-secondary w-full text-center cursor-pointer">
+                <input id="fileInput" type="file" accept=".srt,.vtt" class="hidden"/> <span id="fileInputButtonText" data-i18n="fileChooseButtonText">Select File</span> </label>
             <div id="fileNameText" class="text-xs mt-1 h-4" style="color: var(--text-color-secondary);"></div> </div>
           
           <div>
