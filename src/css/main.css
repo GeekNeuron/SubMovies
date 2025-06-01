@@ -1,41 +1,36 @@
-/* src/css/main.css */
-
-/\* Light theme (default) variables */
 body {
-\--body-bg: \#f0f2f5;
-\--text-color-primary: \#1c1e21;
-\--text-color-secondary: \#606770;
-\--container-bg: \#ffffff;
-\--input-bg: \#f5f6f7;
-\--input-border: \#ccd0d5;
-\--input-text: \#1c1e21;
-\--input-focus-border: var(--primary-accent);
-\--button-bg: var(--primary-accent); /* Primary buttons like Translate, Download */
-\--button-text: \#ffffff;
-\--button-hover-bg: var(--primary-accent-dark);
-\--select-bg: \#f5f6f7;
-\--select-text: \#1c1e21;
-\--select-border: \#ccd0d5;
-\--primary-accent: \#007bff;
-\--primary-accent-dark: \#0056b3;
-\--danger-color: \#dc3545;
-\--success-color: \#28a745;
-\--warning-color: \#ffc107;
-/* --theme-toggle-icon-color: \#4b5563; -- Not directly used for a separate icon button anymore */
-\--lang-circle-bg: \#e9ecef;
-\--lang-circle-text: \#495057;
-\--lang-circle-active-bg: var(--primary-accent);
-\--lang-circle-active-text: \#ffffff;
-\--file-btn-bg: \#f8f9fa; /* Custom file button background - Light Theme */
-\--file-btn-text: var(--primary-accent); /* Custom file button text - Light Theme \*/
-\--file-btn-border: var(--input-border);
-\--file-btn-hover-bg: \#e9ecef;
+  --body-bg: #f0f2f5; 
+  --text-color-primary: #1c1e21; 
+  --text-color-secondary: #606770; 
+  --container-bg: #ffffff;
+  --input-bg: #f5f6f7;
+  --input-border: #ccd0d5;
+  --input-text: #1c1e21;
+  --input-focus-border: var(--primary-accent);
+  --button-bg: var(--primary-accent);
+  --button-text: #ffffff;
+  --button-hover-bg: var(--primary-accent-dark);
+  --select-bg: #f5f6f7;
+  --select-text: #1c1e21;
+  --select-border: #ccd0d5;
+  --primary-accent: #007bff; 
+  --primary-accent-dark: #0056b3;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --lang-circle-bg-light: #e9ecef;
+  --lang-circle-text-light: #495057;
+  --lang-circle-active-bg-light: var(--primary-accent);
+  --lang-circle-active-text-light: #ffffff;
+  --file-btn-bg-light: #f8f9fa;
+  --file-btn-text-light: var(--primary-accent);
+  --file-btn-border-light: var(--input-border);
+  --file-btn-hover-bg-light: #e9ecef;
 
 transition: background-color 0.3s ease, color 0.3s ease;
 font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-/\* Dark theme variables */
 body.dark-theme {
 \--body-bg: \#18191a;
 \--text-color-primary: \#e4e6eb;
@@ -49,18 +44,16 @@ body.dark-theme {
 \--select-bg: \#3a3b3c;
 \--select-text: \#e4e6eb;
 \--select-border: \#4e4f50;
-/* --theme-toggle-icon-color: \#b0b3b8; -- Not directly used */
-\--lang-circle-bg: \#3a3b3c;
-\--lang-circle-text: \#e4e6eb;
-\--lang-circle-active-bg: var(--primary-accent);
-\--lang-circle-active-text: \#ffffff;
-\--file-btn-bg: \#495057;   /* Custom file button background - Dark Theme */
-\--file-btn-text: \#ffffff;   /* Custom file button text - Dark Theme \*/
-\--file-btn-border: \#6c757d;
-\--file-btn-hover-bg: \#5a6268;
+\--lang-circle-bg-dark: \#3a3b3c;
+\--lang-circle-text-dark: \#e4e6eb;
+\--lang-circle-active-bg-dark: var(--primary-accent);
+\--lang-circle-active-text-dark: \#ffffff;
+\--file-btn-bg-dark: \#495057;
+\--file-btn-text-dark: \#ffffff;
+\--file-btn-border-dark: \#6c757d;
+\--file-btn-hover-bg-dark: \#5a6268;
 }
 
-/\* General body application of variables \*/
 body {
 background-color: var(--body-bg);
 color: var(--text-color-primary);
@@ -68,9 +61,9 @@ margin: 0;
 line-height: 1.6;
 }
 
-/\* Card styling \*/
 .card {
 background-color: var(--container-bg);
+color: var(--text-color-primary);
 border-radius: 0.75rem;
 box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 padding: 1.5rem;
@@ -79,7 +72,6 @@ body.dark-theme .card {
 box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-/\* Input, textarea, select styling */
 input[type="password"],
 input[type="text"],
 textarea,
@@ -97,7 +89,6 @@ input[type="checkbox"] {
 width: auto;
 background-color: var(--input-bg);
 border-color: var(--input-border);
-/* Tailwind's focus:ring-offset-0 handles focus ring well \*/
 }
 input[type="checkbox"]:checked {
 background-color: var(--primary-accent);
@@ -109,7 +100,7 @@ textarea:focus,
 select:focus {
 outline: none;
 border-color: var(--input-focus-border);
-box-shadow: 0 0 0 3px rgba(0,123,255,0.2); /\* Softer focus ring \*/
+box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
 }
 
 textarea {
@@ -117,7 +108,6 @@ min-height: 10rem;
 resize: vertical;
 }
 
-/\* Label styling \*/
 label {
 display: block;
 margin-bottom: 0.5rem;
@@ -126,10 +116,9 @@ color: var(--text-color-secondary);
 font-size: 0.9rem;
 }
 
-/\* Button styling (for Translate, Download buttons) \*/
 .btn {
-background-color: var(--button-bg);
-color: var(--button-text);
+background-color: var(--button-bg) \!important;
+color: var(--button-text) \!important;
 padding: 0.75rem 1.5rem;
 border-radius: 0.375rem;
 font-weight: 600;
@@ -141,135 +130,143 @@ border: none;
 user-select: none;
 }
 .btn:hover {
-background-color: var(--button-hover-bg);
+background-color: var(--button-hover-bg) \!important;
 transform: translateY(-1px);
 }
 .btn:active {
 transform: translateY(0px);
 }
 
-/\* Secondary button styling (e.g., Copy button) */
 .btn-secondary {
-background-color: var(--input-bg); /* Consistent with input fields */
-color: var(--text-color-primary);
-border: 1px solid var(--input-border);
+background-color: var(--input-bg) \!important;
+color: var(--text-color-primary) \!important;
+border: 1px solid var(--input-border) \!important;
+padding: 0.25rem 0.75rem;
+font-size: 0.875rem;
 }
 .btn-secondary:hover {
-background-color: var(--select-border); /* Using select-border for a subtle hover \*/
-border-color: var(--select-border);
+background-color: var(--select-border) \!important;
+border-color: var(--select-border) \!important;
 }
 
-/\* Theme Toggle Area (Clickable Title Area) */
-\#titleThemeToggleContainer {
-/* Styling primarily handled by Tailwind classes in HTML (w-max, mx-auto, cursor-pointer, group) */
-/* Text color for H1 inside will inherit from body or card \*/
-}
+\#titleThemeToggleContainer {}
 
-/\* Language Circle Switcher Styles */
 .lang-circle {
-width: 2.25rem; /* کمی بزرگتر برای لمس راحت‌تر */
+width: 2.25rem;
 height: 2.25rem;
 border-radius: 50%;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 0.875rem; /* کمی خواناتر */
+font-size: 0.875rem;
 font-weight: 600;
 cursor: pointer;
-background-color: var(--lang-circle-bg);
-color: var(--lang-circle-text);
 border: 1px solid var(--input-border);
 transition: background-color 0.2s, color 0.2s, transform 0.1s, border-color 0.2s, box-shadow 0.2s;
 user-select: none;
-box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* افزودن سایه ملایم */
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+body:not(.dark-theme) .lang-circle {
+background-color: var(--lang-circle-bg-light);
+color: var(--lang-circle-text-light);
+}
+body.dark-theme .lang-circle {
+background-color: var(--lang-circle-bg-dark);
+color: var(--lang-circle-text-dark);
 }
 .lang-circle:hover {
-opacity: 0.9; /* به جای 0.8 برای تفاوت کمتر با active */
+opacity: 0.9;
 transform: scale(1.08);
 box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
-.lang-circle.active {
-background-color: var(--lang-circle-active-bg);
-color: var(--lang-circle-active-text);
-border-color: var(--lang-circle-active-bg); /* بوردر همرنگ پس‌زمینه */
+body:not(.dark-theme) .lang-circle.active {
+background-color: var(--lang-circle-active-bg-light);
+color: var(--lang-circle-active-text-light);
+border-color: var(--lang-circle-active-bg-light);
 font-weight: 700;
 transform: scale(1.05);
-box-shadow: 0 0 0 2px var(--container-bg), 0 0 0 4px var(--lang-circle-active-bg); /* ایجاد یک حلقه دور دکمه فعال \*/
+box-shadow: 0 0 0 2px var(--container-bg), 0 0 0 4px var(--lang-circle-active-bg-light);
+}
+body.dark-theme .lang-circle.active {
+background-color: var(--lang-circle-active-bg-dark);
+color: var(--lang-circle-active-text-dark);
+border-color: var(--lang-circle-active-bg-dark);
+font-weight: 700;
+transform: scale(1.05);
+box-shadow: 0 0 0 2px var(--container-bg), 0 0 0 4px var(--lang-circle-active-bg-dark);
 }
 
-/\* Specific styling for Persian font */
 html[lang="fa"] body,
 html[lang="fa"] input,
 html[lang="fa"] textarea,
 html[lang="fa"] select,
 html[lang="fa"] button,
-html[lang="fa"] .card, /* Apply to cards as well \*/
+html[lang="fa"] .card,
 html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, html[lang="fa"] span, html[lang="fa"] label, html[lang="fa"] div {
 font-family: "Vazirmatn", sans-serif;
 }
 
-/\* Helper for labels with icons */
 .icon-label {
 display: flex;
 align-items: center;
 }
 .icon-label span[role="img"] {
-margin-right: 0.5rem; /* فاصله آیکون از متن */
-font-size: 1.1em; /* اندازه آیکون */
+margin-right: 0.5rem;
+font-size: 1.1em;
 opacity: 0.7;
 }
-html[lang="fa"] .icon-label span[role="img"] { /* تنظیم فاصله برای زبان فارسی \*/
+html[lang="fa"] .icon-label span[role="img"] {
 margin-left: 0.5rem;
 margin-right: 0;
 }
 
-/\* Custom File Input Button Styling */
-label.custom-file-upload { /* Target the label acting as the button */
-display: inline-block; /* Or block if you want it full width */
-width: 100%; /* Make it full width like other buttons */
+label.custom-file-upload {
+display: inline-block;
+width: 100%;
 padding: 0.75rem 1.5rem;
 cursor: pointer;
-background-color: var(--file-btn-bg);
-color: var(--file-btn-text);
-border: 1px solid var(--file-btn-border);
 border-radius: 0.375rem;
-font-weight: 500; /* وزن فونت مانند سایر ورودی‌ها */
+font-weight: 500;
 text-align: center;
 transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
 user-select: none;
 }
+body:not(.dark-theme) label.custom-file-upload {
+background-color: var(--file-btn-bg-light);
+color: var(--file-btn-text-light);
+border: 1px solid var(--file-btn-border-light);
+}
+body.dark-theme label.custom-file-upload {
+background-color: var(--file-btn-bg-dark);
+color: var(--file-btn-text-dark);
+border: 1px solid var(--file-btn-border-dark);
+}
 label.custom-file-upload:hover {
-background-color: var(--file-btn-hover-bg);
-transform: translateY(-1px); /* افکت هاور مشابه سایر دکمه‌ها \*/
+transform: translateY(-1px);
 }
-label.custom-file-upload:active {
-transform: translateY(0px);
+body:not(.dark-theme) label.custom-file-upload:hover {
+background-color: var(--file-btn-hover-bg-light);
 }
-
-input[type="file"].hidden { /\* This class is on the actual &lt;input type=&quot;file&quot;&gt; in index.html */
-display: none; /* Hide the default browser input \*/
+body.dark-theme label.custom-file-upload:hover {
+background-color: var(--file-btn-hover-bg-dark);
 }
 
-/\* Response box and preformatted text styling */
-\#responseBox {
-/* background-color via inline style in index.html currently, using var(--input-bg) */
-/* This is to ensure the div itself has a background if no &lt;pre&gt; elements are inside yet */
-}
+input[type="file"].hidden { display: none; }
+
 \#responseBox pre {
-background-color: var(--input-bg); /* Ensures &lt;pre&gt; tags also use themed background */
+background-color: var(--input-bg);
 border: 1px solid var(--input-border);
 padding: 1rem;
 border-radius: 0.375rem;
-max-h: 24rem; /* ارتفاع حداکثر برای اسکرول */
+max-h: 24rem;
 overflow-y: auto;
-font-size: 0.875rem; /* 14px */
+font-size: 0.875rem;
 line-height: 1.5;
-color: var(--input-text); /* Ensure text color within &lt;pre&gt; matches theme */
-white-space: pre-wrap; /* Already in HTML, but good to have if pre is generated by JS */
-word-wrap: break-word; /* Ensure long lines without spaces wrap \*/
+color: var(--input-text);
+white-space: pre-wrap;
+word-wrap: break-word;
 }
 
-/\* Range input custom styling (Temperature) \*/
 input[type="range"] {
 \-webkit-appearance: none; appearance: none;
 width: 100%; height: 0.5rem;
@@ -296,10 +293,9 @@ border: 2px solid var(--container-bg);
 box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
-/\* Horizontal rule styling */
 hr {
 border: 0;
 height: 1px;
-background-color: var(--input-border); /* Use variable */
-/* opacity: 0.5; -- Already set in HTML inline style, can be moved here \*/
+background-color: var(--input-border);
+opacity: 0.5;
 }
