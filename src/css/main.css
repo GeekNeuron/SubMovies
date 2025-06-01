@@ -1,281 +1,302 @@
 /* src/css/main.css */
 
-/* Light theme (default) variables */
+/\* Light theme (default) variables */
 body {
-  --body-bg: #f0f2f5; 
-  --text-color-primary: #1c1e21; 
-  --text-color-secondary: #606770; 
-  --container-bg: #ffffff;
-  --input-bg: #f5f6f7;
-  --input-border: #ccd0d5;
-  --input-text: #1c1e21;
-  --input-focus-border: var(--primary-accent);
-  --button-bg: var(--primary-accent);
-  --button-text: #ffffff;
-  --button-hover-bg: var(--primary-accent-dark);
-  --select-bg: #f5f6f7;
-  --select-text: #1c1e21;
-  --select-border: #ccd0d5;
-  --primary-accent: #007bff; 
-  --primary-accent-dark: #0056b3;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  /* --theme-toggle-icon-color: #4b5563; -- Not directly used for a separate icon button anymore */
-  --lang-circle-bg: #e9ecef;
-  --lang-circle-text: #495057;
-  --lang-circle-active-bg: var(--primary-accent);
-  --lang-circle-active-text: #ffffff;
-  
-  transition: background-color 0.3s ease, color 0.3s ease;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+\--body-bg: \#f0f2f5;
+\--text-color-primary: \#1c1e21;
+\--text-color-secondary: \#606770;
+\--container-bg: \#ffffff;
+\--input-bg: \#f5f6f7;
+\--input-border: \#ccd0d5;
+\--input-text: \#1c1e21;
+\--input-focus-border: var(--primary-accent);
+\--button-bg: var(--primary-accent); /* Primary buttons like Translate, Download */
+\--button-text: \#ffffff;
+\--button-hover-bg: var(--primary-accent-dark);
+\--select-bg: \#f5f6f7;
+\--select-text: \#1c1e21;
+\--select-border: \#ccd0d5;
+\--primary-accent: \#007bff;
+\--primary-accent-dark: \#0056b3;
+\--danger-color: \#dc3545;
+\--success-color: \#28a745;
+\--warning-color: \#ffc107;
+/* --theme-toggle-icon-color: \#4b5563; -- Not directly used for a separate icon button anymore */
+\--lang-circle-bg: \#e9ecef;
+\--lang-circle-text: \#495057;
+\--lang-circle-active-bg: var(--primary-accent);
+\--lang-circle-active-text: \#ffffff;
+\--file-btn-bg: \#f8f9fa; /* Custom file button background - Light Theme */
+\--file-btn-text: var(--primary-accent); /* Custom file button text - Light Theme \*/
+\--file-btn-border: var(--input-border);
+\--file-btn-hover-bg: \#e9ecef;
+
+transition: background-color 0.3s ease, color 0.3s ease;
+font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-/* Dark theme variables */
+/\* Dark theme variables */
 body.dark-theme {
-  --body-bg: #18191a;
-  --text-color-primary: #e4e6eb;
-  --text-color-secondary: #b0b3b8;
-  --container-bg: #242526;
-  --input-bg: #3a3b3c;
-  --input-border: #4e4f50;
-  --input-text: #e4e6eb;
-  --button-bg: var(--primary-accent); 
-  --button-hover-bg: var(--primary-accent-dark);
-  --select-bg: #3a3b3c;
-  --select-text: #e4e6eb;
-  --select-border: #4e4f50;
-  /* --theme-toggle-icon-color: #b0b3b8; -- Not directly used */
-  --lang-circle-bg: #3a3b3c;
-  --lang-circle-text: #e4e6eb;
-  --lang-circle-active-bg: var(--primary-accent);
-  --lang-circle-active-text: #ffffff;
+\--body-bg: \#18191a;
+\--text-color-primary: \#e4e6eb;
+\--text-color-secondary: \#b0b3b8;
+\--container-bg: \#242526;
+\--input-bg: \#3a3b3c;
+\--input-border: \#4e4f50;
+\--input-text: \#e4e6eb;
+\--button-bg: var(--primary-accent); /* Primary buttons in dark theme */
+\--button-hover-bg: var(--primary-accent-dark);
+\--select-bg: \#3a3b3c;
+\--select-text: \#e4e6eb;
+\--select-border: \#4e4f50;
+/* --theme-toggle-icon-color: \#b0b3b8; -- Not directly used */
+\--lang-circle-bg: \#3a3b3c;
+\--lang-circle-text: \#e4e6eb;
+\--lang-circle-active-bg: var(--primary-accent);
+\--lang-circle-active-text: \#ffffff;
+\--file-btn-bg: \#495057;   /* Custom file button background - Dark Theme */
+\--file-btn-text: \#ffffff;   /* Custom file button text - Dark Theme \*/
+\--file-btn-border: \#6c757d;
+\--file-btn-hover-bg: \#5a6268;
 }
 
-/* General body application of variables */
+/\* General body application of variables \*/
 body {
-  background-color: var(--body-bg);
-  color: var(--text-color-primary);
-  margin: 0;
-  line-height: 1.6;
+background-color: var(--body-bg);
+color: var(--text-color-primary);
+margin: 0;
+line-height: 1.6;
 }
 
-/* Card styling */
+/\* Card styling \*/
 .card {
-  background-color: var(--container-bg);
-  border-radius: 0.75rem; 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 1.5rem; 
+background-color: var(--container-bg);
+border-radius: 0.75rem;
+box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+padding: 1.5rem;
 }
 body.dark-theme .card {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
-/* Input, textarea, select styling */
+/\* Input, textarea, select styling */
 input[type="password"],
 input[type="text"],
 textarea,
 select {
-  background-color: var(--input-bg);
-  border: 1px solid var(--input-border);
-  color: var(--input-text);
-  border-radius: 0.375rem; 
-  padding: 0.75rem 1rem; 
-  width: 100%;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-size: 0.95rem;
+background-color: var(--input-bg);
+border: 1px solid var(--input-border);
+color: var(--input-text);
+border-radius: 0.375rem;
+padding: 0.75rem 1rem;
+width: 100%;
+transition: border-color 0.2s ease, box-shadow 0.2s ease;
+font-size: 0.95rem;
 }
 input[type="checkbox"] {
-    width: auto; 
-    background-color: var(--input-bg);
-    border-color: var(--input-border);
+width: auto;
+background-color: var(--input-bg); /* Checkbox bg might need more specific styling */
+border-color: var(--input-border); /* Checkbox border */
+/* Tailwind's focus:ring-offset-0 handles focus ring well */
 }
 input[type="checkbox"]:checked {
-    background-color: var(--primary-accent);
-    border-color: var(--primary-accent);
+background-color: var(--primary-accent); /* Checkbox checked color \*/
+border-color: var(--primary-accent);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  outline: none;
-  border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+outline: none;
+border-color: var(--input-focus-border);
+box-shadow: 0 0 0 3px rgba(0,123,255,0.2); /\* Softer focus ring \*/
 }
 
 textarea {
-    min-height: 10rem; 
-    resize: vertical;
+min-height: 10rem;
+resize: vertical;
 }
 
-/* Label styling */
+/\* Label styling \*/
 label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: var(--text-color-secondary);
-  font-size: 0.9rem;
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 500;
+color: var(--text-color-secondary);
+font-size: 0.9rem;
 }
 
-/* Button styling */
+/\* Button styling (for Translate, Download buttons) \*/
 .btn {
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  text-align: center;
-  display: inline-block;
-  border: none;
-  user-select: none;
+background-color: var(--button-bg);
+color: var(--button-text);
+padding: 0.75rem 1.5rem;
+border-radius: 0.375rem;
+font-weight: 600;
+cursor: pointer;
+transition: background-color 0.2s ease, transform 0.1s ease;
+text-align: center;
+display: inline-block;
+border: none;
+user-select: none;
 }
 .btn:hover {
-  background-color: var(--button-hover-bg);
-  transform: translateY(-1px);
+background-color: var(--button-hover-bg);
+transform: translateY(-1px);
 }
 .btn:active {
-    transform: translateY(0px);
+transform: translateY(0px);
 }
 
+/\* Secondary button styling (e.g., Copy button) */
 .btn-secondary {
-    background-color: var(--input-bg);
-    color: var(--text-color-primary);
-    border: 1px solid var(--input-border);
+background-color: var(--input-bg); /* Consistent with input fields */
+color: var(--text-color-primary);
+border: 1px solid var(--input-border);
 }
 .btn-secondary:hover {
-    background-color: var(--select-border); 
-    border-color: var(--select-border);
+background-color: var(--select-border); /* Using select-border for a subtle hover \*/
+border-color: var(--select-border);
 }
 
-/* Theme Toggle (Clickable Title Area) */
-#titleThemeToggleContainer {
-    /* w-max mx-auto in HTML handles width based on content and centering */
-    /* No specific icon styles needed here as icons are removed */
+/\* Theme Toggle Area (Clickable Title Area) */
+\#titleThemeToggleContainer {
+/* Styling primarily handled by Tailwind classes in HTML (w-max, mx-auto, cursor-pointer, group) */
+/* Text color for H1 inside will inherit from body or card \*/
 }
 
-/* Language Circle Switcher */
+/\* Language Circle Switcher \*/
 .lang-circle {
-    width: 2rem; 
-    height: 2rem; 
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem; 
-    font-weight: 600;
-    cursor: pointer;
-    background-color: var(--lang-circle-bg);
-    color: var(--lang-circle-text);
-    border: 1px solid var(--input-border);
-    transition: background-color 0.2s, color 0.2s, transform 0.1s, border-color 0.2s;
-    user-select: none;
+width: 2rem;
+height: 2rem;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.8rem;
+font-weight: 600;
+cursor: pointer;
+background-color: var(--lang-circle-bg);
+color: var(--lang-circle-text);
+border: 1px solid var(--input-border);
+transition: background-color 0.2s, color 0.2s, transform 0.1s, border-color 0.2s;
+user-select: none;
 }
 .lang-circle:hover {
-    opacity: 0.8;
-    transform: scale(1.05);
+opacity: 0.8;
+transform: scale(1.05);
 }
 .lang-circle.active {
-    background-color: var(--lang-circle-active-bg);
-    color: var(--lang-circle-active-text);
-    border-color: var(--lang-circle-active-bg);
-    font-weight: 700;
-    transform: scale(1.05);
+background-color: var(--lang-circle-active-bg);
+color: var(--lang-circle-active-text);
+border-color: var(--lang-circle-active-bg);
+font-weight: 700;
+transform: scale(1.05);
 }
 
-
-/* Specific styling for Persian font */
+/\* Specific styling for Persian font */
 html[lang="fa"] body,
 html[lang="fa"] input,
 html[lang="fa"] textarea,
 html[lang="fa"] select,
 html[lang="fa"] button,
-html[lang="fa"] .card,
+html[lang="fa"] .card, /* Apply to cards as well \*/
 html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, html[lang="fa"] span, html[lang="fa"] label, html[lang="fa"] div {
-  font-family: "Vazirmatn", sans-serif;
+font-family: "Vazirmatn", sans-serif;
 }
 
-/* Helper for labels with icons */
+/\* Helper for labels with icons \*/
 .icon-label {
-    display: flex;
-    align-items: center;
+display: flex;
+align-items: center;
 }
-.icon-label span[role="img"] { 
-    margin-right: 0.5rem;
-    font-size: 1.1em; 
-    opacity: 0.7;
+.icon-label span[role="img"] {
+margin-right: 0.5rem;
+font-size: 1.1em;
+opacity: 0.7;
 }
 html[lang="fa"] .icon-label span[role="img"] {
-    margin-left: 0.5rem;
-    margin-right: 0;
+margin-left: 0.5rem;
+margin-right: 0;
 }
 
-/* Custom File Input Button Styling */
-.custom-file-upload {
-    display: inline-block; /* Or block if you want it full width */
-    padding: 0.75rem 1.5rem; /* Match .btn */
-    cursor: pointer;
-    /* Inherit button styles or define specific ones */
-    background-color: var(--input-bg); /* Example: secondary button style */
-    color: var(--text-color-primary);
-    border: 1px solid var(--input-border);
-    border-radius: 0.375rem;
-    font-weight: 500;
-    text-align: center;
-    transition: background-color 0.2s;
+/\* Custom File Input Button Styling */
+label.custom-file-upload { /* Target the label acting as the button */
+display: inline-block;
+width: 100%; /* Make it full width like other buttons \*/
+padding: 0.75rem 1.5rem;
+cursor: pointer;
+background-color: var(--file-btn-bg);
+color: var(--file-btn-text);
+border: 1px solid var(--file-btn-border);
+border-radius: 0.375rem;
+font-weight: 500;
+text-align: center;
+transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
+user-select: none;
 }
-.custom-file-upload:hover {
-    background-color: var(--select-border); /* Example hover */
+label.custom-file-upload:hover {
+background-color: var(--file-btn-hover-bg);
+transform: translateY(-1px);
 }
-input[type="file"].hidden {
-    display: none; /* Hide the actual input */
-}
-
-
-/* Response box styling */
-#responseBox pre { 
-    background-color: var(--input-bg); 
-    border: 1px solid var(--input-border);
-    padding: 1rem;
-    border-radius: 0.375rem;
-    max-h: 24rem; 
-    overflow-y: auto;
-    font-size: 0.875rem; 
-    line-height: 1.5;
-    color: var(--input-text); 
+label.custom-file-upload:active {
+transform: translateY(0px);
 }
 
-/* Range input custom styling (Temperature) */
+input[type="file"].hidden { /\* This class is on the actual &lt;input type=&quot;file&quot;&gt; in index.html */
+display: none; /* Hide the default browser input \*/
+}
+
+/\* Response box and preformatted text styling */
+\#responseBox {
+/* background-color via inline style in index.html currently, using var(--input-bg) */
+/* This is to ensure the div itself has a background if no &lt;pre&gt; elements are inside yet */
+}
+\#responseBox pre {
+background-color: var(--input-bg); /* Ensures &lt;pre&gt; tags also use themed background */
+border: 1px solid var(--input-border);
+padding: 1rem;
+border-radius: 0.375rem;
+max-height: 24rem;
+overflow-y: auto;
+font-size: 0.875rem;
+line-height: 1.5;
+color: var(--input-text); /* Ensure text color within &lt;pre&gt; matches theme */
+white-space: pre-wrap; /* Already in HTML, but good to have if pre is generated by JS */
+word-wrap: break-word; /* Ensure long lines without spaces wrap \*/
+}
+
+/\* Range input custom styling (Temperature) \*/
 input[type="range"] {
-    -webkit-appearance: none; appearance: none;
-    width: 100%; height: 0.5rem; 
-    background: var(--input-border); 
-    border-radius: 0.25rem; 
-    outline: none; opacity: 0.9;
-    transition: opacity .15s ease-in-out;
-    padding: 0; 
+\-webkit-appearance: none; appearance: none;
+width: 100%; height: 0.5rem;
+background: var(--input-border);
+border-radius: 0.25rem;
+outline: none; opacity: 0.9;
+transition: opacity .15s ease-in-out;
+padding: 0;
 }
 input[type="range"]:hover { opacity: 1; }
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none;
-    width: 1.25rem; height: 1.25rem; 
-    background: var(--primary-accent); 
-    border-radius: 50%; cursor: pointer;
-    border: 2px solid var(--container-bg); 
-    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+\-webkit-appearance: none; appearance: none;
+width: 1.25rem; height: 1.25rem;
+background: var(--primary-accent);
+border-radius: 50%; cursor: pointer;
+border: 2px solid var(--container-bg);
+box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 input[type="range"]::-moz-range-thumb {
-    width: 1.25rem; height: 1.25rem;
-    background: var(--primary-accent);
-    border-radius: 50%; cursor: pointer;
-    border: 2px solid var(--container-bg);
-    box-shadow: 0 0 2px rgba(0,0,0,0.2);
+width: 1.25rem; height: 1.25rem;
+background: var(--primary-accent);
+border-radius: 50%; cursor: pointer;
+border: 2px solid var(--container-bg);
+box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
+/\* Horizontal rule styling */
 hr {
-    border: 0;
-    height: 1px;
-    /* background-color: var(--input-border); -- Already styled in HTML */
-    /* opacity: 0.5; */
+border: 0;
+height: 1px;
+background-color: var(--input-border); /* Use variable */
+/* opacity: 0.5; -- Already set in HTML inline style, can be moved here \*/
 }
