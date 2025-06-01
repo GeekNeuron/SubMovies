@@ -17,6 +17,11 @@
 </head>
 <body>
 
+  <div id="langSwitcherContainer" class="fixed top-4 right-4 flex space-x-2 z-50">
+      <button id="langToggleEn" data-lang="en" class="lang-circle">en</button>
+      <button id="langToggleFa" data-lang="fa" class="lang-circle">فا</button>
+  </div>
+
   <div class="min-h-screen flex flex-col items-center p-4 pt-8 md:pt-12">
     <div class="w-full max-w-4xl">
       
@@ -30,12 +35,7 @@
                 </div>
             </div>
             <p class="text-sm md:text-base text-center mt-1" data-i18n="appSubtitle" style="color: var(--text-color-secondary);"></p>
-            
-            <div id="langSwitcherContainer" class="absolute top-0 right-0 flex space-x-1 md:space-x-1.5 p-0.5">
-                <button id="langToggleEn" data-lang="en" class="lang-circle">en</button>
-                <button id="langToggleFa" data-lang="fa" class="lang-circle">فا</button>
             </div>
-          </div>
           
           <div>
             <label for="apiKeyInput" class="icon-label"><span role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel"></span></label>
@@ -98,8 +98,11 @@
                 <span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span>
             </label>
             <label class="custom-file-upload btn btn-secondary w-full text-center cursor-pointer">
-                <input id="fileInput" type="file" accept=".srt,.vtt" class="hidden"/> <span id="fileInputButtonText" data-i18n="fileChooseButtonText">Select File</span> </label>
-            <div id="fileNameText" class="text-xs mt-1 h-4" style="color: var(--text-color-secondary);"></div> </div>
+                <input id="fileInput" type="file" accept=".srt,.vtt" class="hidden"/>
+                <span id="fileInputButtonText" data-i18n="fileChooseButtonText"></span>
+            </label>
+            <div id="fileNameText" class="text-xs mt-1 h-4" style="color: var(--text-color-secondary);"></div>
+          </div>
           
           <div>
             <textarea id="promptInput" class="w-full h-40" data-i18n-placeholder="promptPlaceholder"></textarea>
