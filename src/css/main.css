@@ -2,278 +2,221 @@
 
 /\* Light theme (default) variables */
 body {
-\--body-bg: \#f0f2f5;
-\--text-color-primary: \#1c1e21;
-\--text-color-secondary: \#606770;
-\--container-bg: \#ffffff;
-\--input-bg: \#f5f6f7;
-\--input-border: \#ccd0d5;
-\--input-text: \#1c1e21;
-\--input-focus-border: var(--primary-accent);
-\--button-bg: var(--primary-accent); /* Primary buttons like Translate, Download */
-\--button-text: \#ffffff;
-\--button-hover-bg: var(--primary-accent-dark);
-\--select-bg: \#f5f6f7;
-\--select-text: \#1c1e21;
-\--select-border: \#ccd0d5;
+\--body-bg-color-actual: \#f0f2f5;
+\--text-color-primary-actual: \#1c1e21;
+\--text-color-secondary-actual: \#606770;
+\--card-bg-color-actual: \#ffffff;
+\--input-bg-color-actual: \#f5f6f7;
+\--input-border-color-actual: \#ccd0d5;
+\--input-text-actual: \#1f2937;
+\--input-focus-border-actual: var(--primary-accent);
+\--button-main-bg-actual: var(--primary-accent);
+\--button-main-text-actual: \#ffffff;
+\--button-main-hover-bg-actual: var(--primary-accent-dark);
+\--button-secondary-bg-actual: \#e9ecef;
+\--button-secondary-text-actual: \#495057;
+\--button-secondary-border-actual: \#ced4da;
+\--select-bg-actual: \#f5f6f7; /* For select elements \*/
+\--select-text-actual: \#1f2937;
+\--select-border-actual: \#ccd0d5;
+
 \--primary-accent: \#007bff;
 \--primary-accent-dark: \#0056b3;
 \--danger-color: \#dc3545;
 \--success-color: \#28a745;
 \--warning-color: \#ffc107;
-/* --theme-toggle-icon-color: \#4b5563; -- Not directly used for a separate icon button anymore */
-\--lang-circle-bg: \#e9ecef;
-\--lang-circle-text: \#495057;
-\--lang-circle-active-bg: var(--primary-accent);
-\--lang-circle-active-text: \#ffffff;
-\--file-btn-bg: \#f8f9fa; /* Custom file button background - Light Theme */
-\--file-btn-text: var(--primary-accent); /* Custom file button text - Light Theme \*/
-\--file-btn-border: var(--input-border);
-\--file-btn-hover-bg: \#e9ecef;
 
-transition: background-color 0.3s ease, color 0.3s ease;
+\--file-btn-bg-actual: \#f8f9fa;
+\--file-btn-text-actual: var(--primary-accent);
+\--file-btn-border-actual: var(--input-border-color-actual);
+\--file-btn-hover-bg-actual: \#e9ecef;
+
+\--lang-circle-bg-actual: \#e9ecef;
+\--lang-circle-text-actual: \#495057;
+\--lang-circle-active-bg-actual: var(--primary-accent);
+\--lang-circle-active-text-actual: \#ffffff;
+
 font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-/\* Dark theme variables */
-body.dark-theme {
-\--body-bg: \#18191a;
-\--text-color-primary: \#e4e6eb;
-\--text-color-secondary: \#b0b3b8;
-\--container-bg: \#242526;
-\--input-bg: \#3a3b3c;
-\--input-border: \#4e4f50;
-\--input-text: \#e4e6eb;
-\--button-bg: var(--primary-accent);
-\--button-hover-bg: var(--primary-accent-dark);
-\--select-bg: \#3a3b3c;
-\--select-text: \#e4e6eb;
-\--select-border: \#4e4f50;
-/* --theme-toggle-icon-color: \#b0b3b8; -- Not directly used */
-\--lang-circle-bg: \#3a3b3c;
-\--lang-circle-text: \#e4e6eb;
-\--lang-circle-active-bg: var(--primary-accent);
-\--lang-circle-active-text: \#ffffff;
-\--file-btn-bg: \#495057;   /* Custom file button background - Dark Theme */
-\--file-btn-text: \#ffffff;   /* Custom file button text - Dark Theme \*/
-\--file-btn-border: \#6c757d;
-\--file-btn-hover-bg: \#5a6268;
-}
-
-/\* General body application of variables \*/
-body {
-background-color: var(--body-bg);
-color: var(--text-color-primary);
+transition: background-color 0.3s ease, color 0.3s ease;
 margin: 0;
 line-height: 1.6;
 }
 
-/\* Card styling \*/
-.card {
-background-color: var(--container-bg);
-border-radius: 0.75rem;
-box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-padding: 1.5rem;
-}
-body.dark-theme .card {
-box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+/\* Dark Theme Variable Overrides */
+body.dark-theme {
+\--body-bg-color-actual: \#18191a;
+\--text-color-primary-actual: \#e4e6eb;
+\--text-color-secondary-actual: \#b0b3b8;
+\--card-bg-color-actual: \#242526;
+\--input-bg-color-actual: \#3a3b3c;
+\--input-border-color-actual: \#4e4f50;
+\--input-text-actual: \#e4e6eb;
+/* --button-main-bg-actual: var(--primary-accent); -- Can be same or a dark theme specific accent */
+/* --button-main-hover-bg-actual: var(--primary-accent-dark); \*/
+\--button-secondary-bg-actual: \#4a4a4f;
+\--button-secondary-text-actual: \#e4e6eb;
+\--button-secondary-border-actual: \#5a5a5f;
+\--select-bg-actual: \#3a3b3c;
+\--select-text-actual: \#e4e6eb;
+\--select-border-actual: \#4e4f50;
+
+\--file-btn-bg-actual: \#495057;
+\--file-btn-text-actual: \#ffffff;
+\--file-btn-border-actual: \#6c757d;
+\--file-btn-hover-bg-actual: \#5a6268;
+
+\--lang-circle-bg-actual: \#3a3b3c;
+\--lang-circle-text-actual: \#e4e6eb;
+\--lang-circle-active-bg-actual: var(--primary-accent);
+\--lang-circle-active-text-actual: \#ffffff;
 }
 
-/\* Input, textarea, select styling */
+/\* Applying base theme colors using the '-actual' suffixed variables \*/
+body {
+background-color: var(--body-bg-color-actual);
+color: var(--text-color-primary-actual);
+}
+
+.card {
+background-color: var(--card-bg-color-actual);
+color: var(--text-color-primary-actual);
+/\* Tailwind classes for rounded, shadow, padding are in HTML \*/
+}
+
 input[type="password"],
 input[type="text"],
 textarea,
 select {
-background-color: var(--input-bg);
-border: 1px solid var(--input-border);
-color: var(--input-text);
-border-radius: 0.375rem;
-padding: 0.75rem 1rem;
-width: 100%;
-transition: border-color 0.2s ease, box-shadow 0.2s ease;
-font-size: 0.95rem;
+background-color: var(--input-bg-color-actual);
+border: 1px solid var(--input-border-color-actual); /\* Ensure border width is set */
+color: var(--input-text-actual);
+/* Tailwind classes for padding, rounded, width, focus rings are in HTML */
 }
 input[type="checkbox"] {
-width: auto;
-background-color: var(--input-bg);
-border-color: var(--input-border);
-/* Tailwind's focus:ring-offset-0 handles focus ring well \*/
+background-color: var(--input-bg-color-actual);
+border-color: var(--input-border-color-actual);
+/* Tailwind classes for h-4 w-4 rounded text-indigo-600 focus:ring-indigo-500 */
 }
 input[type="checkbox"]:checked {
-background-color: var(--primary-accent);
+background-color: var(--primary-accent); /* This will override Tailwind's text-indigo-600 for bg \*/
 border-color: var(--primary-accent);
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-outline: none;
-border-color: var(--input-focus-border);
-box-shadow: 0 0 0 3px rgba(0,123,255,0.2); /\* Softer focus ring \*/
+/\* Focus styles (can be enhanced beyond Tailwind's default if needed) */
+input:focus, textarea:focus, select:focus {
+border-color: var(--input-focus-border-actual); /* Use themed focus border */
+/* Tailwind's focus:ring-indigo-500 and box-shadow can provide the ring \*/
 }
 
-textarea {
-min-height: 10rem;
-resize: vertical;
-}
-
-/\* Label styling \*/
 label {
-display: block;
-margin-bottom: 0.5rem;
-font-weight: 500;
-color: var(--text-color-secondary);
-font-size: 0.9rem;
+color: var(--text-color-secondary-actual);
+/\* Tailwind classes for block, mb-2, text-sm, font-medium are in HTML */
+}
+label[for="saveApiKeyCheckbox"] { /* Specific label */
+color: var(--text-color-secondary-actual);
+/* Tailwind: ml-2 text-sm font-normal mb-0 \*/
 }
 
-/\* Button styling (for Translate, Download buttons) \*/
-.btn {
-background-color: var(--button-bg);
-color: var(--button-text);
-padding: 0.75rem 1.5rem;
-border-radius: 0.375rem;
-font-weight: 600;
-cursor: pointer;
-transition: background-color 0.2s ease, transform 0.1s ease;
-text-align: center;
-display: inline-block;
-border: none;
-user-select: none;
+/\* Main action buttons (Translate, Download) */
+/* These primarily use Tailwind classes for bg, text, hover in HTML. */
+/* If you want to override with CSS vars: */
+/*
+button\#translateBtn, button\#downloadBtn {
+background-color: var(--button-main-bg-actual) \!important;
+color: var(--button-main-text-actual) \!important;
 }
-.btn:hover {
-background-color: var(--button-hover-bg);
-transform: translateY(-1px);
+button\#translateBtn:hover, button\#downloadBtn:hover {
+background-color: var(--button-main-hover-bg-actual) \!important;
 }
-.btn:active {
-transform: translateY(0px);
+\*/
+
+/\* Secondary button (Copy) */
+button\#copyTranslatedBtn.btn-secondary { /* More specific selector */
+background-color: var(--button-secondary-bg-actual) \!important;
+color: var(--button-secondary-text-actual) \!important;
+border: 1px solid var(--button-secondary-border-actual) \!important;
+/* Tailwind: text-sm py-1 px-3 */
+}
+button\#copyTranslatedBtn.btn-secondary:hover {
+opacity: 0.85; /* Simple hover \*/
 }
 
-/\* Secondary button styling (e.g., Copy button) */
-.btn-secondary {
-background-color: var(--input-bg); /* Consistent with input fields */
-color: var(--text-color-primary);
-border: 1px solid var(--input-border);
-}
-.btn-secondary:hover {
-background-color: var(--select-border); /* Using select-border for a subtle hover \*/
-border-color: var(--select-border);
-}
-
-/\* Theme Toggle Area (Clickable Title Area) */
-\#titleThemeToggleContainer {
-/* Styling primarily handled by Tailwind classes in HTML (w-max, mx-auto, cursor-pointer, group) */
-/* Text color for H1 inside will inherit from body or card \*/
-}
-
-/\* Language Circle Switcher Styles */
+/\* Language Circle Switcher \*/
 .lang-circle {
-width: 2.25rem; /* کمی بزرگتر برای لمس راحت‌تر */
+width: 2.25rem;
 height: 2.25rem;
 border-radius: 50%;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 0.875rem; /* کمی خواناتر */
+font-size: 0.875rem;
 font-weight: 600;
 cursor: pointer;
-background-color: var(--lang-circle-bg);
-color: var(--lang-circle-text);
-border: 1px solid var(--input-border);
-transition: background-color 0.2s, color 0.2s, transform 0.1s, border-color 0.2s, box-shadow 0.2s;
+background-color: var(--lang-circle-bg-actual);
+color: var(--lang-circle-text-actual);
+border: 1px solid var(--input-border-color-actual);
+transition: background-color 0.2s, color 0.2s, transform 0.1s, box-shadow 0.2s, border-color 0.2s;
 user-select: none;
-box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* افزودن سایه ملایم */
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .lang-circle:hover {
-opacity: 0.9; /* به جای 0.8 برای تفاوت کمتر با active */
+opacity: 0.9;
 transform: scale(1.08);
-box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 .lang-circle.active {
-background-color: var(--lang-circle-active-bg);
-color: var(--lang-circle-active-text);
-border-color: var(--lang-circle-active-bg); /* بوردر همرنگ پس‌زمینه */
+background-color: var(--lang-circle-active-bg-actual);
+color: var(--lang-circle-active-text-actual);
+border-color: var(--lang-circle-active-bg-actual);
 font-weight: 700;
-transform: scale(1.05);
-box-shadow: 0 0 0 2px var(--container-bg), 0 0 0 4px var(--lang-circle-active-bg); /* ایجاد یک حلقه دور دکمه فعال \*/
+box-shadow: 0 0 0 2px var(--card-bg-color-actual), 0 0 0 4px var(--lang-circle-active-bg-actual);
 }
 
-/\* Specific styling for Persian font */
-html[lang="fa"] body,
-html[lang="fa"] input,
-html[lang="fa"] textarea,
-html[lang="fa"] select,
-html[lang="fa"] button,
-html[lang="fa"] .card, /* Apply to cards as well \*/
-html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, html[lang="fa"] span, html[lang="fa"] label, html[lang="fa"] div {
-font-family: "Vazirmatn", sans-serif;
-}
-
-/\* Helper for labels with icons */
-.icon-label {
-display: flex;
-align-items: center;
-}
-.icon-label span[role="img"] {
-margin-right: 0.5rem; /* فاصله آیکون از متن */
-font-size: 1.1em; /* اندازه آیکون */
-opacity: 0.7;
-}
-html[lang="fa"] .icon-label span[role="img"] { /* تنظیم فاصله برای زبان فارسی \*/
-margin-left: 0.5rem;
-margin-right: 0;
-}
-
-/\* Custom File Input Button Styling */
-label.custom-file-upload { /* Target the label acting as the button */
-display: inline-block; /* Or block if you want it full width */
-width: 100%; /* Make it full width like other buttons */
+/\* Custom File Input Button (Label) \*/
+label.custom-file-upload {
+display: inline-block;
+width: 100%;
 padding: 0.75rem 1.5rem;
 cursor: pointer;
-background-color: var(--file-btn-bg);
-color: var(--file-btn-text);
-border: 1px solid var(--file-btn-border);
 border-radius: 0.375rem;
-font-weight: 500; /* وزن فونت مانند سایر ورودی‌ها */
+font-weight: 500;
 text-align: center;
 transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
 user-select: none;
+background-color: var(--file-btn-bg-actual);
+color: var(--file-btn-text-actual);
+border: 1px solid var(--file-btn-border-actual);
 }
 label.custom-file-upload:hover {
-background-color: var(--file-btn-hover-bg);
-transform: translateY(-1px); /* افکت هاور مشابه سایر دکمه‌ها \*/
+background-color: var(--file-btn-hover-bg-actual);
+transform: translateY(-1px);
 }
-label.custom-file-upload:active {
-transform: translateY(0px);
-}
-
-input[type="file"].hidden { /\* This class is on the actual &lt;input type=&quot;file&quot;&gt; in index.html */
-display: none; /* Hide the default browser input \*/
-}
+input[type="file"].hidden { display: none; }
 
 /\* Response box and preformatted text styling */
 \#responseBox {
-/* background-color via inline style in index.html currently, using var(--input-bg) */
-/* This is to ensure the div itself has a background if no &lt;pre&gt; elements are inside yet */
+background-color: var(--input-bg-color-actual); /* Background for the div itself */
+border: 1px solid var(--input-border-color-actual); /* Border for the div */
+/* Tailwind classes for padding, rounded, shadow are in HTML */
 }
 \#responseBox pre {
-background-color: var(--input-bg); /* Ensures &lt;pre&gt; tags also use themed background */
-border: 1px solid var(--input-border);
-padding: 1rem;
-border-radius: 0.375rem;
-max-h: 24rem; /* ارتفاع حداکثر برای اسکرول */
+/* Pre tag itself should be transparent if \#responseBox has bg and padding */
+background-color: transparent;
+border: none;
+padding: 0.5rem; /* Minimal padding for pre, main padding on \#responseBox \*/
+max-h: 24rem;
 overflow-y: auto;
-font-size: 0.875rem; /* 14px */
+font-size: 0.875rem;
 line-height: 1.5;
-color: var(--input-text); /* Ensure text color within &lt;pre&gt; matches theme */
-white-space: pre-wrap; /* Already in HTML, but good to have if pre is generated by JS */
-word-wrap: break-word; /* Ensure long lines without spaces wrap \*/
+color: var(--input-text-actual);
+white-space: pre-wrap;
+word-wrap: break-word;
 }
 
 /\* Range input custom styling (Temperature) \*/
 input[type="range"] {
 \-webkit-appearance: none; appearance: none;
 width: 100%; height: 0.5rem;
-background: var(--input-border);
+background: var(--input-border-color-actual);
 border-radius: 0.25rem;
 outline: none; opacity: 0.9;
 transition: opacity .15s ease-in-out;
@@ -285,21 +228,60 @@ input[type="range"]::-webkit-slider-thumb {
 width: 1.25rem; height: 1.25rem;
 background: var(--primary-accent);
 border-radius: 50%; cursor: pointer;
-border: 2px solid var(--container-bg);
+border: 2px solid var(--card-bg-color-actual);
 box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 input[type="range"]::-moz-range-thumb {
 width: 1.25rem; height: 1.25rem;
 background: var(--primary-accent);
 border-radius: 50%; cursor: pointer;
-border: 2px solid var(--container-bg);
+border: 2px solid var(--card-bg-color-actual);
 box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
 /\* Horizontal rule styling */
-hr {
+hr.custom-hr { /* If using a class for HR in HTML */
 border: 0;
 height: 1px;
-background-color: var(--input-border); /* Use variable */
-/* opacity: 0.5; -- Already set in HTML inline style, can be moved here \*/
+background-color: var(--input-border-color-actual);
+opacity: 0.5;
+}
+/* If using Tailwind classes for HR in HTML, those will apply. */
+/* Example: border-b border-gray-200 dark:border-gray-700 opacity-70 */
+/* The HTML from response \#83 uses Tailwind classes for the HR \*/
+
+/\* Vazirmatn Font for Persian \*/
+html[lang="fa"] body,
+html[lang="fa"] input, html[lang="fa"] textarea, html[lang="fa"] select,
+html[lang="fa"] button, html[lang="fa"] .card,
+html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3,
+html[lang="fa"] p, html[lang="fa"] span, html[lang="fa"] label,
+html[lang="fa"] div\#fileNameText, html[lang="fa"] \#responseBox pre {
+font-family: "Vazirmatn", sans-serif;
+}
+
+/\* Icon Label helper \*/
+.icon-label { display: flex; align-items: center; }
+.icon-label span[role="img"] { margin-right: 0.5rem; font-size: 1.1em; opacity: 0.7; }
+html[lang="fa"] .icon-label span[role="img"] { margin-left: 0.5rem; margin-right: 0; }
+
+/\* Ensure secondary texts also adapt color */
+\#temperatureValueDisplay,
+\#charCountDisplay,
+\#fileNameText,
+p[data-i18n="temperatureTooltip"],
+p[data-i18n="modelInfo"],
+footer p, footer span {
+color: var(--text-color-secondary-actual);
+}
+footer a {
+color: var(--primary-accent) \!important; /* Ensure link color uses accent \*/
+}
+p[data-i18n="appSubtitle"] {
+color: var(--text-color-secondary-actual);
+}
+
+/\* Specific H1 and H2 colors if needed beyond primary text color \*/
+\#appTitleH1, \#responseTitle {
+color: var(--text-color-primary-actual);
 }
