@@ -2,26 +2,26 @@
 
 /* Light theme (default) variables */
 body {
-  --body-bg: #f0f2f5; /* Light gray, more modern than gray-100 */
-  --text-color-primary: #1c1e21; /* Dark text, good contrast */
-  --text-color-secondary: #606770; /* Medium gray for less important text */
-  --container-bg: #ffffff; /* White for cards/containers */
-  --input-bg: #f5f6f7; /* Very light gray for inputs */
-  --input-border: #ccd0d5; /* Light gray border */
-  --input-text: #1c1e21; /* Dark text in inputs */
-  --input-focus-border: var(--primary-accent); /* Accent color for focus */
-  --button-bg: var(--primary-accent); /* Primary button background */
-  --button-text: #ffffff; /* White text on primary buttons */
-  --button-hover-bg: var(--primary-accent-dark); /* Darker accent for hover */
-  --select-bg: #f5f6f7; /* Consistent with input background */
+  --body-bg: #f0f2f5;
+  --text-color-primary: #1c1e21;
+  --text-color-secondary: #606770;
+  --container-bg: #ffffff;
+  --input-bg: #f5f6f7;
+  --input-border: #ccd0d5;
+  --input-text: #1c1e21;
+  --input-focus-border: var(--primary-accent);
+  --button-bg: var(--primary-accent);
+  --button-text: #ffffff;
+  --button-hover-bg: var(--primary-accent-dark);
+  --select-bg: #f5f6f7;
   --select-text: #1c1e21;
   --select-border: #ccd0d5;
-  --primary-accent: #007bff; /* A standard, vibrant blue */
-  --primary-accent-dark: #0056b3; /* Darker shade of the accent */
-  --danger-color: #dc3545; /* Standard red for errors */
-  --success-color: #28a745; /* Standard green for success */
-  --warning-color: #ffc107; /* Standard yellow for warnings */
-  --theme-toggle-icon-color: #4b5563; /* Icon color in light theme */
+  --primary-accent: #007bff;
+  --primary-accent-dark: #0056b3;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --theme-toggle-icon-color: #4b5563;
   
   transition: background-color 0.3s ease, color 0.3s ease;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -29,40 +29,39 @@ body {
 
 /* Dark theme variables */
 body.dark-theme {
-  --body-bg: #18191a; /* Very dark gray, almost black */
-  --text-color-primary: #e4e6eb; /* Light gray text for dark mode */
-  --text-color-secondary: #b0b3b8; /* Medium light gray */
-  --container-bg: #242526; /* Dark gray for cards */
-  --input-bg: #3a3b3c; /* Slightly lighter dark gray for inputs */
-  --input-border: #4e4f50; /* Border for inputs in dark mode */
-  --input-text: #e4e6eb; /* Light text in inputs */
-  /* --input-focus-border: var(--primary-accent); Focus border can remain the same or be adjusted */
-  --button-bg: var(--primary-accent); /* Buttons can keep accent color */
+  --body-bg: #18191a;
+  --text-color-primary: #e4e6eb;
+  --text-color-secondary: #b0b3b8;
+  --container-bg: #242526;
+  --input-bg: #3a3b3c;
+  --input-border: #4e4f50;
+  --input-text: #e4e6eb;
+  --button-bg: var(--primary-accent); /* Can be same as light or different */
   /* --button-text: #ffffff; */
   /* --button-hover-bg: var(--primary-accent-dark); */
   --select-bg: #3a3b3c;
   --select-text: #e4e6eb;
   --select-border: #4e4f50;
-  --theme-toggle-icon-color: #b0b3b8; /* Icon color in dark theme */
+  --theme-toggle-icon-color: #b0b3b8;
 }
 
 /* General body application of variables */
 body {
   background-color: var(--body-bg);
   color: var(--text-color-primary);
-  margin: 0; /* Remove default margin */
-  line-height: 1.6; /* Improve readability */
+  margin: 0;
+  line-height: 1.6;
 }
 
-/* Card styling (used for formContainer and responseSection) */
+/* Card styling */
 .card {
   background-color: var(--container-bg);
-  border-radius: 0.75rem; /* 12px */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Softer shadow */
-  padding: 1.5rem; /* 24px */
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 1.5rem;
 }
 body.dark-theme .card {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25); /* Slightly more pronounced shadow for dark */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
 /* Input, textarea, select styling */
@@ -73,8 +72,8 @@ select {
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
   color: var(--input-text);
-  border-radius: 0.375rem; /* 6px */
-  padding: 0.75rem 1rem; /* 12px 16px */
+  border-radius: 0.375rem;
+  padding: 0.75rem 1rem;
   width: 100%;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-size: 0.95rem;
@@ -85,19 +84,19 @@ textarea:focus,
 select:focus {
   outline: none;
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3px rgba(0,123,255,0.2); /* Softer, wider focus ring */
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
 }
 
 textarea {
     min-height: 10rem; /* 160px */
-    resize: vertical; /* Allow vertical resize */
+    resize: vertical;
 }
 
 /* Label styling */
 label {
   display: block;
-  margin-bottom: 0.5rem; /* 8px */
-  font-weight: 500; /* Medium weight */
+  margin-bottom: 0.5rem;
+  font-weight: 500;
   color: var(--text-color-secondary);
   font-size: 0.9rem;
 }
@@ -106,22 +105,22 @@ label {
 .btn {
   background-color: var(--button-bg);
   color: var(--button-text);
-  padding: 0.75rem 1.5rem; /* 12px 24px */
-  border-radius: 0.375rem; /* 6px */
-  font-weight: 600; /* Semibold */
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
   text-align: center;
   display: inline-block;
   border: none;
-  user-select: none; /* Prevent text selection on click */
+  user-select: none;
 }
 .btn:hover {
   background-color: var(--button-hover-bg);
-  transform: translateY(-1px); /* Slight lift on hover */
+  transform: translateY(-1px);
 }
 .btn:active {
-    transform: translateY(0px); /* Press down effect */
+    transform: translateY(0px);
 }
 
 .btn-secondary {
@@ -134,14 +133,13 @@ label {
     border-color: var(--select-border);
 }
 
-
 /* Theme Toggle Button specific styles */
 .theme-toggle-button {
   background: none;
   border: none;
   color: var(--theme-toggle-icon-color);
   cursor: pointer;
-  font-size: 1.25rem; /* Slightly smaller for header */
+  font-size: 1.25rem;
   padding: 0.25rem;
   line-height: 1;
   opacity: 0.8;
@@ -161,7 +159,7 @@ html[lang="fa"] input,
 html[lang="fa"] textarea,
 html[lang="fa"] select,
 html[lang="fa"] button,
-html[lang="fa"] .card, /* Apply to cards as well */
+html[lang="fa"] .card,
 html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, html[lang="fa"] span, html[lang="fa"] label, html[lang="fa"] div {
   font-family: "Vazirmatn", sans-serif;
 }
@@ -171,9 +169,9 @@ html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, h
     display: flex;
     align-items: center;
 }
-.icon-label span[role="img"] { /* The icon part */
-    margin-right: 0.5rem; /* 8px */
-    font-size: 1.1em; /* Make icon slightly larger */
+.icon-label span[role="img"] {
+    margin-right: 0.5rem;
+    font-size: 1.1em;
     opacity: 0.7;
 }
 html[lang="fa"] .icon-label span[role="img"] {
@@ -181,9 +179,9 @@ html[lang="fa"] .icon-label span[role="img"] {
     margin-right: 0;
 }
 
-/* File input specific styling to make it look better */
+/* File input specific styling */
 #fileInput {
-    padding: 0; /* Remove default padding for type=file */
+    padding: 0; 
 }
 #fileInput::file-selector-button {
     margin-right: 1rem;
@@ -196,24 +194,28 @@ html[lang="fa"] .icon-label span[role="img"] {
     cursor: pointer;
     transition: background-color 0.2s;
 }
+html[lang="fa"] #fileInput::file-selector-button {
+    margin-left: 1rem;
+    margin-right: 0;
+}
 #fileInput::file-selector-button:hover {
-    background-color: var(--select-border);
+    background-color: var(--select-border); /* Using a var for consistency */
 }
 body.dark-theme #fileInput::file-selector-button {
-    border-color: var(--select-border);
+    border-color: var(--select-border); /* Better contrast in dark mode */
 }
 
-
 /* Response box styling */
-#responseBox pre { /* If renderCompare uses <pre> */
-    background-color: var(--input-bg);
+#responseBox pre { /* Applied if renderCompare still uses <pre> internally */
+    background-color: var(--input-bg); /* Use input-bg for pre backgrounds */
     border: 1px solid var(--input-border);
     padding: 1rem;
     border-radius: 0.375rem;
-    max-height: 24rem; /* 384px */
+    max-h: 24rem; /* 384px */
     overflow-y: auto;
     font-size: 0.875rem; /* 14px */
     line-height: 1.5;
+    color: var(--input-text); /* Ensure text color matches theme */
 }
 
 /* Range input custom styling (Temperature) */
