@@ -73,8 +73,10 @@
 |       |-- auto-generate-landing-pages.yml
 |
 |-- docs/                          # Project documentation
+|   |--
 |
 |-- landing/                       # Auto-generated landing pages
+|   |--
 |
 README.md
 CONTRIBUTING.md
