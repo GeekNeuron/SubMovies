@@ -1,19 +1,67 @@
 // src/js/utils/helpers.js
 
-// This file is currently empty as fixNumbers and toEnglishNumerals were moved to subtitleParser.js
-// You can add other general utility functions here as your project grows.
-// For example, debouncing, throttling, string manipulation, etc.
-
-// Example utility (if needed elsewhere, otherwise keep in subtitleParser)
-/*
-export function toEnglishNumerals(numStr) {
-  const persianArabicMap = { 
-    '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4', '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9', // Persian
-    '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9'  // Arabic-Indic
-  };
-  return numStr.split('').map(char => persianArabicMap[char] || char).join('');
+/**
+ * Debounces a function, delaying its execution until after a certain time has passed
+ * since the last time it was invoked.
+ * @param {Function} func - The function to debounce.
+ * @param {number} delay - The delay in milliseconds.
+ * @returns {Function} The debounced function.
+ */
+export function debounce(func, delay) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
 }
-*/
 
-// Constants can also be here or in their own file
-// export const CHAR_COUNT_WARNING_THRESHOLD = 15000;
+/**
+ * Throttles a function, ensuring it's executed at most once in a specified time period.
+ * @param {Function} func - The function to throttle.
+ * @param {number} limit - The time limit in milliseconds.
+ * @returns {Function} The throttled function.
+ */
+export function throttle(func, limit) {
+    let inThrottle;
+    let lastResult;
+    return function(...args) {
+        if (!inThrottle) {
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+            lastResult = func.apply(this, args);
+        }
+        return lastResult;
+    };
+}
+
+/**
+ * Sanitizes HTML string to prevent XSS by escaping special characters.
+ * A more robust solution would use a dedicated library if complex HTML is involved.
+ * This is a very basic sanitizer.
+ * @param {string} str - The string to sanitize.
+ * @returns {string} The sanitized string.
+ */
+export function sanitizeHTML(str) {
+    if (!str || typeof str !== 'string') return '';
+    const temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
+}
+
+/**
+ * Generates a simple unique ID.
+ * Not cryptographically secure, just for basic unique element IDs if needed.
+ * @param {string} [prefix='id-'] - A prefix for the ID.
+ * @returns {string} A unique ID string.
+ */
+export function simpleUID(prefix = 'id-') {
+    return prefix + Math.random().toString(36).substring(2, 9);
+}
+
+// Add other general utility functions here as your project grows.
+// For example:
+// - Date formatting functions
+// - String manipulation helpers (capitalize, truncate, etc.)
+// - Validation functions (email, URL, etc.) if needed beyond subtitle parsing
