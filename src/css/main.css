@@ -1,36 +1,41 @@
+/* src/css/main.css */
+
+/\* Light theme (default) variables */
 body {
-  --body-bg: #f0f2f5; 
-  --text-color-primary: #1c1e21; 
-  --text-color-secondary: #606770; 
-  --container-bg: #ffffff;
-  --input-bg: #f5f6f7;
-  --input-border: #ccd0d5;
-  --input-text: #1c1e21;
-  --input-focus-border: var(--primary-accent);
-  --button-bg: var(--primary-accent);
-  --button-text: #ffffff;
-  --button-hover-bg: var(--primary-accent-dark);
-  --select-bg: #f5f6f7;
-  --select-text: #1c1e21;
-  --select-border: #ccd0d5;
-  --primary-accent: #007bff; 
-  --primary-accent-dark: #0056b3;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  --lang-circle-bg-light: #e9ecef;
-  --lang-circle-text-light: #495057;
-  --lang-circle-active-bg-light: var(--primary-accent);
-  --lang-circle-active-text-light: #ffffff;
-  --file-btn-bg-light: #f8f9fa;
-  --file-btn-text-light: var(--primary-accent);
-  --file-btn-border-light: var(--input-border);
-  --file-btn-hover-bg-light: #e9ecef;
+\--body-bg: \#f0f2f5;
+\--text-color-primary: \#1c1e21;
+\--text-color-secondary: \#606770;
+\--container-bg: \#ffffff;
+\--input-bg: \#f5f6f7;
+\--input-border: \#ccd0d5;
+\--input-text: \#1c1e21;
+\--input-focus-border: var(--primary-accent);
+\--button-bg: var(--primary-accent); /* Primary buttons like Translate, Download */
+\--button-text: \#ffffff;
+\--button-hover-bg: var(--primary-accent-dark);
+\--select-bg: \#f5f6f7;
+\--select-text: \#1c1e21;
+\--select-border: \#ccd0d5;
+\--primary-accent: \#007bff;
+\--primary-accent-dark: \#0056b3;
+\--danger-color: \#dc3545;
+\--success-color: \#28a745;
+\--warning-color: \#ffc107;
+/* --theme-toggle-icon-color: \#4b5563; -- Not directly used for a separate icon button anymore */
+\--lang-circle-bg: \#e9ecef;
+\--lang-circle-text: \#495057;
+\--lang-circle-active-bg: var(--primary-accent);
+\--lang-circle-active-text: \#ffffff;
+\--file-btn-bg-light: \#f8f9fa; /* Custom file button background - Light Theme */
+\--file-btn-text-light: var(--primary-accent); /* Custom file button text - Light Theme \*/
+\--file-btn-border-light: var(--input-border);
+\--file-btn-hover-bg-light: \#e9ecef;
 
 transition: background-color 0.3s ease, color 0.3s ease;
 font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/\* Dark theme variables */
 body.dark-theme {
 \--body-bg: \#18191a;
 \--text-color-primary: \#e4e6eb;
@@ -44,16 +49,18 @@ body.dark-theme {
 \--select-bg: \#3a3b3c;
 \--select-text: \#e4e6eb;
 \--select-border: \#4e4f50;
-\--lang-circle-bg-dark: \#3a3b3c;
-\--lang-circle-text-dark: \#e4e6eb;
-\--lang-circle-active-bg-dark: var(--primary-accent);
-\--lang-circle-active-text-dark: \#ffffff;
-\--file-btn-bg-dark: \#495057;
-\--file-btn-text-dark: \#ffffff;
+/* --theme-toggle-icon-color: \#b0b3b8; -- Not directly used */
+\--lang-circle-bg: \#3a3b3c;
+\--lang-circle-text: \#e4e6eb;
+\--lang-circle-active-bg: var(--primary-accent);
+\--lang-circle-active-text: \#ffffff;
+\--file-btn-bg-dark: \#495057;   /* Custom file button background - Dark Theme */
+\--file-btn-text-dark: \#ffffff;   /* Custom file button text - Dark Theme \*/
 \--file-btn-border-dark: \#6c757d;
 \--file-btn-hover-bg-dark: \#5a6268;
 }
 
+/\* General body application of variables \*/
 body {
 background-color: var(--body-bg);
 color: var(--text-color-primary);
@@ -61,9 +68,10 @@ margin: 0;
 line-height: 1.6;
 }
 
+/\* Card styling */
 .card {
 background-color: var(--container-bg);
-color: var(--text-color-primary);
+color: var(--text-color-primary); /* Ensure text color inside card \*/
 border-radius: 0.75rem;
 box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 padding: 1.5rem;
@@ -72,6 +80,7 @@ body.dark-theme .card {
 box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
+/\* Input, textarea, select styling \*/
 input[type="password"],
 input[type="text"],
 textarea,
@@ -108,6 +117,7 @@ min-height: 10rem;
 resize: vertical;
 }
 
+/\* Label styling \*/
 label {
 display: block;
 margin-bottom: 0.5rem;
@@ -116,6 +126,7 @@ color: var(--text-color-secondary);
 font-size: 0.9rem;
 }
 
+/\* Button styling (for Translate, Download buttons) \*/
 .btn {
 background-color: var(--button-bg) \!important;
 color: var(--button-text) \!important;
@@ -137,6 +148,7 @@ transform: translateY(-1px);
 transform: translateY(0px);
 }
 
+/\* Secondary button styling (e.g., Copy button) \*/
 .btn-secondary {
 background-color: var(--input-bg) \!important;
 color: var(--text-color-primary) \!important;
@@ -149,8 +161,12 @@ background-color: var(--select-border) \!important;
 border-color: var(--select-border) \!important;
 }
 
-\#titleThemeToggleContainer {}
+/\* Theme Toggle Area (Clickable Title Area) */
+\#titleThemeToggleContainer {
+/* Styling primarily handled by Tailwind classes in HTML (w-max, mx-auto, cursor-pointer, group) \*/
+}
 
+/\* Language Circle Switcher Styles \*/
 .lang-circle {
 width: 2.25rem;
 height: 2.25rem;
@@ -196,6 +212,7 @@ transform: scale(1.05);
 box-shadow: 0 0 0 2px var(--container-bg), 0 0 0 4px var(--lang-circle-active-bg-dark);
 }
 
+/\* Specific styling for Persian font \*/
 html[lang="fa"] body,
 html[lang="fa"] input,
 html[lang="fa"] textarea,
@@ -206,6 +223,7 @@ html[lang="fa"] h1, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] p, h
 font-family: "Vazirmatn", sans-serif;
 }
 
+/\* Helper for labels with icons \*/
 .icon-label {
 display: flex;
 align-items: center;
@@ -220,6 +238,7 @@ margin-left: 0.5rem;
 margin-right: 0;
 }
 
+/\* Custom File Input Button Styling \*/
 label.custom-file-upload {
 display: inline-block;
 width: 100%;
@@ -253,6 +272,7 @@ background-color: var(--file-btn-hover-bg-dark);
 
 input[type="file"].hidden { display: none; }
 
+/\* Response box and preformatted text styling \*/
 \#responseBox pre {
 background-color: var(--input-bg);
 border: 1px solid var(--input-border);
@@ -267,6 +287,7 @@ white-space: pre-wrap;
 word-wrap: break-word;
 }
 
+/\* Range input custom styling (Temperature) \*/
 input[type="range"] {
 \-webkit-appearance: none; appearance: none;
 width: 100%; height: 0.5rem;
@@ -293,6 +314,7 @@ border: 2px solid var(--container-bg);
 box-shadow: 0 0 2px rgba(0,0,0,0.2);
 }
 
+/\* Horizontal rule styling \*/
 hr {
 border: 0;
 height: 1px;
