@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
+<html lang="en" dir="ltr"> <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="appTitle">SubMovies - AI Subtitle Translator</title>
-  <link rel="manifest" href="manifest.json" />
+  <title data-i18n="appTitle">SubMovies - AI Subtitle Translator</title> <link rel="manifest" href="manifest.json" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,126 +10,40 @@
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body {
-      --body-bg: #f0f2f5; /* Light gray */
-      --text-color-primary: #1c1e21; /* Dark text */
-      --text-color-secondary: #606770; /* Medium text */
-      --container-bg: #ffffff;
-      --input-bg: #f5f6f7;
-      --input-border: #ccd0d5;
-      --input-text: #1c1e21;
-      --input-focus-border: var(--primary-accent);
-      --button-bg: var(--primary-accent);
-      --button-text: #ffffff;
-      --button-hover-bg: var(--primary-accent-dark);
-      --select-bg: #f5f6f7;
-      --select-text: #1c1e21;
-      --select-border: #ccd0d5;
-      --primary-accent: #007bff; /* Blue accent */
-      --primary-accent-dark: #0056b3;
-      --danger-color: #dc3545;
-      --success-color: #28a745;
-      --theme-toggle-icon-color: #4b5563;
-      transition: background-color 0.3s, color 0.3s;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-    }
-    body.dark-theme {
-      --body-bg: #18191a;
-      --text-color-primary: #e4e6eb;
-      --text-color-secondary: #b0b3b8;
-      --container-bg: #242526;
-      --input-bg: #3a3b3c;
-      --input-border: #4e4f50;
-      --input-text: #e4e6eb;
-      --input-focus-border: var(--primary-accent);
-      --button-bg: var(--primary-accent);
-      --button-text: #ffffff;
-      --button-hover-bg: var(--primary-accent-dark);
-      --select-bg: #3a3b3c;
-      --select-text: #e4e6eb;
-      --select-border: #4e4f50;
-      --theme-toggle-icon-color: #b0b3b8;
-    }
-    body { background-color: var(--body-bg); color: var(--text-color-primary); }
-    .card { background-color: var(--container-bg); border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 1.5rem; }
-    body.dark-theme .card { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-
-    input, textarea, select {
-      background-color: var(--input-bg); border: 1px solid var(--input-border); color: var(--input-text);
-      border-radius: 0.375rem; padding: 0.75rem 1rem; width: 100%;
-      transition: border-color 0.2s;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none; border-color: var(--input-focus-border);
-      box-shadow: 0 0 0 2px rgba(0,123,255,0.25); /* Focus ring */
-    }
-    label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-color-secondary); }
-    .btn {
-      background-color: var(--button-bg); color: var(--button-text);
-      padding: 0.75rem 1.5rem; border-radius: 0.375rem; font-weight: 600;
-      cursor: pointer; transition: background-color 0.2s; text-align: center;
-      display: inline-block; border: none;
-    }
-    .btn:hover { background-color: var(--button-hover-bg); }
-    .btn-secondary {
-        background-color: var(--input-bg); color: var(--text-color-primary);
-        border: 1px solid var(--input-border);
-    }
-    .btn-secondary:hover { background-color: var(--select-border); }
-
-
-    .theme-toggle-button {
-      background: none; border: none; color: var(--theme-toggle-icon-color); cursor: pointer;
-      font-size: 1.25rem; padding: 0.25rem; line-height: 1; opacity: 0.8;
-    }
-    .theme-toggle-button:hover { opacity: 1; }
-    .sun-icon { display: inline; } .moon-icon { display: none; }  
-    body.dark-theme .sun-icon { display: none; } body.dark-theme .moon-icon { display: inline; } 
-
-    html[lang="fa"] body, html[lang="fa"] input, html[lang="fa"] textarea, html[lang="fa"] select,
-    html[lang="fa"] button, html[lang="fa"] #appTitleH1, html[lang="fa"] label, html[lang="fa"] p,
-    html[lang="fa"] div, html[lang="fa"] h2, html[lang="fa"] h3, html[lang="fa"] span {
-      font-family: "Vazirmatn", sans-serif;
-    }
-    .icon-label span:first-child { margin-right: 0.5rem; }
-    html[lang="fa"] .icon-label span:first-child { margin-left: 0.5rem; margin-right: 0; }
-  </style>
-  <script defer src="script.js?v=final_v9"></script>
-</head>
-<body>
-
-  <div class="min-h-screen flex flex-col items-center justify-center p-4">
+  <link rel="stylesheet" href="src/css/main.css"> <script type="module" src="src/js/main.js" defer></script> </head>
+<body> <div class="min-h-screen flex flex-col items-center justify-center p-4">
     <div class="w-full max-w-4xl">
       <header class="mb-8 text-center">
         <div class="flex items-center justify-center mb-2">
-            <img src="favicon.svg" alt="SubMovies Logo" class="w-10 h-10 mr-3">
-            <h1 id="appTitleH1" class="text-4xl font-bold" data-i18n="appTitleH1"></h1>
+            <img src="favicon.svg" alt="SubMovies Logo" class="w-10 h-10 mr-3"> <h1 id="appTitleH1" class="text-4xl font-bold" data-i18n="appTitleH1">SubMovies AI Translator</h1>
         </div>
-        <p class="text-lg" data-i18n="appSubtitle" style="color: var(--text-color-secondary);">Translate your subtitles effortlessly.</p> <div class="absolute top-4 right-4 flex items-center space-x-2">
-             <select id="lang" class="p-2 rounded border text-sm">
+        <p class="text-lg" data-i18n="appSubtitle" style="color: var(--text-color-secondary);">Translate your subtitles effortlessly.</p>
+         <div class="absolute top-4 right-4 flex items-center space-x-2">
+             <select id="langSelect" class="p-2 rounded border text-sm"> <option value="en">English</option>
                 <option value="fa">فارسی</option>
-                <option value="en">English</option>
             </select>
-            <button id="themeToggleBtn" class="theme-toggle-button text-2xl"></button>
+            <button id="themeToggleBtn" class="theme-toggle-button text-2xl">
+                <span class="sun-icon">☀️</span>
+                <span class="moon-icon">🌙</span>
+            </button>
         </div>
       </header>
 
       <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <section class="card space-y-4">
+        <section class="card space-y-4" id="settingsCard">
           <div>
-            <label for="apiKey" class="icon-label"><span role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel"></span></label>
-            <input id="apiKey" type="password" data-i18n-placeholder="apiKeyPlaceholder" />
+            <label for="apiKeyInput" class="icon-label"><span role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel">API Key:</span></label>
+            <input id="apiKeyInput" type="password" data-i18n-placeholder="apiKeyPlaceholder" placeholder="Paste API Key" />
             <div class="mt-1 flex items-center">
-                <input type="checkbox" id="saveApiKey" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                <label for="saveApiKey" class="ml-2 text-sm" data-i18n="saveApiKeyLabel" style="color: var(--text-color-secondary); font-weight:normal; margin-bottom:0;"></label>
+                <input type="checkbox" id="saveApiKeyCheckbox" class="h-4 w-4 rounded">
+                <label for="saveApiKeyCheckbox" class="ml-2 text-sm" data-i18n="saveApiKeyLabel" style="color: var(--text-color-secondary); font-weight:normal; margin-bottom:0;">Save API Key</label>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label for="model" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
-              <select id="model">
+              <label for="modelSelect" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel">Model:</span></label>
+              <select id="modelSelect">
                 <option value="gemini-2.5-pro-latest">Gemini 2.5 Pro</option> 
                 <option value="gemini-2.5-flash-latest">Gemini 2.5 Flash</option> 
                 <option value="gemini-2.0-flash-latest">Gemini 2.0 Flash</option> 
@@ -141,23 +53,22 @@
               </select>
             </div>
             <div>
-              <label for="temperature" class="icon-label" data-i18n="temperatureLabel"></label>
-              <input type="range" id="temperature" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-              <div class="text-xs text-center mt-1" id="temperatureValue" style="color: var(--text-color-secondary);">0.7</div>
-              <p class="text-xs mt-1" data-i18n="temperatureTooltip" style="color: var(--text-color-secondary); opacity: 0.8;"></p>
+              <label for="temperatureInput" class="icon-label" data-i18n="temperatureLabel">Creativity:</label>
+              <input type="range" id="temperatureInput" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 rounded-lg appearance-none cursor-pointer">
+              <div class="text-xs text-center mt-1" id="temperatureValueDisplay" style="color: var(--text-color-secondary);">0.7</div>
+              <p class="text-xs mt-1" data-i18n="temperatureTooltip" style="color: var(--text-color-secondary); opacity: 0.8;">Controls randomness.</p>
             </div>
           </div>
-           <p class="text-xs" data-i18n="modelInfo" style="color: var(--text-color-secondary); opacity: 0.8;"></p>
-
+           <p class="text-xs" data-i18n="modelInfo" style="color: var(--text-color-secondary); opacity: 0.8;">Model info here.</p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label for="tone" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
-              <select id="tone"></select>
+              <label for="toneSelect" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel">Tone:</span></label>
+              <select id="toneSelect"></select>
             </div>
             <div>
-              <label for="langTarget" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
-              <select id="langTarget">
+              <label for="langTargetSelect" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel">Target Lang:</span></label>
+              <select id="langTargetSelect">
                 <option value="en">English (en)</option>
                 <option value="fa">فارسی (fa)</option>
                 <option value="es">Español (es)</option>
@@ -177,38 +88,38 @@
           </div>
 
           <div>
-            <label id="fileInputLabel" for="fileInput" class="icon-label"><span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span></label>
-            <input id="fileInput" type="file" accept=".srt,.vtt" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:font-medium hover:file:opacity-80 cursor-pointer" style="color: var(--input-text); background-color: var(--input-bg); border-color: var(--input-border);" />
-            <div id="fileNameText" class="text-xs mt-1 h-4" data-i18n="fileNone" style="color: var(--text-color-secondary);"></div>
+            <label id="fileInputLabelEl" for="fileInput" class="icon-label"><span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel">Choose File:</span></label>
+            <input id="fileInput" type="file" accept=".srt,.vtt" class="w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border file:font-medium hover:file:opacity-80 cursor-pointer" />
+            <div id="fileNameText" class="text-xs mt-1 h-4" data-i18n="fileNone" style="color: var(--text-color-secondary);">No file chosen</div>
           </div>
           
           <div>
-            <textarea id="prompt" class="w-full h-40" data-i18n-placeholder="promptPlaceholder"></textarea>
-            <div class="text-xs text-right mt-1" id="charCount" style="color: var(--text-color-secondary);"></div>
+            <textarea id="promptInput" class="w-full h-40" data-i18n-placeholder="promptPlaceholder" placeholder="Paste subtitle text"></textarea>
+            <div class="text-xs text-right mt-1" id="charCountDisplay" style="color: var(--text-color-secondary);">Chars: 0</div>
           </div>
 
           <div>
-            <label for="filenameInput" class="icon-label"><span role="img" aria-label="disk">💾</span> <span data-i18n="filenameLabel"></span></label>
-            <input id="filenameInput" type="text" data-i18n-placeholder="filenamePlaceholder" />
+            <label for="filenameInput" class="icon-label"><span role="img" aria-label="disk">💾</span> <span data-i18n="filenameLabel">Output Name:</span></label>
+            <input id="filenameInput" type="text" data-i18n-placeholder="filenamePlaceholder" placeholder="e.g., translated.srt"/>
           </div>
           
-          <button id="sendBtn" class="w-full btn" data-i18n="translateBtn"></button>
+          <button id="translateBtn" class="w-full btn" data-i18n="translateBtn">Translate</button>
         </section>
 
         <section id="responseSection" class="card space-y-4" style="display:none;">
           <div class="flex justify-between items-center">
-            <h2 id="responseTitle" class="text-2xl font-semibold" data-i18n="responseTitle"></h2>
+            <h2 id="responseTitle" class="text-2xl font-semibold" data-i18n="responseTitle">Result:</h2>
             <button id="copyTranslatedBtn" class="btn btn-secondary text-sm py-1 px-3" data-i18n="copyBtn" style="display:none;">
                 <span role="img" aria-label="copy">📋</span> Copy
             </button>
           </div>
-          <div id="response" class="w-full text-sm whitespace-pre-wrap p-4 rounded" style="background-color: var(--input-bg); min-height: 200px;"></div>
-          <button id="downloadBtn" style="display:none" class="w-full btn" data-i18n="downloadBtn"></button>
+          <div id="responseBox" class="w-full text-sm whitespace-pre-wrap p-4 rounded" style="background-color: var(--input-bg); min-height: 200px;"></div>
+          <button id="downloadBtn" style="display:none" class="w-full btn" data-i18n="downloadBtn">Download</button>
         </section>
       </main>
 
       <footer class="text-center text-xs mt-10 py-6" style="color: var(--text-color-secondary); opacity: 0.8;">
-        <p><span data-i18n="footerMadeWith"></span> ❤️ <span data-i18n="footerBy"></span> <a href="https://github.com/GeekNeuron/SubMovies" class="underline" data-i18n="footerAuthor" style="color: var(--primary-accent);">GeekNeuron</a></p>
+        <p><span data-i18n="footerMadeWith">Made with</span> ❤️ <span data-i18n="footerBy">by</span> <a href="https://github.com/GeekNeuron/SubMovies" class="underline" data-i18n="footerAuthor" style="color: var(--primary-accent);">GeekNeuron</a></p>
       </footer>
     </div>
   </div>
