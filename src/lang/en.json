@@ -15,7 +15,7 @@
   "filenamePlaceholder": "e.g., MyTranslatedMovie.srt",
   "translateBtn": "Translate Subtitles",
   "fileChooseLabel": "Upload .srt or .vtt file:",
-  "fileChooseButtonText": "Select File",
+  "fileChooseButtonText": "Choose File",
   "fileNone": "No file chosen",
   "fileValidationSRTError": "Invalid SRT file. Please check format.",
   "fileValidationVTTError": "Invalid VTT file. Missing WEBVTT header or malformed.",
