@@ -21,7 +21,7 @@ body {
   --danger-color: #dc3545;
   --success-color: #28a745;
   --warning-color: #ffc107;
-  --theme-toggle-icon-color: #4b5563; /* For icon inside H1 title */
+  /* --theme-toggle-icon-color: #4b5563; -- No longer needed for a separate icon button */
   --lang-circle-bg: #e9ecef;
   --lang-circle-text: #495057;
   --lang-circle-active-bg: var(--primary-accent);
@@ -45,7 +45,7 @@ body.dark-theme {
   --select-bg: #3a3b3c;
   --select-text: #e4e6eb;
   --select-border: #4e4f50;
-  --theme-toggle-icon-color: #b0b3b8;
+  /* --theme-toggle-icon-color: #b0b3b8; -- No longer needed */
   --lang-circle-bg: #3a3b3c;
   --lang-circle-text: #e4e6eb;
   --lang-circle-active-bg: var(--primary-accent);
@@ -85,17 +85,15 @@ select {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-size: 0.95rem;
 }
-input[type="checkbox"] { /* Specific styling for checkbox */
-    width: auto; /* Override width: 100% */
+input[type="checkbox"] {
+    width: auto; 
     background-color: var(--input-bg);
     border-color: var(--input-border);
-    /* Tailwind's focus:ring-offset-0 might need to be applied via JS if default focus is an issue */
 }
 input[type="checkbox"]:checked {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
 }
-
 
 input:focus,
 textarea:focus,
@@ -151,28 +149,23 @@ label {
     border-color: var(--select-border);
 }
 
-/* Theme Toggle (Icon part, if inside H1 wrapper) */
-#titleThemeToggleContainer .theme-icon-container { /* Wrapper for icons if placed next to H1 text */
-  color: var(--theme-toggle-icon-color);
-  /* opacity: 0.7; */ /* Handled by group-hover on parent */
-  /* transition: opacity 0.2s ease; */
+/* Theme Toggle (No specific icon styles needed anymore as they are removed) */
+/* The #titleThemeToggleContainer itself has cursor:pointer from Tailwind if needed, or add here */
+#titleThemeToggleContainer {
+    /* If you want to ensure the H1 text color changes with theme, ensure H1 uses var(--text-color-primary) */
+    /* Or rely on body's color inheritance */
 }
-/* #titleThemeToggleContainer:hover .theme-icon-container { opacity: 1; } */
 
-.sun-icon { display: inline; }
-.moon-icon { display: none; }
-body.dark-theme .sun-icon { display: none; }
-body.dark-theme .moon-icon { display: inline; }
 
 /* Language Circle Switcher */
 .lang-circle {
-    width: 2rem; /* 32px */
-    height: 2rem; /* 32px */
+    width: 2rem; 
+    height: 2rem; 
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem; /* 12px */
+    font-size: 0.8rem; 
     font-weight: 600;
     cursor: pointer;
     background-color: var(--lang-circle-bg);
@@ -192,7 +185,6 @@ body.dark-theme .moon-icon { display: inline; }
     font-weight: 700;
     transform: scale(1.05);
 }
-
 
 /* Specific styling for Persian font */
 html[lang="fa"] body,
@@ -252,7 +244,7 @@ body.dark-theme #fileInput::file-selector-button {
     border: 1px solid var(--input-border);
     padding: 1rem;
     border-radius: 0.375rem;
-    max-height: 24rem; 
+    max-h: 24rem; 
     overflow-y: auto;
     font-size: 0.875rem; 
     line-height: 1.5;
