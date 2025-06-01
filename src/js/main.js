@@ -1,30 +1,32 @@
 // src/js/main.js
-import * as DOM from './ui/domElements.js'; // Make sure IDs in domElements.js match index.html
+import * as DOM from './ui/domElements.js';
 import { initializeTheme, applyThemeOnLoad, attachThemeToggleToTitle } from './core/themeService.js';
-import { initializeI18n, getCurrentTranslations, setupLanguageSwitcher } from './core/i18nService.js';
+import { initializeI18n, getCurrentTranslations, setupLanguageSwitcher } from './core/i18nService.js'; // Removed loadLanguage as it's used internally by i18nService
 import { initializeSettings, getSettings } from './ui/settingsController.js';
-import { initializeFileHandling, getOriginalFileType } from './ui/fileController.js';
-import { initializeTranslationUI, displayTranslationResult, clearResponseArea, showTranslatingMessage } from './ui/translationController.js'; // initializeTranslationUI was translationProcess
+import { initializeFileHandling } from './ui/fileController.js'; // Removed getOriginalFileType as it's used internally or by translationController
+// Corrected import name here:
+import { initializeTranslationProcess, displayTranslationResult, clearResponseArea, showTranslatingMessage } from './ui/translationController.js';
 import { sendToGeminiAPI } from './core/apiService.js';
 import { showToast } from './core/toastService.js';
 import { isValidSRT, isValidVTT, vttToInternalSrt, internalSrtToVTT, fixNumbers } from './core/subtitleParser.js';
+// Constants like CHAR_COUNT_WARNING_THRESHOLD would be imported from './utils/constants.js' if used directly here
 
 async function mainApp() {
     // 1. Theme: Apply saved/system theme class immediately
     applyThemeOnLoad(); 
     
     // 2. Internationalization: Load language, then apply all translations
-    await initializeI18n(); // This also calls applyActiveTranslations internally
+    await initializeI18n(); 
 
     // 3. Initialize Theme Toggle logic & ARIA labels (now that i18n is ready)
-    initializeTheme(); // Basic init for theme service
-    attachThemeToggleToTitle(); // Attaches click listener to the title area
+    initializeTheme(); 
+    attachThemeToggleToTitle(); 
 
     // 4. Initialize UI Controllers and other Event Listeners
-    initializeSettings(); // Handles API key saving, temperature, other settings persistence
-    initializeFileHandling(); // Handles file input, char count
-    initializeTranslationUI(); // Sets up download/copy button listeners
-    setupLanguageSwitcher(); // Sets up new language circle buttons
+    initializeSettings(); 
+    initializeFileHandling(); 
+    initializeTranslationProcess(); // Corrected function name used here
+    setupLanguageSwitcher(); 
 
     // 5. Main Translate Button Logic
     if (DOM.translateBtn) {
@@ -39,8 +41,9 @@ async function mainApp() {
             let processedInputText = settings.inputText;
             let sourceFileType = 'srt'; 
 
+            // Determine type and process if VTT
             if (settings.inputText.trim().startsWith("WEBVTT")) {
-                if (!isValidVTT(settings.inputText)) { // Validate before processing
+                if (!isValidVTT(settings.inputText)) {
                     return showToast(t.fileValidationVTTError || "Invalid VTT content (header/format).", 'error');
                 }
                 sourceFileType = 'vtt';
@@ -65,7 +68,7 @@ async function mainApp() {
                     settings.temperature
                 );
 
-                if (!rawTranslation) { // Should be caught by apiService, but as a safeguard
+                if (!rawTranslation) {
                     throw new Error(t.errorAPI?.replace('{message}', t.noTranslationContentAPI || 'No content from API.') || 'No translation from API.');
                 }
 
@@ -78,9 +81,11 @@ async function mainApp() {
 
             } catch (error) {
                 console.error("Translation process failed in main.js:", error);
-                const errorMessage = t.errorAPI?.replace('{message}', error.message) || error.message || (t.errorUnknown || "An unknown error occurred.");
+                // Ensure 't' is available for error messages or provide hardcoded fallbacks
+                const errorMessageText = (t && t.errorAPI) ? t.errorAPI.replace('{message}', error.message) : error.message;
+                const unknownErrorText = (t && t.errorUnknown) ? t.errorUnknown : "An unknown error occurred.";
                 clearResponseArea(); 
-                showToast(errorMessage, 'error');
+                showToast(errorMessageText || error.message || unknownErrorText, 'error');
             }
         });
     }
