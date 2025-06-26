@@ -2,26 +2,20 @@
 
 // Main Application Elements
 export const appTitleH1 = document.getElementById('appTitleH1');
-// ✅ FIX: The following element IDs do not exist in the current index.html.
-// They are commented out to prevent null reference errors.
-// export const langSelect = document.getElementById('langSelect');
-// export const themeToggleBtn = document.getElementById('themeToggleBtn');
-
 
 // Settings Card Elements
 export const apiKeyInput = document.getElementById('apiKeyInput');
 export const saveApiKeyCheckbox = document.getElementById('saveApiKeyCheckbox');
-export const modelSelect = document.getElementById('modelSelect');
 export const temperatureInput = document.getElementById('temperatureInput');
 export const temperatureValueDisplay = document.getElementById('temperatureValueDisplay');
-export const toneSelect = document.getElementById('toneSelect');
-export const langTargetSelect = document.getElementById('langTargetSelect');
+
+// ✅ MODAL TRIGGERS: Buttons that replaced the select elements
+export const modelSelectBtn = document.getElementById('modelSelectBtn');
+export const toneSelectBtn = document.getElementById('toneSelectBtn');
+export const langTargetSelectBtn = document.getElementById('langTargetSelectBtn');
 
 // File Input Elements
 export const fileInput = document.getElementById('fileInput');
-// ✅ FIX: This element ID does not exist in index.html.
-// The logic for file input does not depend on this specific element anymore.
-// export const fileInputLabelEl = document.getElementById('fileInputLabelEl');
 export const fileNameText = document.getElementById("fileNameText");
 
 // Prompt & Action Elements
@@ -37,34 +31,8 @@ export const responseBox = document.getElementById('responseBox');
 export const copyTranslatedBtn = document.getElementById('copyTranslatedBtn');
 export const downloadBtn = document.getElementById('downloadBtn');
 
-// You can also export groups of elements if that's more convenient
-export const settingsElements = {
-    apiKeyInput,
-    saveApiKeyCheckbox,
-    modelSelect,
-    temperatureInput,
-    temperatureValueDisplay,
-    toneSelect,
-    langTargetSelect,
-};
-
-export const fileElements = {
-    fileInput,
-//    fileInputLabelEl, // Removed from group
-    fileNameText,
-    promptInput,
-    charCountDisplay,
-};
-
-export const actionElements = {
-    filenameInput,
-    translateBtn,
-};
-
-export const outputElements = {
-    responseSection,
-    responseTitle,
-    responseBox,
-    copyTranslatedBtn,
-    downloadBtn,
-};
+// ✅ NEW: Modal Elements
+export const modal = document.getElementById('optionsModal');
+export const modalTitle = document.getElementById('modalTitle');
+export const modalOptionsContainer = document.getElementById('modalOptionsContainer');
+export const modalCloseBtn = document.getElementById('modalCloseBtn');
