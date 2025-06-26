@@ -1,100 +1,84 @@
-/* src/css/main.css - Comprehensive Theming Version */
+/*
+ * SubMovies - Redesigned CSS
+ * Inspired by modern, professional dark-theme UIs
+ */
 
-body {
-    --primary-accent: #3282b8;
-    --primary-accent-dark: #1d4357; 
-    --danger-color: #dc3545;
-    --success-color: #28a745;
-    --warning-color: #ffc107;
+:root {
+    /* ✅ REDESIGN: New, more vibrant primary accent for a modern look */
+    --primary-accent: #367CFE;
+    --primary-accent-dark: #2a62c9;
+    --danger-color: #e53e3e;
+    --success-color: #38a169;
+    --warning-color: #dd6b20;
 
-    /* Light Theme Defaults (Pure White) */
-    --body-bg-actual: #ffffff;
-    --text-color-primary-actual: #1c1e21;
-    --text-color-secondary-actual: #606770;
-    --card-bg-actual: #f8f9fa; 
-    --card-shadow-actual: rgba(0, 0, 0, 0.08);
+    /* Light Theme Defaults - Refined for a cleaner look */
+    --body-bg-actual: #f7fafc; /* A very light gray instead of pure white */
+    --text-color-primary-actual: #1a202c;
+    --text-color-secondary-actual: #718096;
+    --card-bg-actual: #ffffff;
+    --card-border-actual: #e2e8f0;
+    --card-shadow-actual: rgba(0, 0, 0, 0.05);
     --input-bg-actual: #ffffff;
-    --input-border-actual: #ccd0d5;
-    --input-text-actual: #1f2937;
+    --input-border-actual: #cbd5e0;
+    --input-text-actual: #2d3748;
     --input-focus-border-actual: var(--primary-accent);
-    --input-focus-shadow-actual: rgba(50, 130, 184, 0.25);
-    --button-main-bg-actual: var(--primary-accent);
-    --button-main-text-actual: #ffffff;
-    --button-main-hover-bg-actual: var(--primary-accent-dark);
-    --button-secondary-bg-actual: #e9ecef;
-    --button-secondary-text-actual: #495057;
-    --button-secondary-border-actual: #ced4da;
-    --button-secondary-hover-bg-actual: #d1d5db;
-    --hr-color-actual: #e5e7eb;
+    --input-focus-shadow-actual: rgba(54, 124, 254, 0.25);
+    --button-secondary-bg-actual: #edf2f7;
+    --button-secondary-text-actual: #4a5568;
+    --button-secondary-border-actual: #e2e8f0;
+    --button-secondary-hover-bg-actual: #e2e8f0;
+}
 
+/* ✅ REDESIGN: New dark theme color palette for a professional, techy feel */
+body.dark-theme {
+    --primary-accent: #367CFE;
+    --primary-accent-dark: #2a62c9;
+    --body-bg-actual: #111111;
+    --text-color-primary-actual: #E0E0E0;
+    --text-color-secondary-actual: #888888;
+    --card-bg-actual: #1A1A1E;
+    --card-border-actual: #2D2D34;
+    --card-shadow-actual: rgba(0, 0, 0, 0.2);
+    --input-bg-actual: #111111;
+    --input-border-actual: #333333;
+    --input-text-actual: #E0E0E0;
+    --input-focus-border-actual: var(--primary-accent);
+    --input-focus-shadow-actual: rgba(54, 124, 254, 0.2);
+    --button-secondary-bg-actual: #252529;
+    --button-secondary-text-actual: #E0E0E0;
+    --button-secondary-border-actual: #333333;
+    --button-secondary-hover-bg-actual: #2f2f33;
+    --hr-color-actual: #2D2D34; /* Using the card border color for consistency */
+}
+
+/* --- Base Styles --- */
+body {
+    background-color: var(--body-bg-actual);
+    color: var(--text-color-primary-actual);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     transition: background-color 0.3s ease, color 0.3s ease;
     margin: 0;
     line-height: 1.6;
 }
 
-/* Dark Theme Variables */
-body.dark-theme {
-    --primary-accent: #3282b8;
-    --primary-accent-dark: #1d4357;
-    
-    --body-bg-actual: #0d1117;
-    --text-color-primary-actual: #c9d1d9;
-    --text-color-secondary-actual: #8b949e;
-    --card-bg-actual: #161b22;
-    --card-shadow-actual: rgba(0, 0, 0, 0.4);
-    --input-bg-actual: #0d1117;
-    --input-border-actual: #30363d;
-    --input-text-actual: #c9d1d9;
-    --input-focus-border-actual: var(--primary-accent);
-    --input-focus-shadow-actual: rgba(50, 130, 184, 0.3);
-    --button-main-bg-actual: var(--primary-accent);
-    --button-main-text-actual: #ffffff;
-    --button-main-hover-bg-actual: var(--primary-accent-dark);
-    --button-secondary-bg-actual: #21262d;
-    --button-secondary-text-actual: #c9d1d9;
-    --button-secondary-border-actual: #30363d;
-    --button-secondary-hover-bg-actual: #30363d;
-    --hr-color-actual: #21262d;
-}
-
 body.modal-open {
     overflow: hidden;
 }
 
-body {
-    background-color: var(--body-bg-actual);
-    color: var(--text-color-primary-actual);
-}
-
+/* ✅ REDESIGN: Card with subtle gradient border for depth and more padding */
 .card {
     background-color: var(--card-bg-actual);
     color: var(--text-color-primary-actual);
-    border: 1px solid var(--hr-color-actual);
+    border: 1px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to bottom right, var(--card-border-actual), transparent);
     border-radius: 0.75rem;
-    box-shadow: 0 6px 18px var(--card-shadow-actual);
-    padding: 1.75rem;
+    box-shadow: 0 10px 25px var(--card-shadow-actual);
+    padding: 2rem;
 }
 
-.modal-trigger-btn {
-    background-color: var(--input-bg-actual);
-    border: 1px solid var(--input-border-actual);
-    color: var(--input-text-actual);
-    border-radius: 0.5rem;
-    padding: 0.85rem 1.1rem;
-    width: 100%;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    font-size: 0.95rem;
-    text-align: left;
-    cursor: pointer;
-}
-.modal-trigger-btn:hover {
-    border-color: var(--input-focus-border-actual);
-}
-html[lang="fa"] .modal-trigger-btn {
-    text-align: right;
-}
-
+/* ✅ REDESIGN: Professional input fields style */
+.modal-trigger-btn,
 input[type="password"],
 input[type="text"],
 textarea {
@@ -106,6 +90,13 @@ textarea {
     width: 100%;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     font-size: 0.95rem;
+}
+.modal-trigger-btn {
+    text-align: left;
+    cursor: pointer;
+}
+html[lang="fa"] .modal-trigger-btn {
+    text-align: right;
 }
 
 input[type="checkbox"] {
@@ -119,6 +110,7 @@ input[type="checkbox"]:checked {
     border-color: var(--primary-accent);
 }
 
+/* ✅ REDESIGN: Added glow effect on focus */
 input:focus,
 textarea:focus,
 .modal-trigger-btn:focus {
@@ -134,53 +126,50 @@ textarea {
 
 label {
     display: block;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
     color: var(--text-color-secondary-actual);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
 }
 label[for="saveApiKeyCheckbox"] {
-    color: var(--text-color-secondary-actual);
     font-weight: normal;
     margin-bottom: 0;
 }
 
+/* ✅ REDESIGN: Main button with gradient and modern hover effect */
 .btn {
-    background-color: var(--button-main-bg-actual);
-    color: var(--button-main-text-actual);
+    background-image: linear-gradient(to right, var(--primary-accent) 0%, var(--primary-accent-dark) 100%);
+    color: #ffffff;
     padding: 0.85rem 1.75rem;
     border-radius: 0.5rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
     text-align: center;
     display: inline-block;
     border: none;
     user-select: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-size: 200% auto;
 }
 .btn:hover {
-    background-color: var(--button-main-hover-bg-actual);
+    background-position: right center;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 15px rgba(54, 124, 254, 0.2);
 }
 .btn:active {
-    transform: translateY(0px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 button#downloadBtn.btn {
-    background-color: var(--success-color);
-}
-button#downloadBtn.btn:hover {
-    background-color: #1e7e34;
+    background-image: linear-gradient(to right, var(--success-color) 0%, #2a7f53 100%);
 }
 
 .btn-secondary {
     background-color: var(--button-secondary-bg-actual);
     color: var(--button-secondary-text-actual);
     border: 1px solid var(--button-secondary-border-actual);
-    padding: 0.4rem 0.9rem;
+    padding: 0.75rem 1rem;
     font-size: 0.875rem;
     border-radius: 0.375rem;
     font-weight: 500;
@@ -188,7 +177,6 @@ button#downloadBtn.btn:hover {
 }
 .btn-secondary:hover {
     background-color: var(--button-secondary-hover-bg-actual);
-    border-color: var(--button-secondary-hover-bg-actual);
     transform: translateY(-1px);
 }
 
@@ -200,17 +188,20 @@ button#downloadBtn.btn:hover {
     color: var(--text-color-secondary-actual);
     border: 1px solid var(--input-border-actual);
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: all 0.2s ease-in-out;
     user-select: none;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    opacity: 0.7;
+}
+.lang-tab:hover {
+    opacity: 1;
+    border-color: var(--input-focus-border-actual);
 }
 .lang-tab:first-child {
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     border-bottom: 0;
-    border-right-width: 1px;
 }
 .lang-tab:last-child {
     border-bottom-left-radius: 0.5rem;
@@ -220,76 +211,37 @@ button#downloadBtn.btn:hover {
     background-color: var(--primary-accent);
     color: #fff;
     border-color: var(--primary-accent);
-}
-.lang-tab:not(.active):hover {
-    background-color: var(--button-secondary-hover-bg-actual);
-    border-color: var(--input-focus-border-actual);
+    opacity: 1;
 }
 
-#responseBox {
+#responseBox, #responseBox pre {
     background-color: var(--input-bg-actual);
-    border: 1px solid var(--input-border-actual);
+    border-color: var(--input-border-actual);
+    color: var(--input-text-actual);
+    font-family: 'Courier New', Courier, monospace;
+}
+#responseBox {
     border-radius: 0.375rem;
     padding: 1rem;
     min-height: 200px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-body.dark-theme #responseBox {
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 #responseBox pre {
-    background-color: transparent;
     border: none;
     padding: 0.5rem;
     max-h: 24rem;
     overflow-y: auto;
     font-size: 0.875rem;
-    line-height: 1.5;
-    color: var(--input-text-actual);
+    line-height: 1.6;
     white-space: pre-wrap;
     word-wrap: break-word;
-}
-
-input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 0.5rem;
-    background: var(--input-border-actual);
-    border-radius: 0.25rem;
-    outline: none;
-    opacity: 0.9;
-    transition: opacity .15s ease-in-out;
-    padding: 0;
-}
-input[type="range"]:hover {
-    opacity: 1;
-}
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: var(--primary-accent);
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid var(--card-bg-actual);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-input[type="range"]::-moz-range-thumb {
-    width: 1.25rem;
-    height: 1.25rem;
-    background: var(--primary-accent);
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid var(--card-bg-actual);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 hr {
     border: 0;
     height: 1px;
     background-color: var(--hr-color-actual);
+    opacity: 0.5;
 }
 
 html[lang="fa"] body,
@@ -304,7 +256,6 @@ html[lang="fa"] p,
 html[lang="fa"] span,
 html[lang="fa"] label,
 html[lang="fa"] div#fileNameText,
-html[lang="fa"] #responseBox pre,
 html[lang="fa"] .modal-content {
     font-family: "Vazirmatn", sans-serif;
 }
@@ -323,13 +274,15 @@ html[lang="fa"] .icon-label span[role="img"] {
     margin-right: 0;
 }
 
+/* ✅ REDESIGN: Added frosted glass effect to modal overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(13, 17, 23, 0.7);
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -352,7 +305,7 @@ html[lang="fa"] .icon-label span[role="img"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--hr-color-actual);
+    border-bottom: 1px solid var(--input-border-actual);
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     color: var(--text-color-primary-actual);
@@ -378,15 +331,14 @@ html[lang="fa"] .icon-label span[role="img"] {
 .modal-option {
     padding: 0.75rem 1rem;
     background-color: var(--input-bg-actual);
-    border: 1px solid transparent;
+    border: 1px solid var(--input-border-actual);
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
     color: var(--text-color-secondary-actual);
 }
 .modal-option:hover {
     background-color: var(--button-secondary-hover-bg-actual);
-    border-color: var(--input-border-actual);
     color: var(--text-color-primary-actual);
 }
 .modal-option.selected {
@@ -396,20 +348,20 @@ html[lang="fa"] .icon-label span[role="img"] {
     border-color: var(--primary-accent);
 }
 
-/* ✅ NEW: Tooltip Bubble Styles */
+/* ✅ REDESIGN: Refined tooltip style for better contrast */
 .tooltip-bubble {
     position: absolute;
-    bottom: 110%; /* Position above the label */
+    bottom: 110%;
     left: 50%;
-    transform: translateX(-50%) translateY(10px); /* Initial position for animation */
-    background-color: var(--card-bg-actual);
-    color: var(--text-color-primary-actual);
+    transform: translateX(-50%) translateY(10px);
+    background-color: #1A1A1E; /* Always dark for contrast */
+    color: #E0E0E0;
     border: 1px solid var(--input-border-actual);
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     width: max-content;
-    max-width: 300px; /* Adjust as needed */
+    max-width: 90vw;
     font-size: 0.8rem;
     font-weight: 400;
     text-align: left;
@@ -418,12 +370,13 @@ html[lang="fa"] .icon-label span[role="img"] {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    white-space: normal;
+    word-wrap: break-word;
 }
 html[lang="fa"] .tooltip-bubble {
     text-align: right;
+    font-family: "Vazirmatn", sans-serif;
 }
-
-/* The little arrow at the bottom of the bubble */
 .tooltip-bubble::after {
     content: '';
     position: absolute;
@@ -432,15 +385,8 @@ html[lang="fa"] .tooltip-bubble {
     transform: translateX(-50%);
     border-width: 6px;
     border-style: solid;
-    /* This makes the triangle match the bubble's background */
-    border-color: var(--card-bg-actual) transparent transparent transparent;
+    border-color: #1A1A1E transparent transparent transparent;
 }
-body.dark-theme .tooltip-bubble::after {
-    /* In dark mode, it looks better if the triangle matches the border */
-    border-top-color: var(--input-border-actual);
-}
-
-/* Show tooltip on hover of the parent group */
 .group:hover .tooltip-bubble {
     opacity: 1;
     visibility: visible;
@@ -450,11 +396,4 @@ body.dark-theme .tooltip-bubble::after {
 .w-full.max-w-4xl {
     padding-left: 1rem;
     padding-right: 1rem;
-}
-
-.tooltip-bubble {
-    max-width: 90vw; 
-
-    white-space: normal; 
-    word-wrap: break-word;
 }
