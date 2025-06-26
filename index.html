@@ -20,7 +20,7 @@
 
 <body>
 
-    <div id="langSwitcherContainer" class="fixed bottom-4 right-4 flex z-50">
+    <div id="langSwitcherContainer" class="fixed top-1/2 right-0 transform -translate-y-1/2 flex flex-col z-50">
         <div id="langToggleEn" data-lang="en" class="lang-tab">en</div>
         <div id="langToggleFa" data-lang="fa" class="lang-tab">fa</div>
     </div>
@@ -30,7 +30,7 @@
 
             <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <section class="card space-y-5" id="settingsCard">
-                    <div class="relative border-b pb-4 mb-4" style="border-color: var(--input-border); opacity:0.7;">
+                    <div class="relative border-b pb-4 mb-4" style="border-color: var(--input-border);">
                         <div id="titleThemeToggleContainer" class="text-center cursor-pointer group w-max mx-auto" aria-label="Toggle theme">
                             <div class="flex items-center justify-center">
                                 <img src="favicon.svg" alt="SubMovies Logo" class="w-8 h-8 mr-2 md:w-9 md:h-9">
@@ -51,7 +51,7 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label for="modelSelect" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
+                            <label for="modelSelectBtn" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
                             <button id="modelSelectBtn" class="modal-trigger-btn"></button>
                         </div>
                         <div>
@@ -65,11 +65,11 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label for="toneSelect" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
+                            <label for="toneSelectBtn" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
                             <button id="toneSelectBtn" class="modal-trigger-btn"></button>
                         </div>
                         <div>
-                            <label for="langTargetSelect" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
+                            <label for="langTargetSelectBtn" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
                             <button id="langTargetSelectBtn" class="modal-trigger-btn"></button>
                         </div>
                     </div>
@@ -123,8 +123,27 @@
                 <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
             </div>
             <div id="modalOptionsContainer" class="modal-options-container">
-                </div>
+            </div>
         </div>
+    </div>
+    
+    <div style="display:none;">
+        <select id="langTargetSelect">
+            <option value="en">English (en)</option>
+            <option value="fa">فارسی (fa)</option>
+            <option value="es">Español (es)</option>
+            <option value="fr">Français (fr)</option>
+            <option value="de">Deutsch (de)</option>
+            <option value="ru">Русский (ru)</option>
+            <option value="zh">中文 (zh)</option>
+            <option value="ja">日本語 (ja)</option>
+            <option value="ko">한국어 (ko)</option>
+            <option value="ar">العربية (ar)</option>
+            <option value="hi">हिन्दी (hi)</option>
+            <option value="tr">Türkçe (tr)</option>
+            <option value="pt">Português (pt)</option>
+            <option value="it">Italiano (it)</option>
+        </select>
     </div>
 
 </body>
