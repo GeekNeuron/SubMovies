@@ -3,13 +3,13 @@ console.log("i18nService.js: Script loaded.");
 
 import * as DOM from '../ui/domElements.js';
 import { updateThemeServiceTranslations } from './themeService.js';
-import { updateSettingButtonLabels } from '../ui/settingsController.js';
+// ✅ FIX 1 of 2: Change the imported function to a safer one.
+import { loadAndApplyAllSettings } from '../ui/settingsController.js';
 import { ALLOWED_UI_LANGS, DEFAULT_UI_LANG, LS_LANG } from '../utils/constants.js';
 
 const translations = {};
 let currentLang = DEFAULT_UI_LANG;
 
-// ✅ THIS OBJECT WAS ACCIDENTALLY OMITTED IN THE PREVIOUS RESPONSE. IT IS CRITICAL.
 const criticalFallbacks = {
     appTitle: "SubMovies - AI Subtitle Translator",
     appHeaderTitle: "SubMovies AI Translator",
@@ -102,16 +102,14 @@ function applyActiveTranslations() {
         DOM.fileNameText.textContent = currentFile ? currentFile.name : (t.fileNone !== undefined ? t.fileNone : criticalFallbacks.fileNone);
     }
     
-    // The select elements are now modals, their labels are updated by settingsController
-    // So the old logic to populate them here is removed.
-
     updateThemeServiceTranslations(t);
     if (typeof window.updateCharCountGlobal === 'function') {
         window.updateCharCountGlobal();
     }
 
-    if (typeof updateSettingButtonLabels === 'function') {
-        updateSettingButtonLabels();
+    // ✅ FIX 2 of 2: Call the robust main settings initializer instead of the broken one.
+    if (typeof loadAndApplyAllSettings === 'function') {
+        loadAndApplyAllSettings();
     }
 
     updateLanguageSwitcherUI();
@@ -137,18 +135,16 @@ export async function loadLanguage(lang) {
     } catch (error) {
         console.error(`i18nService.js: Failed to load language ${lang} from ${langFilePath}:`, error);
         if (lang !== DEFAULT_UI_LANG) {
-            // Try to revert to the default language if the selected one fails
             if (translations[DEFAULT_UI_LANG]) {
                 currentLang = DEFAULT_UI_LANG;
                 applyActiveTranslations();
                 updateLanguageSwitcherUI();
             } else {
-                // If even the default isn't loaded, try to load it
                 await loadLanguage(DEFAULT_UI_LANG);
             }
         } else {
-             console.error("i18nService.js: CRITICAL - Default UI language file also failed to load.");
-             document.body.innerHTML = "<p style='color:red; text-align:center; padding:20px;'>Critical error: Core language files could not be loaded.</p>";
+            console.error("i18nService.js: CRITICAL - Default UI language file also failed to load.");
+            document.body.innerHTML = "<p style='color:red; text-align:center; padding:20px;'>Critical error: Core language files could not be loaded.</p>";
         }
     }
 }
