@@ -446,3 +446,15 @@ body.dark-theme .tooltip-bubble::after {
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
+
+.w-full.max-w-4xl {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.tooltip-bubble {
+    max-width: 90vw; 
+
+    white-space: normal; 
+    word-wrap: break-word;
+}
