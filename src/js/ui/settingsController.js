@@ -2,10 +2,13 @@
 import * as DOM from './domElements.js';
 import { getCurrentTranslations } from '../core/i18nService.js';
 import { openModal } from './modalController.js';
+
+// ✅ BUG FIX: All required constants are now imported from the constants file.
+// The previous version was missing DEFAULT_MODEL, DEFAULT_TONE, DEFAULT_TARGET_LANG, etc.
 import {
     LS_API_KEY, LS_SAVE_API_KEY_PREF, LS_TEMPERATURE,
     LS_LAST_MODEL, LS_LAST_TONE_INDEX, LS_LAST_TARGET_LANG,
-    DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_TONE
+    DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_TONE, DEFAULT_TARGET_LANG
 } from '../utils/constants.js';
 
 let settingsCache = {};
@@ -43,7 +46,7 @@ export function loadAndApplyAllSettings() {
     DOM.modelSelectBtn.textContent = modelText;
     settingsCache.model = savedModel;
 
-    // ✅ LOGIC UPDATE: Load tone by index for robust language switching
+    // Load tone by index for robust language switching
     const savedToneIndex = parseInt(localStorage.getItem(LS_LAST_TONE_INDEX), 10);
     const tones = t.tones || [];
     let selectedTone;
@@ -58,6 +61,7 @@ export function loadAndApplyAllSettings() {
     settingsCache.tone = selectedTone;
 
     // Target Language Selection
+    // This line will no longer crash because DEFAULT_TARGET_LANG is now imported.
     const savedLang = localStorage.getItem(LS_LAST_TARGET_LANG) || DEFAULT_TARGET_LANG;
     const hiddenSelect = document.getElementById('langTargetSelect');
     const langOption = Array.from(hiddenSelect.options).find(opt => opt.value === savedLang);
@@ -118,7 +122,7 @@ function handleToneSelect() {
         DOM.toneSelectBtn.textContent = selectedValue;
         settingsCache.tone = selectedValue;
 
-        // ✅ LOGIC UPDATE: Save the index, not the text value
+        // Save the index, not the text value
         const selectedIndex = (t.tones || []).indexOf(selectedValue);
         if (selectedIndex !== -1) {
             localStorage.setItem(LS_LAST_TONE_INDEX, selectedIndex);
