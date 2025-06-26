@@ -192,7 +192,6 @@ button#downloadBtn.btn:hover {
     transform: translateY(-1px);
 }
 
-/* ✅ STYLE UPDATE: Vertical Language Tab Switcher Styles */
 .lang-tab {
     padding: 1rem 0.6rem;
     font-size: 0.875rem;
@@ -395,4 +394,55 @@ html[lang="fa"] .icon-label span[role="img"] {
     color: #fff;
     font-weight: bold;
     border-color: var(--primary-accent);
+}
+
+/* ✅ NEW: Tooltip Bubble Styles */
+.tooltip-bubble {
+    position: absolute;
+    bottom: 110%; /* Position above the label */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px); /* Initial position for animation */
+    background-color: var(--card-bg-actual);
+    color: var(--text-color-primary-actual);
+    border: 1px solid var(--input-border-actual);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: max-content;
+    max-width: 300px; /* Adjust as needed */
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-align: left;
+    z-index: 20;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+html[lang="fa"] .tooltip-bubble {
+    text-align: right;
+}
+
+/* The little arrow at the bottom of the bubble */
+.tooltip-bubble::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    /* This makes the triangle match the bubble's background */
+    border-color: var(--card-bg-actual) transparent transparent transparent;
+}
+body.dark-theme .tooltip-bubble::after {
+    /* In dark mode, it looks better if the triangle matches the border */
+    border-top-color: var(--input-border-actual);
+}
+
+/* Show tooltip on hover of the parent group */
+.group:hover .tooltip-bubble {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
