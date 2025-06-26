@@ -1,18 +1,17 @@
 /* src/css/main.css - Comprehensive Theming Version */
 
 body {
-    /* ✅ THEME UPDATE: Blue accent for both themes */
     --primary-accent: #3282b8;
-    --primary-accent-dark: #1d4357; /* Darker version for hover */
+    --primary-accent-dark: #1d4357; 
     --danger-color: #dc3545;
     --success-color: #28a745;
     --warning-color: #ffc107;
 
-    /* ✅ THEME UPDATE: Light Theme Defaults (Pure White) */
+    /* Light Theme Defaults (Pure White) */
     --body-bg-actual: #ffffff;
     --text-color-primary-actual: #1c1e21;
     --text-color-secondary-actual: #606770;
-    --card-bg-actual: #f8f9fa; /* Slightly off-white card for contrast */
+    --card-bg-actual: #f8f9fa; 
     --card-shadow-actual: rgba(0, 0, 0, 0.08);
     --input-bg-actual: #ffffff;
     --input-border-actual: #ccd0d5;
@@ -34,7 +33,7 @@ body {
     line-height: 1.6;
 }
 
-/* ✅ THEME UPDATE: Dark Theme Variables (As requested) */
+/* Dark Theme Variables */
 body.dark-theme {
     --primary-accent: #3282b8;
     --primary-accent-dark: #1d4357;
@@ -63,7 +62,6 @@ body.modal-open {
     overflow: hidden;
 }
 
-/* Base element styling using CSS variables */
 body {
     background-color: var(--body-bg-actual);
     color: var(--text-color-primary-actual);
@@ -78,7 +76,6 @@ body {
     padding: 1.75rem;
 }
 
-/* MODAL TRIGGER BUTTONS (replaces select) */
 .modal-trigger-btn {
     background-color: var(--input-bg-actual);
     border: 1px solid var(--input-border-actual);
@@ -195,25 +192,29 @@ button#downloadBtn.btn:hover {
     transform: translateY(-1px);
 }
 
-/* ✅ NEW: Language Tab Switcher Styles */
+/* ✅ STYLE UPDATE: Vertical Language Tab Switcher Styles */
 .lang-tab {
-    padding: 0.5rem 1rem;
+    padding: 1rem 0.6rem;
     font-size: 0.875rem;
     font-weight: 600;
     background-color: var(--card-bg-actual);
     color: var(--text-color-secondary-actual);
     border: 1px solid var(--input-border-actual);
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
     user-select: none;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
 }
 .lang-tab:first-child {
     border-top-left-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-    border-right: none;
+    border-top-right-radius: 0.5rem;
+    border-bottom: 0;
+    border-right-width: 1px;
 }
 .lang-tab:last-child {
-    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem;
 }
 .lang-tab.active {
@@ -223,10 +224,9 @@ button#downloadBtn.btn:hover {
 }
 .lang-tab:not(.active):hover {
     background-color: var(--button-secondary-hover-bg-actual);
+    border-color: var(--input-focus-border-actual);
 }
 
-
-/* Response box and preformatted text styling */
 #responseBox {
     background-color: var(--input-bg-actual);
     border: 1px solid var(--input-border-actual);
@@ -251,7 +251,6 @@ body.dark-theme #responseBox {
     word-wrap: break-word;
 }
 
-/* Range input custom styling (Temperature) */
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
@@ -288,15 +287,12 @@ input[type="range"]::-moz-range-thumb {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Horizontal rule styling */
 hr {
     border: 0;
     height: 1px;
     background-color: var(--hr-color-actual);
-    opacity: 0.5;
 }
 
-/* Vazirmatn Font for Persian */
 html[lang="fa"] body,
 html[lang="fa"] input,
 html[lang="fa"] textarea,
@@ -328,14 +324,13 @@ html[lang="fa"] .icon-label span[role="img"] {
     margin-right: 0;
 }
 
-/* ✅ NEW: Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(13, 17, 23, 0.7); /* Dark semi-transparent background */
+    background-color: rgba(13, 17, 23, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
