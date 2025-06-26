@@ -1,57 +1,80 @@
 // src/js/ui/settingsController.js
 import * as DOM from './domElements.js';
-import { getCurrentTranslations, applyCurrentTranslations } from '../core/i18nService.js'; // For updating labels on load
-import { 
-    LS_API_KEY, LS_SAVE_API_KEY_PREF, LS_TEMPERATURE, 
+import { getCurrentTranslations } from '../core/i18nService.js';
+import { openModal } from './modalController.js';
+import {
+    LS_API_KEY, LS_SAVE_API_KEY_PREF, LS_TEMPERATURE,
     LS_LAST_MODEL, LS_LAST_TONE, LS_LAST_TARGET_LANG,
     DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_TONE, DEFAULT_TARGET_LANG
 } from '../utils/constants.js';
 
+let settingsCache = {}; // Cache for current settings to avoid frequent DOM reads
+
 /**
  * Initializes all settings-related UI elements and event listeners.
- * Loads saved settings from localStorage.
  */
 export function initializeSettings() {
-    // API Key Saving
-    if (DOM.saveApiKeyCheckbox && DOM.apiKeyInput) {
-        DOM.saveApiKeyCheckbox.addEventListener('change', handleSaveApiKeyChange);
-        if (localStorage.getItem(LS_SAVE_API_KEY_PREF) === 'true') {
-            DOM.apiKeyInput.value = localStorage.getItem(LS_API_KEY) || '';
-            DOM.saveApiKeyCheckbox.checked = true;
-        }
-        DOM.apiKeyInput.addEventListener('input', handleApiKeyInput);
+    // Load and apply all saved settings from localStorage
+    loadAndApplyAllSettings();
+    
+    // Attach event listeners
+    attachEventListeners();
+}
+
+/**
+ * Loads all settings from localStorage and updates the UI accordingly.
+ */
+function loadAndApplyAllSettings() {
+    const t = getCurrentTranslations();
+
+    // API Key
+    const savePref = localStorage.getItem(LS_SAVE_API_KEY_PREF) === 'true';
+    DOM.saveApiKeyCheckbox.checked = savePref;
+    if (savePref) {
+        DOM.apiKeyInput.value = localStorage.getItem(LS_API_KEY) || '';
     }
+
+    // Temperature
+    const savedTemp = localStorage.getItem(LS_TEMPERATURE) || DEFAULT_TEMPERATURE.toString();
+    DOM.temperatureInput.value = savedTemp;
+    DOM.temperatureValueDisplay.textContent = savedTemp;
+    
+    // Model Selection
+    const savedModel = localStorage.getItem(LS_LAST_MODEL) || DEFAULT_MODEL;
+    const modelText = t.models[savedModel] || savedModel;
+    DOM.modelSelectBtn.textContent = modelText;
+    settingsCache.model = savedModel;
+    
+    // Tone Selection
+    const savedTone = localStorage.getItem(LS_LAST_TONE) || t.tones[1] || DEFAULT_TONE;
+    DOM.toneSelectBtn.textContent = savedTone;
+    settingsCache.tone = savedTone;
+
+    // Target Language Selection
+    const savedLang = localStorage.getItem(LS_LAST_TARGET_LANG) || DEFAULT_TARGET_LANG;
+    const langOption = Array.from(document.querySelectorAll('#langTargetSelect option')).find(opt => opt.value === savedLang);
+    DOM.langTargetSelectBtn.textContent = langOption ? langOption.textContent : savedLang;
+    settingsCache.targetLang = savedLang;
+}
+
+/**
+ * Attaches event listeners for all settings controls.
+ */
+function attachEventListeners() {
+    // API Key Listeners
+    DOM.saveApiKeyCheckbox.addEventListener('change', handleSaveApiKeyChange);
+    DOM.apiKeyInput.addEventListener('input', handleApiKeyInput);
 
     // Temperature Slider
-    if (DOM.temperatureInput && DOM.temperatureValueDisplay) {
-        const savedTemp = localStorage.getItem(LS_TEMPERATURE);
-        DOM.temperatureInput.value = savedTemp !== null ? savedTemp : DEFAULT_TEMPERATURE.toString();
-        DOM.temperatureValueDisplay.textContent = DOM.temperatureInput.value;
-        DOM.temperatureInput.addEventListener('input', handleTemperatureChange);
-    }
+    DOM.temperatureInput.addEventListener('input', handleTemperatureChange);
 
-    // Persist other settings (Model, Tone, Target Language)
-    if (DOM.modelSelect) {
-        const savedModel = localStorage.getItem(LS_LAST_MODEL);
-        if (savedModel) DOM.modelSelect.value = savedModel;
-        DOM.modelSelect.addEventListener('change', (e) => localStorage.setItem(LS_LAST_MODEL, e.target.value));
-    }
-    if (DOM.toneSelect) {
-        // Tone options are populated by i18nService, so we load saved value after that.
-        // For now, just set up the save listener. applyTranslations will handle initial value.
-        DOM.toneSelect.addEventListener('change', (e) => localStorage.setItem(LS_LAST_TONE, e.target.value));
-    }
-    if (DOM.langTargetSelect) {
-        const savedTargetLang = localStorage.getItem(LS_LAST_TARGET_LANG);
-        if (savedTargetLang) DOM.langTargetSelect.value = savedTargetLang;
-        DOM.langTargetSelect.addEventListener('change', (e) => localStorage.setItem(LS_LAST_TARGET_LANG, e.target.value));
-    }
-    
-    // Apply translations to any settings labels that might not have been covered initially
-    // This is important if settings are initialized before full i18n load.
-    // However, main.js orchestrates this: i18n init -> then settings init.
-    // applyCurrentTranslations(); // Re-apply to ensure all labels are correct
+    // Modal Trigger Listeners
+    DOM.modelSelectBtn.addEventListener('click', handleModelSelect);
+    DOM.toneSelectBtn.addEventListener('click', handleToneSelect);
+    DOM.langTargetSelectBtn.addEventListener('click', handleLangTargetSelect);
 }
+
+// --- Event Handlers ---
 
 function handleSaveApiKeyChange() {
     if (DOM.saveApiKeyCheckbox.checked) {
@@ -64,56 +87,64 @@ function handleSaveApiKeyChange() {
 }
 
 function handleApiKeyInput() {
-    if (DOM.saveApiKeyCheckbox && DOM.saveApiKeyCheckbox.checked) {
+    if (DOM.saveApiKeyCheckbox.checked) {
         localStorage.setItem(LS_API_KEY, DOM.apiKeyInput.value);
     }
 }
 
 function handleTemperatureChange(event) {
-    if (DOM.temperatureValueDisplay) DOM.temperatureValueDisplay.textContent = event.target.value;
+    DOM.temperatureValueDisplay.textContent = event.target.value;
     localStorage.setItem(LS_TEMPERATURE, event.target.value);
 }
 
+function handleModelSelect() {
+    const t = getCurrentTranslations();
+    const options = Object.entries(t.models).map(([value, text]) => ({ value, text }));
+    
+    openModal(t.modelLabel, options, settingsCache.model, (selectedValue) => {
+        DOM.modelSelectBtn.textContent = t.models[selectedValue] || selectedValue;
+        localStorage.setItem(LS_LAST_MODEL, selectedValue);
+        settingsCache.model = selectedValue;
+    });
+}
+
+function handleToneSelect() {
+    const t = getCurrentTranslations();
+    const options = (t.tones || []).map(tone => ({ value: tone, text: tone }));
+    
+    openModal(t.toneLabel, options, settingsCache.tone, (selectedValue) => {
+        DOM.toneSelectBtn.textContent = selectedValue;
+        localStorage.setItem(LS_LAST_TONE, selectedValue);
+        settingsCache.tone = selectedValue;
+    });
+}
+
+function handleLangTargetSelect() {
+    const t = getCurrentTranslations();
+    const langOptions = Array.from(document.querySelectorAll('#langTargetSelect option')).map(opt => ({ value: opt.value, text: opt.textContent }));
+
+    openModal(t.langTargetLabel, langOptions, settingsCache.targetLang, (selectedValue) => {
+        const selectedOption = langOptions.find(opt => opt.value === selectedValue);
+        DOM.langTargetSelectBtn.textContent = selectedOption ? selectedOption.text : selectedValue;
+        localStorage.setItem(LS_LAST_TARGET_LANG, selectedValue);
+        settingsCache.targetLang = selectedValue;
+    });
+}
+
+
 /**
- * Gathers all current settings from the UI elements.
+ * Gathers all current settings from the UI and cache.
  * @returns {object} An object containing all relevant settings values.
  */
 export function getSettings() {
-    const apiKey = DOM.apiKeyInput ? DOM.apiKeyInput.value.trim() : '';
-    const model = DOM.modelSelect ? DOM.modelSelect.value : DEFAULT_MODEL;
-    const temperature = DOM.temperatureInput ? parseFloat(DOM.temperatureInput.value) : DEFAULT_TEMPERATURE;
-    const tone = DOM.toneSelect ? (DOM.toneSelect.value || DEFAULT_TONE) : DEFAULT_TONE;
-    const targetLang = DOM.langTargetSelect ? (DOM.langTargetSelect.value || DEFAULT_TARGET_LANG) : DEFAULT_TARGET_LANG;
-    const inputText = DOM.promptInput ? DOM.promptInput.value.trim() : ''; // Trimmed for processing
-    const originalInputText = DOM.promptInput ? DOM.promptInput.value : ''; // Raw for comparison display
-    const outputFilename = DOM.filenameInput ? DOM.filenameInput.value.trim() : '';
-
     return {
-        apiKey,
-        model,
-        temperature,
-        tone,
-        targetLang,
-        inputText,
-        originalInputText, 
-        outputFilename
+        apiKey: DOM.apiKeyInput.value.trim(),
+        model: settingsCache.model,
+        temperature: parseFloat(DOM.temperatureInput.value),
+        tone: settingsCache.tone,
+        targetLang: settingsCache.targetLang,
+        inputText: DOM.promptInput.value.trim(),
+        originalInputText: DOM.promptInput.value,
+        outputFilename: DOM.filenameInput.value.trim(),
     };
-}
-
-// Called by i18nService after language load to potentially set saved tone
-export function applySavedTonePreference() {
-    if (DOM.toneSelect) {
-        const savedTone = localStorage.getItem(LS_LAST_TONE);
-        if (savedTone) {
-            // Check if savedTone is a valid option in the currently populated select
-            const optionExists = Array.from(DOM.toneSelect.options).some(opt => opt.value === savedTone);
-            if (optionExists) {
-                DOM.toneSelect.value = savedTone;
-            } else if (DOM.toneSelect.options.length > 0) {
-                DOM.toneSelect.value = DOM.toneSelect.options[0].value; // Default to first if saved not valid
-            }
-        } else if (DOM.toneSelect.options.length > 0) {
-             DOM.toneSelect.value = DOM.toneSelect.options[0].value; // Default to first if no saved value
-        }
-    }
 }
