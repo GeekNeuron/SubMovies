@@ -3,13 +3,13 @@ console.log("i18nService.js: Script loaded.");
 
 import * as DOM from '../ui/domElements.js';
 import { updateThemeServiceTranslations } from './themeService.js';
-// ✅ FIX 1 of 2: Change the imported function to a safer one.
 import { loadAndApplyAllSettings } from '../ui/settingsController.js';
 import { ALLOWED_UI_LANGS, DEFAULT_UI_LANG, LS_LANG } from '../utils/constants.js';
 
 const translations = {};
 let currentLang = DEFAULT_UI_LANG;
 
+// ✅ MODIFICATION: Added new keys for tooltips to the fallback object.
 const criticalFallbacks = {
     appTitle: "SubMovies - AI Subtitle Translator",
     appHeaderTitle: "SubMovies AI Translator",
@@ -18,9 +18,7 @@ const criticalFallbacks = {
     apiKeyPlaceholder: "Paste your Gemini API Key here",
     saveApiKeyLabel: "Save API Key locally",
     modelLabel: "AI Model:",
-    modelInfo: "*'Free Tier' models often have usage limits. 'Paid' models typically require a billing-enabled Cloud project. Always verify exact model IDs & terms in official Google documentation.",
     temperatureLabel: "Creativity (Temperature):",
-    temperatureTooltip: "Lower (e.g., 0.2) = more deterministic; Higher (e.g., 0.9) = more creative. Default: 0.7",
     toneLabel: "Translation Tone:",
     langTargetLabel: "Target Language:",
     filenameLabel: "Output File Name:",
@@ -54,12 +52,21 @@ const criticalFallbacks = {
     closeBtnLabel: "Close",
     footerMadeWith: "Made with",
     footerBy: "by",
-    footerAuthor: "GeekNeuron"
+    footerAuthor: "GeekNeuron",
+    // New Tooltip Fallbacks
+    apiKeyTooltip: "Enter your API key from Google AI Studio. The key is required to connect to the Gemini API.",
+    saveApiKeyTooltip: "If checked, your API key will be saved securely in your browser's local storage for future visits. Uncheck to remove it.",
+    modelTooltip: "*'Free Tier' models often have usage limits. 'Paid' models typically require a billing-enabled Cloud project. Always verify exact model IDs & terms in official Google documentation.",
+    temperatureTooltip: "Lower values (e.g., 0.2) result in more predictable, deterministic translations. Higher values (e.g., 0.9) encourage more creative and diverse wording. Default: 0.7.",
+    toneTooltip: "Choose the desired style and tone for the translated dialogue to match the content's context.",
+    targetLangTooltip: "Select the language you want to translate the subtitles into.",
+    uploadFileTooltip: "Click to upload a subtitle file in .srt or .vtt format from your device.",
+    outputFileNameTooltip: "Enter a custom name for the translated file. If left blank, a name will be generated automatically."
 };
 
 function applyActiveTranslations() {
     console.log(`i18nService.js: Applying translations for language: ${currentLang}`);
-    const t = translations[currentLang] || translations[DEFAULT_UI_LANG] || criticalFallbacks;
+    const t = translations[currentLang] || criticalFallbacks;
 
     document.documentElement.lang = currentLang;
     document.documentElement.dir = (currentLang === 'fa') ? 'rtl' : 'ltr';
@@ -76,13 +83,11 @@ function applyActiveTranslations() {
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        // Let specific handlers take care of these
         if (el.id === "appTitleH1" || key === "appSubtitle") return;
-
         if (t[key] !== undefined) {
             el.innerText = t[key];
         } else {
-            const fallbackText = translations[DEFAULT_UI_LANG]?.[key] || criticalFallbacks[key];
+            const fallbackText = criticalFallbacks[key];
             if (fallbackText !== undefined) {
                 el.innerText = fallbackText;
             } else {
@@ -93,8 +98,14 @@ function applyActiveTranslations() {
 
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        const placeholderText = t[key] || translations[DEFAULT_UI_LANG]?.[key] || criticalFallbacks[key] || "";
+        const placeholderText = t[key] || criticalFallbacks[key] || "";
         el.placeholder = placeholderText;
+    });
+
+    // ✅ NEW: Add loop to find and populate all tooltip elements.
+    document.querySelectorAll('[data-i18n-tooltip]').forEach(el => {
+        const key = el.getAttribute('data-i18n-tooltip');
+        el.textContent = t[key] || criticalFallbacks[key] || '';
     });
 
     const currentFile = DOM.fileInput?.files[0];
@@ -107,7 +118,6 @@ function applyActiveTranslations() {
         window.updateCharCountGlobal();
     }
 
-    // ✅ FIX 2 of 2: Call the robust main settings initializer instead of the broken one.
     if (typeof loadAndApplyAllSettings === 'function') {
         loadAndApplyAllSettings();
     }
@@ -158,7 +168,7 @@ export async function initializeI18n() {
 }
 
 export function getCurrentTranslations() {
-    return translations[currentLang] || translations[DEFAULT_UI_LANG] || criticalFallbacks;
+    return translations[currentLang] || criticalFallbacks;
 }
 
 export function applyCurrentTranslations() {
