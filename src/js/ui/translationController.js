@@ -1,4 +1,5 @@
 // src/js/ui/translationController.js
+import { getOriginalFileName } from './fileController.js';
 import * as DOM from './domElements.js';
 import { getCurrentTranslations } from '../core/i18nService.js';
 import { showToast } from '../core/toastService.js';
@@ -125,41 +126,33 @@ function renderComparisonHTML(orig, translated, t) {
     return container;
 }
 
-/**
- * Handles the download of the translated subtitle file.
- */
+// ++++++++++++++ این تابع کامل جایگزین شود ++++++++++++++
 function handleDownload() {
     const t = getCurrentTranslations();
     if (!lastTranslatedTextForCopy) {
-        showToast(t.errorNoDownloadText || "No translated text to download.", "error");
+        showToast(t.errorNoDownloadText, "error");
         return;
     }
 
-    let filename = DOM.filenameInput.value.trim();
-    const extension = lastOriginalFileTypeForDownload; // Use the stored type
+    // ✅ منطق جدید برای ساخت نام فایل
+    const inputFileName = getOriginalFileName();
+    let outputFilename;
 
-    if (!filename) {
-        const uploadedFileName = DOM.fileInput.files[0]?.name;
-        const originalBaseFileName = uploadedFileName ? uploadedFileName.replace(/\.(srt|vtt)$/i, '') : 'translated_subtitle';
-        const targetLangCode = DOM.langTargetSelect.value || 'trans';
-        filename = `${originalBaseFileName}_${targetLangCode}.${extension}`;
+    if (inputFileName) {
+        // اگر فایلی آپلود شده بود، پیشوند اضافه می‌شود
+        outputFilename = `SubMovies-${inputFileName}`;
     } else {
-        // Ensure filename has the correct extension based on original file type
-        const currentExtMatch = filename.match(/\.(srt|vtt)$/i);
-        if (currentExtMatch && currentExtMatch[1].toLowerCase() !== extension) {
-            // If has an extension but it's the wrong one, replace it
-            filename = filename.substring(0, filename.lastIndexOf('.')) + `.${extension}`;
-        } else if (!currentExtMatch) {
-            // If no extension, add the correct one
-            filename += `.${extension}`;
-        }
+        // اگر متنی پیست شده بود و فایلی در کار نبود
+        const extension = lastOriginalFileTypeForDownload;
+        outputFilename = `SubMovies-translated.${extension}`;
     }
-  
+    
+    // بقیه منطق دانلود دست‌نخورده باقی می‌ماند
     const blob = new Blob([lastTranslatedTextForCopy], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = filename;
+    a.download = outputFilename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
