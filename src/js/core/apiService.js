@@ -11,10 +11,12 @@ const API_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models/";
  * @param {string} tone - The desired translation tone.
  * @param {string} targetLang - The target language code (e.g., 'en', 'fa').
  * @param {number} temperature - The creativity level for the model.
+ * @param {AbortSignal} abortSignal - The signal to abort the fetch request.
  * @returns {Promise<string>} The translated subtitle text.
  * @throws {Error} If the API request fails or returns an error.
  */
-export async function sendToGeminiAPI(textToTranslate, apiKey, model, tone, targetLang, temperature) {
+// ✅ MODIFIED: Added abortSignal parameter to the function signature.
+export async function sendToGeminiAPI(textToTranslate, apiKey, model, tone, targetLang, temperature, abortSignal) {
     const t = getCurrentTranslations(); // For error messages
 
     const apiUrl = `${API_BASE_URL}${model}:generateContent?key=${apiKey}`;
@@ -44,10 +46,10 @@ ${textToTranslate}
         },
         // Consider adding safetySettings if you encounter content blocking issues
         // safetySettings: [
-        //   { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        //   { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        //   { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        //   { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+        //    { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+        //    { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+        //    { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+        //    { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
         // ]
     };
 
@@ -58,7 +60,8 @@ ${textToTranslate}
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
+            body: JSON.stringify(requestBody),
+            signal: abortSignal // ✅ MODIFIED: Passed the signal to the fetch request to allow cancellation.
         });
 
         const responseBodyText = await response.text(); // Get raw text for better error diagnosis
@@ -96,9 +99,9 @@ ${textToTranslate}
         return output;
 
     } catch (error) {
-        console.error('Error in sendToGeminiAPI:', error);
-        // Re-throw the error so it can be caught by the caller in main.js
-        // The caller (main.js) will use translations to display the error message.
+        // The calling function (in main.js) will check if error.name is 'AbortError'
+        console.error('Error in sendToGeminiAPI:', error.name, error.message);
+        // Re-throw the error so it can be caught by the caller
         throw error;
     }
 }
