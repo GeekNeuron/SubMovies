@@ -24,25 +24,12 @@ const CORE_FILES_TO_CACHE = [
   'src/js/utils/constants.js',
   'src/js/utils/helpers.js',
   // Language files
-  'src/lang/en.json?v=app_rev_2_src',
   'src/lang/fa.json?v=app_rev_2_src',
 ];
 
 // ✅ FIX: Added landing pages to be cached for a better offline PWA experience.
 const LANDING_PAGES_TO_CACHE = [
-   'landing/en/index.html',
    'landing/fa/index.html',
-   'landing/es/index.html',
-   'landing/fr/index.html',
-   'landing/de/index.html',
-   'landing/ru/index.html',
-   'landing/pt/index.html',
-   'landing/tr/index.html',
-   'landing/ar/index.html',
-   'landing/hi/index.html',
-   'landing/zh/index.html',
-   'landing/ja/index.html',
-   'landing/ko/index.html',
 ];
 
 const FILES_TO_CACHE = [...CORE_FILES_TO_CACHE, ...LANDING_PAGES_TO_CACHE];
