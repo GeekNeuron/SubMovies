@@ -3,7 +3,7 @@ console.log("main.js: Script loaded."); // DEBUG
 
 import * as DOM from './ui/domElements.js';
 import { initializeTheme, applyThemeOnLoad, attachThemeToggleToTitle } from './core/themeService.js';
-import { initializeI18n, getCurrentTranslations, setupLanguageSwitcher, loadLanguage } from './core/i18nService.js';
+import { initializeI18n, getCurrentTranslations } from './core/i18nService.js';
 import { initializeSettings, getSettings } from './ui/settingsController.js';
 import { initializeFileHandling } from './ui/fileController.js';
 // ✅ MODIFIED: Added showProgressMessage for live updates
