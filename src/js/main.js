@@ -6,8 +6,9 @@ import { initializeTheme, applyThemeOnLoad, attachThemeToggleToTitle } from './c
 import { initializeI18n, getCurrentTranslations, setupLanguageSwitcher, loadLanguage } from './core/i18nService.js';
 import { initializeSettings, getSettings } from './ui/settingsController.js';
 import { initializeFileHandling } from './ui/fileController.js';
-import { initializeTranslationProcess, displayTranslationResult, clearResponseArea, showTranslatingMessage } from './ui/translationController.js';
-import { initializeModal } from './ui/modalController.js'; // ✅ NEW: Import modal controller
+// ✅ MODIFIED: Added showProgressMessage for live updates
+import { initializeTranslationProcess, displayTranslationResult, clearResponseArea, showTranslatingMessage, showProgressMessage } from './ui/translationController.js';
+import { initializeModal } from './ui/modalController.js'; 
 import { sendToGeminiAPI } from './core/apiService.js';
 import { showToast } from './core/toastService.js';
 import { isValidSRT, isValidVTT, vttToInternalSrt, internalSrtToVTT, fixNumbers } from './core/subtitleParser.js';
@@ -42,78 +43,109 @@ async function mainApp() {
     setupLanguageSwitcher(loadLanguage);
     console.log("main.js: Language switcher UI setup."); // DEBUG
 
-    // 5. Main Translate Button Logic
-    if (DOM.translateBtn) {
+    // ✅ REFACTORED: The entire translation logic is replaced to support chunking, progress, and cancellation.
+    let abortController = null; // To manage stopping the translation
+
+    if (DOM.translateBtn && DOM.stopBtn) {
         DOM.translateBtn.addEventListener('click', async () => {
-            console.log("main.js: Translate button clicked."); // DEBUG
             const settings = getSettings();
             const t = getCurrentTranslations();
-            console.log("main.js: Current settings for translation:", settings); // DEBUG
 
             if (!settings.apiKey || !settings.inputText) {
-                console.warn("main.js: API Key or Input Text missing."); // DEBUG
-                return showToast(t.errorMissing || 'API Key and Subtitle Text are required.', 'error');
+                return showToast(t.errorMissing, 'error');
             }
 
-            let processedInputText = settings.inputText;
-            let sourceFileType = 'srt';
-
-            if (settings.inputText.trim().startsWith("WEBVTT")) {
-                console.log("main.js: VTT content detected."); // DEBUG
-                if (!isValidVTT(settings.inputText)) {
-                    console.warn("main.js: Invalid VTT content detected by isValidVTT."); // DEBUG
-                    return showToast(t.fileValidationVTTError || "Invalid VTT content (header/format).", 'error');
-                }
-                sourceFileType = 'vtt';
-                try {
-                    processedInputText = vttToInternalSrt(settings.inputText);
-                    console.log("main.js: VTT converted to internal SRT."); // DEBUG
-                } catch (e) {
-                    console.error("main.js: Error converting VTT to internal SRT:", e); // DEBUG
-                    return showToast(t.fileValidationVTTError || e.message, 'error');
-                }
-            } else if (settings.inputText.includes("-->") && !isValidSRT(settings.inputText)) {
-                console.warn("main.js: Invalid SRT content detected by isValidSRT."); // DEBUG
-                return showToast(t.fileValidationSRTError || "Invalid SRT content. Please check the format.", 'error');
-            }
-
-            showTranslatingMessage(t);
-            console.log("main.js: 'Translating...' message shown."); // DEBUG
+            // --- Start Translation Process ---
+            DOM.translateBtn.style.display = 'none';
+            DOM.stopBtn.style.display = 'block';
+            abortController = new AbortController();
+            let fullTranslatedText = '';
+            let originalFileType = 'srt';
 
             try {
-                const rawTranslation = await sendToGeminiAPI(
-                    processedInputText,
-                    settings.apiKey,
-                    settings.model,
-                    settings.tone,
-                    settings.targetLang,
-                    settings.temperature
-                );
-                console.log("main.js: Raw translation received from API."); // DEBUG
-
-                if (!rawTranslation) {
-                    console.error("main.js: No raw translation content from API service."); // DEBUG
-                    throw new Error(t.errorAPI?.replace('{message}', t.noTranslationContentAPI || 'No content from API.') || 'No translation from API.');
+                // 1. Parse and Chunk Subtitles
+                const subtitleBlocks = settings.inputText.trim().split(/\n\s*\n/);
+                const CHUNK_SIZE = 50; // Translate 50 subtitle blocks at a time
+                const totalChunks = Math.ceil(subtitleBlocks.length / CHUNK_SIZE);
+                
+                if (settings.inputText.trim().startsWith("WEBVTT")) {
+                    originalFileType = 'vtt';
                 }
 
-                let finalOutput = fixNumbers(rawTranslation);
-                if (sourceFileType === 'vtt') {
-                    finalOutput = internalSrtToVTT(finalOutput);
-                    console.log("main.js: Translated SRT converted back to VTT."); // DEBUG
+                // 2. Loop through chunks and translate
+                for (let i = 0; i < totalChunks; i++) {
+                    if (abortController.signal.aborted) {
+                        showToast(t.translationCancelled, 'warning');
+                        break; // Exit loop if stopped
+                    }
+
+                    showProgressMessage(t, i + 1, totalChunks);
+
+                    const chunk = subtitleBlocks.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
+                    let chunkText = chunk.join('\n\n');
+                    
+                    let processedChunkText = chunkText;
+                    // For VTT, each chunk must be treated as a mini-file for parsing
+                    if (originalFileType === 'vtt' && chunkText) {
+                       try {
+                           processedChunkText = vttToInternalSrt("WEBVTT\n\n" + chunkText);
+                       } catch(e) {
+                           console.warn("Could not parse VTT chunk, sending as is.", e);
+                           processedChunkText = chunkText;
+                       }
+                    }
+
+                    const rawTranslation = await sendToGeminiAPI(
+                        processedChunkText,
+                        settings.apiKey,
+                        settings.model,
+                        settings.tone,
+                        settings.targetLang,
+                        settings.temperature,
+                        abortController.signal // Pass the signal
+                    );
+
+                    if (rawTranslation) {
+                        fullTranslatedText += rawTranslation + '\n\n';
+                    }
                 }
 
-                displayTranslationResult(settings.originalInputText, finalOutput, sourceFileType, t);
-                console.log("main.js: Translation result displayed."); // DEBUG
+                if (!abortController.signal.aborted) {
+                    // 3. Finalize and Display
+                    let finalOutput = fixNumbers(fullTranslatedText.trim());
+                    if (originalFileType === 'vtt') {
+                        // The raw translated text is SRT-like, convert the whole thing back to VTT
+                        finalOutput = internalSrtToVTT(finalOutput);
+                    }
+                    displayTranslationResult(settings.originalInputText, finalOutput, originalFileType, t);
+                }
 
             } catch (error) {
-                console.error("main.js: Translation process failed:", error); // DEBUG
-                const errorMessageText = (t && t.errorAPI) ? t.errorAPI.replace('{message}', error.message) : error.message;
-                const unknownErrorText = (t && t.errorUnknown) ? t.errorUnknown : "An unknown error occurred.";
-                clearResponseArea();
-                showToast(errorMessageText || error.message || unknownErrorText, 'error');
+                if (error.name === 'AbortError') {
+                    console.log('Fetch aborted by user.');
+                    clearResponseArea();
+                } else {
+                    console.error("Translation process failed:", error);
+                    const errorMessageText = (t.errorAPI || "API Error: {message}").replace('{message}', error.message);
+                    clearResponseArea();
+                    showToast(errorMessageText, 'error');
+                }
+            } finally {
+                // --- Reset UI ---
+                DOM.translateBtn.style.display = 'block';
+                DOM.stopBtn.style.display = 'none';
+                abortController = null;
+            }
+        });
+
+        DOM.stopBtn.addEventListener('click', () => {
+            if (abortController) {
+                abortController.abort();
+                console.log("Stop button clicked, aborting translation.");
             }
         });
     }
+
 
     console.log("main.js: mainApp() finishing initializations."); // DEBUG
     console.log("SubMovies Application Initialized with logging!"); // DEBUG
