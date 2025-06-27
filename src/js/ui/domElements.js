@@ -1,5 +1,3 @@
-// src/js/ui/domElements.js
-
 // Main Application Elements
 export const appTitleH1 = document.getElementById('appTitleH1');
 
@@ -9,7 +7,7 @@ export const saveApiKeyCheckbox = document.getElementById('saveApiKeyCheckbox');
 export const temperatureInput = document.getElementById('temperatureInput');
 export const temperatureValueDisplay = document.getElementById('temperatureValueDisplay');
 
-// ✅ MODAL TRIGGERS: Buttons that replaced the select elements
+// MODAL TRIGGERS: Buttons that replaced the select elements
 export const modelSelectBtn = document.getElementById('modelSelectBtn');
 export const toneSelectBtn = document.getElementById('toneSelectBtn');
 export const langTargetSelectBtn = document.getElementById('langTargetSelectBtn');
@@ -23,6 +21,7 @@ export const promptInput = document.getElementById('promptInput');
 export const charCountDisplay = document.getElementById('charCountDisplay');
 export const filenameInput = document.getElementById('filenameInput');
 export const translateBtn = document.getElementById('translateBtn');
+export const stopBtn = document.getElementById('stopBtn');
 
 // Response Section Elements
 export const responseSection = document.getElementById('responseSection');
@@ -31,7 +30,7 @@ export const responseBox = document.getElementById('responseBox');
 export const copyTranslatedBtn = document.getElementById('copyTranslatedBtn');
 export const downloadBtn = document.getElementById('downloadBtn');
 
-// ✅ NEW: Modal Elements
+// Modal Elements
 export const modal = document.getElementById('optionsModal');
 export const modalTitle = document.getElementById('modalTitle');
 export const modalOptionsContainer = document.getElementById('modalOptionsContainer');
