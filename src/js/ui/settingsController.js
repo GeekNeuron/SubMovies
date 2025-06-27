@@ -2,13 +2,10 @@
 import * as DOM from './domElements.js';
 import { getCurrentTranslations } from '../core/i18nService.js';
 import { openModal } from './modalController.js';
-
-// ✅ BUG FIX: All required constants are now imported from the constants file.
-// The previous version was missing DEFAULT_MODEL, DEFAULT_TONE, DEFAULT_TARGET_LANG, etc.
 import {
     LS_API_KEY, LS_SAVE_API_KEY_PREF, LS_TEMPERATURE,
-    LS_LAST_MODEL, LS_LAST_TONE_INDEX, LS_LAST_TARGET_LANG,
-    DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_TONE, DEFAULT_TARGET_LANG
+    LS_LAST_MODEL, LS_LAST_TONE_INDEX,
+    DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_TONE
 } from '../utils/constants.js';
 
 let settingsCache = {};
@@ -30,48 +27,47 @@ export function loadAndApplyAllSettings() {
 
     // API Key
     const savePref = localStorage.getItem(LS_SAVE_API_KEY_PREF) === 'true';
-    DOM.saveApiKeyCheckbox.checked = savePref;
-    if (savePref) {
+    if(DOM.saveApiKeyCheckbox) DOM.saveApiKeyCheckbox.checked = savePref;
+    if (savePref && DOM.apiKeyInput) {
         DOM.apiKeyInput.value = localStorage.getItem(LS_API_KEY) || '';
     }
 
     // Temperature
     const savedTemp = localStorage.getItem(LS_TEMPERATURE) || DEFAULT_TEMPERATURE.toString();
-    DOM.temperatureInput.value = savedTemp;
-    DOM.temperatureValueDisplay.textContent = savedTemp;
+    if(DOM.temperatureInput) DOM.temperatureInput.value = savedTemp;
+    if(DOM.temperatureValueDisplay) DOM.temperatureValueDisplay.textContent = savedTemp;
 
     // Model Selection
     const savedModel = localStorage.getItem(LS_LAST_MODEL) || DEFAULT_MODEL;
-    const modelText = t.models[savedModel] || savedModel;
-    DOM.modelSelectBtn.textContent = modelText;
+    if (t.models && DOM.modelSelectBtn) {
+        const modelText = t.models[savedModel] || savedModel;
+        DOM.modelSelectBtn.textContent = modelText;
+    }
     settingsCache.model = savedModel;
 
     // Load tone by index for robust language switching
     const savedToneIndex = parseInt(localStorage.getItem(LS_LAST_TONE_INDEX), 10);
     const tones = t.tones || [];
     let selectedTone;
-    // Check if the saved index is valid for the current language's tone array
     if (!isNaN(savedToneIndex) && savedToneIndex >= 0 && savedToneIndex < tones.length) {
         selectedTone = tones[savedToneIndex];
     } else {
-        // Default to the second tone ('Neutral') if available, otherwise the first, or a hardcoded fallback.
         selectedTone = tones.length > 1 ? tones[1] : (tones[0] || DEFAULT_TONE);
     }
-    DOM.toneSelectBtn.textContent = selectedTone;
+    if(DOM.toneSelectBtn) DOM.toneSelectBtn.textContent = selectedTone;
     settingsCache.tone = selectedTone;
+}
 
 /**
  * Attaches event listeners for all settings controls.
  */
 function attachEventListeners() {
-    DOM.saveApiKeyCheckbox.addEventListener('change', handleSaveApiKeyChange);
-    DOM.apiKeyInput.addEventListener('input', handleApiKeyInput);
-    DOM.temperatureInput.addEventListener('input', handleTemperatureChange);
-    DOM.modelSelectBtn.addEventListener('click', handleModelSelect);
-    DOM.toneSelectBtn.addEventListener('click', handleToneSelect);
-    DOM.langTargetSelectBtn.addEventListener('click', handleLangTargetSelect);
+    if(DOM.saveApiKeyCheckbox) DOM.saveApiKeyCheckbox.addEventListener('change', handleSaveApiKeyChange);
+    if(DOM.apiKeyInput) DOM.apiKeyInput.addEventListener('input', handleApiKeyInput);
+    if(DOM.temperatureInput) DOM.temperatureInput.addEventListener('input', handleTemperatureChange);
+    if(DOM.modelSelectBtn) DOM.modelSelectBtn.addEventListener('click', handleModelSelect);
+    if(DOM.toneSelectBtn) DOM.toneSelectBtn.addEventListener('click', handleToneSelect);
 }
-
 
 function handleSaveApiKeyChange() {
     if (DOM.saveApiKeyCheckbox.checked) {
@@ -90,16 +86,16 @@ function handleApiKeyInput() {
 }
 
 function handleTemperatureChange(event) {
-    DOM.temperatureValueDisplay.textContent = event.target.value;
+    if(DOM.temperatureValueDisplay) DOM.temperatureValueDisplay.textContent = event.target.value;
     localStorage.setItem(LS_TEMPERATURE, event.target.value);
 }
 
 function handleModelSelect() {
     const t = getCurrentTranslations();
-    const options = Object.entries(t.models).map(([value, text]) => ({ value, text }));
+    const options = Object.entries(t.models || {}).map(([value, text]) => ({ value, text }));
     
     openModal(t.modelLabel, options, settingsCache.model, (selectedValue) => {
-        DOM.modelSelectBtn.textContent = t.models[selectedValue] || selectedValue;
+        DOM.modelSelectBtn.textContent = (t.models || {})[selectedValue] || selectedValue;
         localStorage.setItem(LS_LAST_MODEL, selectedValue);
         settingsCache.model = selectedValue;
     });
@@ -107,28 +103,32 @@ function handleModelSelect() {
 
 function handleToneSelect() {
     const t = getCurrentTranslations();
-    const options = (t.tones || []).map(tone => ({ value: tone, text: tone }));
+    const tones = t.tones || [];
+    const options = tones.map(tone => ({ value: tone, text: tone }));
     
     openModal(t.toneLabel, options, settingsCache.tone, (selectedValue) => {
         DOM.toneSelectBtn.textContent = selectedValue;
         settingsCache.tone = selectedValue;
 
-        // Save the index, not the text value
-        const selectedIndex = (t.tones || []).indexOf(selectedValue);
+        const selectedIndex = tones.indexOf(selectedValue);
         if (selectedIndex !== -1) {
             localStorage.setItem(LS_LAST_TONE_INDEX, selectedIndex);
         }
     });
 }
 
+/**
+ * Gathers all current settings from the UI and cache.
+ * @returns {object} An object containing all relevant settings values.
+ */
 export function getSettings() {
     return {
-        apiKey: DOM.apiKeyInput.value.trim(),
+        apiKey: DOM.apiKeyInput ? DOM.apiKeyInput.value.trim() : '',
         model: settingsCache.model,
-        temperature: parseFloat(DOM.temperatureInput.value),
+        temperature: DOM.temperatureInput ? parseFloat(DOM.temperatureInput.value) : DEFAULT_TEMPERATURE,
         tone: settingsCache.tone,
-        inputText: DOM.promptInput.value.trim(),
-        originalInputText: DOM.promptInput.value,
-        outputFilename: DOM.filenameInput.value.trim(),
+        inputText: DOM.promptInput ? DOM.promptInput.value.trim() : '',
+        originalInputText: DOM.promptInput ? DOM.promptInput.value : '',
+        outputFilename: DOM.filenameInput ? DOM.filenameInput.value.trim() : '',
     };
 }
