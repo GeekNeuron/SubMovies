@@ -40,8 +40,6 @@ async function mainApp() {
     console.log("main.js: File handling initialized."); // DEBUG
     initializeTranslationProcess();
     console.log("main.js: Translation UI (buttons) initialized."); // DEBUG
-    setupLanguageSwitcher(loadLanguage);
-    console.log("main.js: Language switcher UI setup."); // DEBUG
 
     // ✅ REFACTORED: The entire translation logic is replaced to support chunking, progress, and cancellation.
     let abortController = null; // To manage stopping the translation
@@ -100,7 +98,7 @@ async function mainApp() {
                         settings.apiKey,
                         settings.model,
                         settings.tone,
-                        settings.targetLang,
+                        'fa',
                         settings.temperature,
                         abortController.signal // Pass the signal
                     );
