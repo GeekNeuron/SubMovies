@@ -60,15 +60,6 @@ export function loadAndApplyAllSettings() {
     DOM.toneSelectBtn.textContent = selectedTone;
     settingsCache.tone = selectedTone;
 
-    // Target Language Selection
-    // This line will no longer crash because DEFAULT_TARGET_LANG is now imported.
-    const savedLang = localStorage.getItem(LS_LAST_TARGET_LANG) || DEFAULT_TARGET_LANG;
-    const hiddenSelect = document.getElementById('langTargetSelect');
-    const langOption = Array.from(hiddenSelect.options).find(opt => opt.value === savedLang);
-    DOM.langTargetSelectBtn.textContent = langOption ? langOption.textContent : savedLang;
-    settingsCache.targetLang = savedLang;
-}
-
 /**
  * Attaches event listeners for all settings controls.
  */
@@ -130,26 +121,12 @@ function handleToneSelect() {
     });
 }
 
-function handleLangTargetSelect() {
-    const t = getCurrentTranslations();
-    const hiddenSelect = document.getElementById('langTargetSelect');
-    const langOptions = Array.from(hiddenSelect.options).map(opt => ({ value: opt.value, text: opt.textContent }));
-
-    openModal(t.langTargetLabel, langOptions, settingsCache.targetLang, (selectedValue) => {
-        const selectedOption = langOptions.find(opt => opt.value === selectedValue);
-        DOM.langTargetSelectBtn.textContent = selectedOption ? selectedOption.text : selectedValue;
-        localStorage.setItem(LS_LAST_TARGET_LANG, selectedValue);
-        settingsCache.targetLang = selectedValue;
-    });
-}
-
 export function getSettings() {
     return {
         apiKey: DOM.apiKeyInput.value.trim(),
         model: settingsCache.model,
         temperature: parseFloat(DOM.temperatureInput.value),
         tone: settingsCache.tone,
-        targetLang: settingsCache.targetLang,
         inputText: DOM.promptInput.value.trim(),
         originalInputText: DOM.promptInput.value,
         outputFilename: DOM.filenameInput.value.trim(),
