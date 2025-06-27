@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="fa" dir="ltr">
 
 <head>
     <meta charset="UTF-8" />
@@ -16,10 +16,6 @@
 </head>
 
 <body>
-    <div id="langSwitcherContainer" class="fixed top-1/2 right-0 transform -translate-y-1/2 flex flex-col z-50">
-        <div id="langToggleEn" data-lang="en" class="lang-tab">en</div>
-        <div id="langToggleFa" data-lang="fa" class="lang-tab">fa</div>
-    </div>
     <div class="min-h-screen flex flex-col items-center p-4 pt-8 md:pt-12">
         <div class="w-full max-w-6xl">
             <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -74,14 +70,6 @@
                             </div>
                             <button id="toneSelectBtn" class="modal-trigger-btn"></button>
                         </div>
-                        <div>
-                            <div class="relative group w-max">
-                                <label for="langTargetSelectBtn" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="targetLangTooltip"></div>
-                            </div>
-                            <button id="langTargetSelectBtn" class="modal-trigger-btn"></button>
-                        </div>
-                    </div>
 
                     <div>
                         <div class="relative group w-max">
@@ -137,24 +125,6 @@
             <div id="modalOptionsContainer" class="modal-options-container">
             </div>
         </div>
-    </div>
-    <div style="display:none;">
-        <select id="langTargetSelect">
-            <option value="en">English (en)</option>
-            <option value="fa">فارسی (fa)</option>
-            <option value="es">Español (es)</option>
-            <option value="fr">Français (fr)</option>
-            <option value="de">Deutsch (de)</option>
-            <option value="ru">Русский (ru)</option>
-            <option value="zh">中文 (zh)</option>
-            <option value="ja">日本語 (ja)</option>
-            <option value="ko">한국어 (ko)</option>
-            <option value="ar">العربية (ar)</option>
-            <option value="hi">हिन्दी (hi)</option>
-            <option value="tr">Türkçe (tr)</option>
-            <option value="pt">Português (pt)</option>
-            <option value="it">Italiano (it)</option>
-        </select>
     </div>
 </body>
 </html>
