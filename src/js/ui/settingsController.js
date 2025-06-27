@@ -129,6 +129,5 @@ export function getSettings() {
         tone: settingsCache.tone,
         inputText: DOM.promptInput ? DOM.promptInput.value.trim() : '',
         originalInputText: DOM.promptInput ? DOM.promptInput.value : '',
-        outputFilename: DOM.filenameInput ? DOM.filenameInput.value.trim() : '',
     };
 }
