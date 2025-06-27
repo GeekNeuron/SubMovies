@@ -397,3 +397,11 @@ html[lang="fa"] .tooltip-bubble {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+/* Style for the new Stop button */
+.btn-danger {
+    background-image: linear-gradient(to right, #e53e3e 0%, #c53030 100%);
+}
+.btn-danger:hover {
+    box-shadow: 0 4px 15px rgba(229, 62, 62, 0.2);
+}
