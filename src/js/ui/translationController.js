@@ -201,3 +201,15 @@ function handleCopyToClipboard() {
         }
     });
 }
+
+// Function to show chunk-based progress
+export function showProgressMessage(t, current, total) {
+    if (DOM.responseBox) {
+        const progressText = (t.translatingProgress || "Translating block {current} of {total}...")
+            .replace('{current}', current)
+            .replace('{total}', total);
+
+        DOM.responseBox.innerHTML = `<div class="translating-placeholder">${progressText}</div>`;
+        DOM.responseSection.style.display = 'block';
+    }
+}
