@@ -18,7 +18,6 @@ export const fileNameText = document.getElementById("fileNameText");
 // Prompt & Action Elements
 export const promptInput = document.getElementById('promptInput');
 export const charCountDisplay = document.getElementById('charCountDisplay');
-export const filenameInput = document.getElementById('filenameInput');
 export const translateBtn = document.getElementById('translateBtn');
 export const stopBtn = document.getElementById('stopBtn');
 
