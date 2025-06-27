@@ -61,4 +61,8 @@
     "targetLangTooltip": "Select the language you want to translate the subtitles into.",
     "uploadFileTooltip": "Click to upload a subtitle file in .srt or .vtt format from your device.",
     "outputFileNameTooltip": "Enter a custom name for the translated file. If left blank, a name will be generated automatically."
+
+    "stopBtn": "Stop Translating",
+    "translatingProgress": "Translating block {current} of {total}...",
+    "translationCancelled": "Translation has been cancelled by the user."
 }
