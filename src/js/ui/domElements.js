@@ -10,7 +10,6 @@ export const temperatureValueDisplay = document.getElementById('temperatureValue
 // MODAL TRIGGERS: Buttons that replaced the select elements
 export const modelSelectBtn = document.getElementById('modelSelectBtn');
 export const toneSelectBtn = document.getElementById('toneSelectBtn');
-export const langTargetSelectBtn = document.getElementById('langTargetSelectBtn');
 
 // File Input Elements
 export const fileInput = document.getElementById('fileInput');
