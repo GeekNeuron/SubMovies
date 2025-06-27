@@ -5,7 +5,9 @@ import { showToast } from '../core/toastService.js';
 import { isValidSRT, isValidVTT } from '../core/subtitleParser.js';
 import { CHAR_COUNT_WARNING_THRESHOLD } from '../utils/constants.js';
 
-let currentOriginalFileType = 'srt'; // To store the detected type of the uploaded file ('srt' or 'vtt')
+// ✅ ADDED: A variable to store the name of the uploaded file for later use.
+let originalFileName = '';
+let currentOriginalFileType = 'srt';
 
 /**
  * Initializes file input and prompt textarea event listeners.
@@ -16,25 +18,24 @@ export function initializeFileHandling() {
         DOM.fileInput.addEventListener('change', handleFileSelect);
     }
     if (DOM.promptInput) {
-        // Corrected arrow function syntax here:
         DOM.promptInput.addEventListener('input', () => { 
-            updateCharCountUI(); // Update char count on manual input
-            // If user types directly, we can't be sure of the file type.
-            // The main translation logic will attempt to parse based on content.
-            // For download purposes, if text is pasted, we might default to 'srt'.
-            if (DOM.fileNameText) { // Clear file name if text is manually entered/changed
+            updateCharCountUI();
+            
+            // If user types/pastes text, clear the stored file name.
+            originalFileName = '';
+
+            if (DOM.fileNameText) {
                 const t = getCurrentTranslations();
-                // Ensure t and t.fileNone exist before using, or provide a hardcoded fallback if necessary
                 DOM.fileNameText.textContent = (t && t.fileNone !== undefined) ? t.fileNone : ''; 
             }
-            currentOriginalFileType = 'srt'; // Default if text is pasted
+            currentOriginalFileType = 'srt';
         });
     }
-    // Initial character count update for any pre-filled text (e.g., browser cache)
+    // Initial character count update
     if (DOM.promptInput && DOM.promptInput.value) {
         updateCharCountUI();
-    } else if (DOM.charCountDisplay) { // Ensure char count is initialized even if prompt is empty
-         updateCharCountUI();
+    } else if (DOM.charCountDisplay) {
+        updateCharCountUI();
     }
 }
 
@@ -45,8 +46,12 @@ export function initializeFileHandling() {
  */
 async function handleFileSelect(event) {
     const file = event.target.files[0];
+    
+    // ✅ ADDED: Store the name of the selected file.
+    originalFileName = file ? file.name : '';
+
     const t = getCurrentTranslations(); 
-    currentOriginalFileType = 'srt'; // Default
+    currentOriginalFileType = 'srt';
 
     if (DOM.fileNameText) {
         DOM.fileNameText.textContent = file ? file.name : (t.fileNone !== undefined ? t.fileNone : '');
@@ -67,7 +72,7 @@ async function handleFileSelect(event) {
         if (DOM.fileNameText) DOM.fileNameText.textContent = t.fileNone !== undefined ? t.fileNone : '';
         if (DOM.promptInput) DOM.promptInput.value = '';
         updateCharCountUI();
-        event.target.value = ''; // Reset file input
+        event.target.value = '';
         return;
     }
 
@@ -104,7 +109,6 @@ function updateCharCountUI() {
     const t = getCurrentTranslations();
     
     const charCountLabelKey = 'charCountLabel';
-    // Provide a safe fallback for the label itself if t or t[charCountLabelKey] is undefined
     const charCountTextTemplate = (t && t[charCountLabelKey] !== undefined) ? t[charCountLabelKey] : "Characters: {count}";
     DOM.charCountDisplay.textContent = charCountTextTemplate.replace('{count}', charLength);
 
@@ -117,6 +121,15 @@ function updateCharCountUI() {
 // Expose globally for i18nService to call after language change.
 window.updateCharCountGlobal = updateCharCountUI;
 
+
+/**
+ * ✅ NEW: Exported function to get the name of the uploaded file.
+ * This will be used by the download handler in translationController.
+ * @returns {string} The original file name.
+ */
+export function getOriginalFileName() {
+    return originalFileName;
+}
 
 /**
  * Gets the detected original file type ('srt' or 'vtt') of the currently loaded/pasted content.
