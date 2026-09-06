@@ -26,8 +26,10 @@ export function showToast(msg, type = 'info', duration = 8000) {
         // 'info' uses the default bgColorClass
     }
 
-    // Base classes for positioning and common styling
-    box.className = `fixed top-5 left-1/2 transform -translate-x-1/2 ${bgColorClass} text-white px-6 py-3 rounded-lg shadow-xl z-50 flex items-center max-w-lg text-sm transition-all duration-300 ease-out opacity-0 translate-y-[-20px]`;
+    // Base classes for positioning and common styling.
+    // Fixed to the bottom of the viewport (instead of the top) so it doesn't
+    // cover the API key / model select fields at the top of the form.
+    box.className = `fixed bottom-5 left-1/2 transform -translate-x-1/2 ${bgColorClass} text-white px-6 py-3 rounded-lg shadow-xl z-50 flex items-center max-w-lg text-sm transition-all duration-300 ease-out opacity-0 translate-y-[20px]`;
     
     const messageSpan = document.createElement('span');
     messageSpan.style.wordBreak = 'break-word'; 
@@ -44,7 +46,7 @@ export function showToast(msg, type = 'info', duration = 8000) {
     
     closeButton.addEventListener('click', () => {
         box.style.opacity = '0';
-        box.style.transform = 'translate(-50%, -20px)';
+        box.style.transform = 'translate(-50%, 20px)';
         setTimeout(() => box.remove(), 300); // Remove after transition
     });
     
@@ -52,7 +54,7 @@ export function showToast(msg, type = 'info', duration = 8000) {
     box.appendChild(closeButton);
     document.body.appendChild(box);
 
-    // Trigger fade-in and slide-down animation
+    // Trigger fade-in and slide-up animation
     requestAnimationFrame(() => {
         box.style.opacity = '1';
         box.style.transform = 'translate(-50%, 0)';

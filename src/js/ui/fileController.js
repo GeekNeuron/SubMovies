@@ -2,12 +2,18 @@
 import * as DOM from './domElements.js';
 import { getCurrentTranslations } from '../core/i18nService.js';
 import { showToast } from '../core/toastService.js';
-import { isValidSRT, isValidVTT } from '../core/subtitleParser.js';
+import { isValidSRT, isValidVTT, isValidASS } from '../core/subtitleParser.js';
 import { CHAR_COUNT_WARNING_THRESHOLD } from '../utils/constants.js';
+import { debounce } from '../utils/helpers.js';
 
 // ✅ ADDED: A variable to store the name of the uploaded file for later use.
 let originalFileName = '';
 let currentOriginalFileType = 'srt';
+
+// Debounced so that pasting a large subtitle file (potentially tens of
+// thousands of characters) doesn't re-render the character count on every
+// intermediate paste/input event.
+const debouncedUpdateCharCountUI = debounce(updateCharCountUI, 150);
 
 /**
  * Initializes file input and prompt textarea event listeners.
@@ -18,10 +24,19 @@ export function initializeFileHandling() {
         DOM.fileInput.addEventListener('change', handleFileSelect);
     }
     if (DOM.promptInput) {
-        DOM.promptInput.addEventListener('input', () => { 
-            updateCharCountUI();
-            
+        DOM.promptInput.addEventListener('input', (event) => { 
+            debouncedUpdateCharCountUI();
+
+            // event.isTrusted is false for events we dispatch programmatically
+            // (e.g. after a file upload sets the textarea's value) and true
+            // for real user typing/pasting. Only real typing should clear the
+            // "file selected" state - a file upload already sets its own
+            // fileNameText right before this fires.
+            if (!event.isTrusted) return;
+
             // If user types/pastes text, clear the stored file name.
+            // (Kept immediate/undebounced: this is cheap and should reflect
+            // the "typing, not a file" state right away.)
             originalFileName = '';
 
             if (DOM.fileNameText) {
@@ -37,6 +52,19 @@ export function initializeFileHandling() {
     } else if (DOM.charCountDisplay) {
         updateCharCountUI();
     }
+}
+
+/**
+ * Sets promptInput's value and dispatches a real 'input' event, since
+ * setting .value programmatically does NOT fire one on its own. This lets
+ * other modules (e.g. the manual translation editor) react to file uploads
+ * the same way they react to the user typing/pasting.
+ * @param {string} text
+ */
+function setPromptInputValue(text) {
+    if (!DOM.promptInput) return;
+    DOM.promptInput.value = text;
+    DOM.promptInput.dispatchEvent(new Event('input', { bubbles: true }));
 }
 
 /**
@@ -58,8 +86,7 @@ async function handleFileSelect(event) {
     }
 
     if (!file) {
-        if (DOM.promptInput) DOM.promptInput.value = '';
-        updateCharCountUI();
+        setPromptInputValue('');
         return;
     }
 
@@ -67,33 +94,34 @@ async function handleFileSelect(event) {
         currentOriginalFileType = 'vtt';
     } else if (file.name.toLowerCase().endsWith('.srt')) {
         currentOriginalFileType = 'srt';
+    } else if (file.name.toLowerCase().endsWith('.ass') || file.name.toLowerCase().endsWith('.ssa')) {
+        currentOriginalFileType = 'ass';
     } else {
-        showToast(t.unsupportedFileType || "Unsupported file type. Please upload .srt or .vtt", "error");
+        showToast(t.unsupportedFileType || "Unsupported file type. Please upload .srt, .vtt, .ass, or .ssa", "error");
         if (DOM.fileNameText) DOM.fileNameText.textContent = t.fileNone !== undefined ? t.fileNone : '';
-        if (DOM.promptInput) DOM.promptInput.value = '';
-        updateCharCountUI();
+        setPromptInputValue('');
         event.target.value = '';
         return;
     }
 
     try {
         const text = await file.text();
-        if (DOM.promptInput) DOM.promptInput.value = text;
-        updateCharCountUI(); 
+        setPromptInputValue(text);
 
         // Perform basic validation based on detected type after loading content
         if (currentOriginalFileType === 'vtt' && !isValidVTT(text)) {
             showToast(t.fileValidationVTTError || "Invalid VTT file. Missing WEBVTT header or malformed.", "error");
         } else if (currentOriginalFileType === 'srt' && !isValidSRT(text)) {
             showToast(t.fileValidationSRTError || "Invalid SRT file. Please check format.", "error");
+        } else if (currentOriginalFileType === 'ass' && !isValidASS(text)) {
+            showToast(t.fileValidationASSError || "Invalid ASS/SSA file. Missing [Script Info], [Events], or Dialogue lines.", "error");
         }
 
     } catch (err) {
         console.error("Error reading file:", err);
         const fileReadErrorMsg = (t.errorFileRead || "Error reading file:") + " " + err.message;
         showToast(fileReadErrorMsg, 'error');
-        if (DOM.promptInput) DOM.promptInput.value = '';
-        updateCharCountUI();
+        setPromptInputValue('');
         if (DOM.fileNameText) DOM.fileNameText.textContent = t.fileNone !== undefined ? t.fileNone : '';
     }
 }
@@ -120,6 +148,21 @@ function updateCharCountUI() {
 }
 // Expose globally for i18nService to call after language change.
 window.updateCharCountGlobal = updateCharCountUI;
+
+/**
+ * Re-applies the translated "no file chosen" placeholder to fileNameText
+ * when the UI language changes - but only if no real file/typed content is
+ * currently shown there (a real file name should never be translated).
+ */
+function refreshFileNameTranslation() {
+    if (!DOM.fileNameText) return;
+    if (!originalFileName) {
+        const t = getCurrentTranslations();
+        DOM.fileNameText.textContent = t.fileNone !== undefined ? t.fileNone : '';
+    }
+}
+// Expose globally for i18nService to call after language change.
+window.refreshFileNameTranslationGlobal = refreshFileNameTranslation;
 
 
 /**

@@ -3,6 +3,7 @@ import { getOriginalFileName } from './fileController.js';
 import * as DOM from './domElements.js';
 import { getCurrentTranslations } from '../core/i18nService.js';
 import { showToast } from '../core/toastService.js';
+import { downloadTextAsFile, sanitizeFilename } from '../utils/helpers.js';
 // getOriginalFileType will be imported and used in main.js before calling download
 
 let lastTranslatedTextForCopy = ""; 
@@ -111,9 +112,17 @@ function renderComparisonHTML(orig, translated, t) {
         
         const preEl = document.createElement('pre');
         preEl.className = 'p-3 rounded-md text-sm max-h-80 sm:max-h-96 overflow-y-auto border';
-        preEl.style.backgroundColor = 'var(--input-bg)'; 
-        preEl.style.borderColor = 'var(--input-border)'; 
-        preEl.style.color = 'var(--input-text)'; // Ensure pre text color matches theme
+        preEl.style.backgroundColor = 'var(--input-bg-actual)'; 
+        preEl.style.borderColor = 'var(--input-border-actual)'; 
+        preEl.style.color = 'var(--input-text-actual)'; // Ensure pre text color matches theme
+        // Fix: isolate this block from the page's RTL bidi context. Without this,
+        // the browser's bidi algorithm visually reorders SRT timestamp lines
+        // (e.g. "00:00:01,000 --> 00:00:02,000" renders reversed) because the
+        // surrounding <html dir="rtl"> influences how weakly-directional
+        // characters (digits, "-->", punctuation) get laid out.
+        preEl.dir = 'ltr';
+        preEl.style.unicodeBidi = 'plaintext';
+        preEl.style.textAlign = 'start';
         preEl.textContent = content;
         
         boxContainer.appendChild(titleEl);
@@ -134,29 +143,25 @@ function handleDownload() {
         return;
     }
 
-    // ✅ منطق جدید برای ساخت نام فایل
-    const inputFileName = getOriginalFileName();
+    const extension = lastOriginalFileTypeForDownload;
+    const customName = DOM.filenameInput ? DOM.filenameInput.value.trim() : '';
     let outputFilename;
 
-    if (inputFileName) {
-        // اگر فایلی آپلود شده بود، پیشوند اضافه می‌شود
-        outputFilename = `SubMovies-${inputFileName}`;
+    if (customName) {
+        outputFilename = sanitizeFilename(customName, extension, `SubMovies-translated.${extension}`);
     } else {
-        // اگر متنی پیست شده بود و فایلی در کار نبود
-        const extension = lastOriginalFileTypeForDownload;
-        outputFilename = `SubMovies-translated.${extension}`;
+        // ✅ منطق قدیمی برای ساخت نام فایل به‌صورت خودکار
+        const inputFileName = getOriginalFileName();
+        if (inputFileName) {
+            // اگر فایلی آپلود شده بود، پیشوند اضافه می‌شود
+            outputFilename = `SubMovies-${inputFileName}`;
+        } else {
+            // اگر متنی پیست شده بود و فایلی در کار نبود
+            outputFilename = `SubMovies-translated.${extension}`;
+        }
     }
-    
-    // بقیه منطق دانلود دست‌نخورده باقی می‌ماند
-    const blob = new Blob([lastTranslatedTextForCopy], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = outputFilename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+
+    downloadTextAsFile(lastTranslatedTextForCopy, outputFilename);
 }
 
 /**
@@ -205,4 +210,32 @@ export function showProgressMessage(t, current, total) {
         DOM.responseBox.innerHTML = `<div class="translating-placeholder">${progressText}</div>`;
         DOM.responseSection.style.display = 'block';
     }
+}
+
+/**
+ * Updates the persistent progress bar (percentage fill + "X of Y" caption).
+ * @param {number} current - number of chunks completed so far (0-based index of the one in progress is fine too).
+ * @param {number} total - total number of chunks.
+ * @param {object} t - current translations object.
+ */
+export function updateProgressBar(current, total, t) {
+    if (!DOM.progressBarContainer) return;
+    DOM.progressBarContainer.style.display = 'block';
+    const percent = total > 0 ? Math.round((current / total) * 100) : 0;
+    if (DOM.progressBarFill) DOM.progressBarFill.style.width = percent + '%';
+    if (DOM.progressBarText) {
+        const label = (t.translatingProgress || "Translating block {current} of {total}...")
+            .replace('{current}', current)
+            .replace('{total}', total);
+        DOM.progressBarText.textContent = `${label} (${percent}%)`;
+    }
+}
+
+/**
+ * Hides the progress bar entirely (e.g. once a translation fully completes).
+ */
+export function hideProgressBar() {
+    if (DOM.progressBarContainer) DOM.progressBarContainer.style.display = 'none';
+    if (DOM.progressBarFill) DOM.progressBarFill.style.width = '0%';
+    if (DOM.progressBarText) DOM.progressBarText.textContent = '';
 }

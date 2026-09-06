@@ -126,6 +126,49 @@ export function internalSrtToVTT(srtText) {
 }
 
 /**
+ * Parses subtitle text (SRT or VTT, auto-detected) into a structured array
+ * of cue blocks. Used by the manual translation editor to render one row
+ * per subtitle line. Timestamps are always normalized to SRT's comma-decimal
+ * format, regardless of the source format.
+ * @param {string} text - Raw subtitle text (SRT or VTT).
+ * @returns {Array<{index: string, timestamp: string, originalText: string}>}
+ */
+export function parseSubtitleBlocks(text) {
+    if (!text || typeof text !== 'string') return [];
+
+    let srtText = text.trim();
+    if (isValidVTT(srtText)) {
+        try {
+            srtText = vttToInternalSrt(srtText);
+        } catch (e) {
+            // Malformed VTT header; fall through and try parsing as-is.
+        }
+    }
+
+    const rawBlocks = srtText.split(/\r?\n\s*\r?\n/).filter(b => b.trim() !== '');
+    const blocks = [];
+
+    for (const raw of rawBlocks) {
+        const lines = raw.split(/\r?\n/);
+        if (lines.length < 2) continue;
+
+        const idxLine = lines[0].trim();
+        const timeLine = lines[1].trim();
+        if (!timeLine.includes('-->')) continue; // Not a recognizable cue block; skip.
+
+        const textLines = lines.slice(2);
+        blocks.push({
+            index: idxLine || String(blocks.length + 1),
+            timestamp: timeLine,
+            originalText: textLines.join('\n').trim(),
+        });
+    }
+
+    return blocks;
+}
+
+
+/**
  * Replaces Persian/Arabic numerals in a string with Western Arabic numerals (0-9),
  * except for those within SRT timestamp patterns.
  * @param {string} txt - The text to process.
@@ -163,4 +206,143 @@ function toEnglishNumerals(numStr) {
     '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4', '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9'  // Arabic-Indic
   };
   return numStr.split('').map(char => persianArabicMap[char] || char).join('');
+}
+
+/**
+ * Detects whether text looks like an ASS/SSA subtitle file.
+ * @param {string} text
+ * @returns {boolean}
+ */
+export function isValidASS(text) {
+    if (!text) return false;
+    return /\[Script Info\]/i.test(text) && /\[Events\]/i.test(text) && /^Dialogue:/im.test(text);
+}
+
+/**
+ * Parses an ASS/SSA file, extracting only the Dialogue events' Text field
+ * (the last field per the format's own "Format:" line - since Text is
+ * always last, this is safe even though the text itself may contain commas).
+ * Everything else (styles, script info, timing, effects, Comment lines) is
+ * kept completely untouched, referenced by line index for reconstruction.
+ * @param {string} text
+ * @returns {{lines: string[], events: {lineIndex: number, originalText: string}[], numFields: number}}
+ */
+export function parseASS(text) {
+    const lines = text.split(/\r?\n/);
+    let numFields = 10; // sane default matching the standard v4+ "Format:" line
+    let inEvents = false;
+    const events = [];
+
+    lines.forEach((line, idx) => {
+        const trimmed = line.trim();
+        if (/^\[.+\]/.test(trimmed)) {
+            inEvents = /^\[Events\]/i.test(trimmed);
+            return;
+        }
+        if (!inEvents) return;
+
+        if (/^Format:/i.test(trimmed)) {
+            numFields = trimmed.replace(/^Format:/i, '').split(',').length;
+            return;
+        }
+        if (/^Dialogue:/i.test(trimmed)) {
+            const colonIdx = line.indexOf(':');
+            const rest = line.slice(colonIdx + 1);
+            const parts = rest.split(',');
+            if (parts.length >= numFields) {
+                const originalText = parts.slice(numFields - 1).join(',');
+                events.push({ lineIndex: idx, originalText });
+            }
+        }
+    });
+
+    return { lines, events, numFields };
+}
+
+/**
+ * Rebuilds a full ASS/SSA file from a parsed structure and a list of
+ * translated texts (same order as `parsed.events`). Any event without a
+ * corresponding translated text (e.g. a partially-completed translation)
+ * keeps its original text, so a partial download is always a valid file.
+ * @param {{lines: string[], events: {lineIndex:number, originalText:string}[], numFields: number}} parsed
+ * @param {string[]} translatedTexts
+ * @returns {string}
+ */
+export function rebuildASS(parsed, translatedTexts) {
+    const lines = parsed.lines.slice();
+    parsed.events.forEach((ev, i) => {
+        const newText = (translatedTexts[i] !== undefined && translatedTexts[i] !== null) ? translatedTexts[i] : ev.originalText;
+        const line = lines[ev.lineIndex];
+        const colonIdx = line.indexOf(':');
+        const prefix = line.slice(0, colonIdx + 1);
+        const rest = line.slice(colonIdx + 1);
+        const parts = rest.split(',');
+        const fixedParts = parts.slice(0, parsed.numFields - 1);
+        lines[ev.lineIndex] = `${prefix}${fixedParts.join(',')},${newText}`;
+    });
+    return lines.join('\n');
+}
+
+/**
+ * Converts a parsed ASS structure's dialogue events into an internal
+ * SRT-like representation so the existing chunking/translation/resume/
+ * continuity pipeline (built for SRT/VTT) can be reused unchanged. The
+ * timestamps used here are placeholders (not real ASS timing) purely to
+ * satisfy the pipeline's block-parsing format - they are discarded, never
+ * shown to the user, and never written to the final output.
+ * @param {{events: {originalText: string}[]}} parsed
+ * @returns {string}
+ */
+export function assEventsToInternalSrt(parsed) {
+    return parsed.events
+        .map((ev, i) => `${i + 1}\n00:00:00,000 --> 00:00:00,000\n${ev.originalText}`)
+        .join('\n\n');
+}
+
+/**
+ * Re-wraps a block of text into lines of at most maxCharsPerLine characters,
+ * breaking only at spaces (never mid-word).
+ * @param {string} text
+ * @param {number} maxCharsPerLine
+ * @returns {string}
+ */
+export function wrapText(text, maxCharsPerLine = 42) {
+    const words = text.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+    if (words.length === 0) return '';
+    const lines = [];
+    let current = '';
+    for (const w of words) {
+        const candidate = current ? `${current} ${w}` : w;
+        if (candidate.length > maxCharsPerLine && current) {
+            lines.push(current);
+            current = w;
+        } else {
+            current = candidate;
+        }
+    }
+    if (current) lines.push(current);
+    return lines.join('\n');
+}
+
+/**
+ * Post-processes a full block of translated SRT-like text: re-wraps each
+ * cue's dialogue text (only the lines AFTER the index/timestamp) so no
+ * single line exceeds maxCharsPerLine, for better subtitle readability.
+ * Index and timestamp lines are always left untouched.
+ * @param {string} text - joined SRT-like text (multiple "index\ntimestamp\ntext" blocks).
+ * @param {number} maxCharsPerLine
+ * @returns {string}
+ */
+export function postProcessLineWrapping(text, maxCharsPerLine = 42) {
+    if (!text) return text;
+    const blocks = text.split(/\r?\n\s*\r?\n/).filter(b => b.trim() !== '');
+    const processed = blocks.map(block => {
+        const lines = block.split(/\r?\n/);
+        if (lines.length < 3 || !lines[1].includes('-->')) return block; // not a normal cue block; leave as-is
+        const meta = lines.slice(0, 2);
+        const dialogue = lines.slice(2).join(' ');
+        const wrapped = wrapText(dialogue, maxCharsPerLine);
+        return [...meta, wrapped].join('\n');
+    });
+    return processed.join('\n\n');
 }
