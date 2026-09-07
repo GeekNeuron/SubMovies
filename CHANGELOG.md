@@ -5,6 +5,7 @@ All notable changes to this project are documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Complete UI redesign**: a custom "Screening Room" design system replacing the previous Tailwind-based UI - true light/dark themes (dark mode as a cinema screening room: near-black with a warm amber accent; light mode a cool, crisp review surface), a sticky top bar, a two-column workspace on desktop that collapses to a single column with a sticky bottom action bar on mobile, and consistent, purposeful animations (theme toggle icon morph, button press feedback, modal/toast entrance, a live shimmer on the progress bar) that respect `prefers-reduced-motion`. Removed the Tailwind CSS dependency entirely (both the CDN and the local fallback file).
 - Support for **DeepSeek** and **Anthropic Claude** as alternative AI providers alongside Gemini. Each provider's API key is stored and restored independently, so switching models never overwrites another provider's saved key.
 - **Manual Translation Mode**: a no-AI, line-by-line editor. Original text is shown read-only on one side; an empty field on the other lets you type your own translation per line, matched to the original timing. Every keystroke, and the mode toggle itself, is saved to localStorage automatically. Exports a clean SRT.
 - **Resumable translations**: if a chunk fails (API error, rate limit) or the user clicks Stop, previously-completed chunks are no longer discarded. The translate button becomes "Resume Translation" and continues exactly where it left off.

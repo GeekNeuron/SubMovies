@@ -6,7 +6,7 @@ SubMovies is a pure frontend project with no backend dependencies.
 
 ```
 src/lang/               → 13 UI language files (fa, en, ar, tr, fr, de, es, ru, zh, hi, ja, pt, it)
-src/css/                → main.css + local tailwind.min.css
+src/css/                → main.css (custom "Screening Room" design system - no framework)
 src/js/core/            → apiService (Gemini/DeepSeek/Claude), i18nService, subtitleParser, themeService, toastService
 src/js/ui/              → domElements, fileController, modalController, settingsController,
                           translationController, manualEditorController

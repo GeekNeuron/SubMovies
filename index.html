@@ -10,193 +10,228 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-    <link href="src/css/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/css/main.css">
     <script type="module" src="src/js/main.js" defer></script>
 </head>
 
 <body>
-    <div class="min-h-screen flex flex-col items-center p-4 pt-8 md:pt-12">
-        <div class="w-full max-w-6xl">
-            <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <section class="card space-y-5" id="settingsCard">
-                    <div class="relative border-b pb-4 mb-4" style="border-color: var(--input-border);">
-                        <div id="titleThemeToggleContainer" class="text-center cursor-pointer group w-max mx-auto" aria-label="Toggle theme">
-                            <div class="flex items-center justify-center">
-                                <img src="favicon.svg" alt="SubMovies Logo" class="w-8 h-8 mr-2 md:w-9 md:h-9">
-                                <h1 id="appTitleH1" class="text-2xl md:text-3xl font-bold group-hover:opacity-80 transition-opacity" data-i18n="appHeaderTitle"></h1>
-                            </div>
-                        </div>
-                        <p class="text-sm md:text-base text-center mt-1" data-i18n="appSubtitle" style="color: var(--text-color-secondary);"></p>
-                        <button id="languageSelectBtn" class="modal-trigger-btn" style="width: auto; display: block; margin: 0.75rem auto 0; padding: 0.4rem 0.9rem; font-size: 0.8rem;"></button>
-                    </div>
+    <div class="app-shell">
+        <header class="top-bar">
+            <div class="top-bar-brand">
+                <img src="favicon.svg" alt="" />
+                <span>SubMovies</span>
+            </div>
+            <div class="top-bar-spacer"></div>
+            <div class="top-bar-actions">
+                <button id="languageSelectBtn" class="lang-btn"></button>
+                <button id="titleThemeToggleContainer" class="theme-toggle" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <line x1="12" y1="2" x2="12" y2="4"></line>
+                        <line x1="12" y1="20" x2="12" y2="22"></line>
+                        <line x1="4.2" y1="4.2" x2="5.6" y2="5.6"></line>
+                        <line x1="18.4" y1="18.4" x2="19.8" y2="19.8"></line>
+                        <line x1="2" y1="12" x2="4" y2="12"></line>
+                        <line x1="20" y1="12" x2="22" y2="12"></line>
+                        <line x1="4.2" y1="19.8" x2="5.6" y2="18.4"></line>
+                        <line x1="18.4" y1="5.6" x2="19.8" y2="4.2"></line>
+                    </svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.5 14.5c-1 .3-2 .5-3 .5-5 0-9-4-9-9 0-1 .2-2 .5-3-4 1-7 4.5-7 8.7C2 16.7 6.3 21 11.3 21c4.2 0 7.7-3 8.7-7 .1-.2.1-.3.5-.5z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
 
-                    <div id="aiSettingsSection">
-                    <div>
-                        <div class="relative group w-max">
-                            <label for="apiKeyInput" class="icon-label"><span role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel"></span>&nbsp;<span id="apiKeyProviderTag" style="opacity:0.65; font-weight:normal;"></span></label>
-                            <div class="tooltip-bubble" data-i18n-tooltip="apiKeyTooltip"></div>
-                        </div>
-                        <input id="apiKeyInput" type="password" data-i18n-placeholder="apiKeyPlaceholder" />
-                        <div class="mt-1 flex items-center">
-                            <input type="checkbox" id="saveApiKeyCheckbox" class="h-4 w-4 rounded focus:ring-offset-0" style="background-color: var(--input-bg); border-color: var(--input-border);">
-                            <div class="relative group ml-2">
-                                <label for="saveApiKeyCheckbox" class="text-sm" data-i18n="saveApiKeyLabel" style="color: var(--text-color-secondary); font-weight:normal; margin-bottom:0;"></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="saveApiKeyTooltip"></div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="layout page-enter">
+            <div class="hero-copy">
+                <h1 id="appTitleH1" data-i18n="appHeaderTitle"></h1>
+                <p data-i18n="appSubtitle"></p>
+            </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
+            <main class="workspace">
+                <section class="card" id="settingsCard">
+
+                    <div id="aiSettingsSection" class="field-group">
+                        <div class="field">
                             <div class="relative group w-max">
-                                <label for="modelSelectBtn" class="icon-label"><span role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="modelTooltip"></div>
+                                <label for="apiKeyInput" class="field-label"><span class="field-icon" role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel"></span>&nbsp;<span id="apiKeyProviderTag" style="opacity:0.7; font-weight:normal;"></span></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="apiKeyTooltip"></div>
                             </div>
-                            <button id="modelSelectBtn" class="modal-trigger-btn"></button>
-                        </div>
-                        <div>
-                             <div class="relative group w-max">
-                                <label for="temperatureInput" class="icon-label" data-i18n="temperatureLabel"></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="temperatureTooltip"></div>
+                            <input id="apiKeyInput" type="password" data-i18n-placeholder="apiKeyPlaceholder" />
+                            <div class="toggle-row">
+                                <input type="checkbox" id="saveApiKeyCheckbox">
+                                <div class="relative group" style="flex:1 1 auto;">
+                                    <label for="saveApiKeyCheckbox" class="field-label" data-i18n="saveApiKeyLabel" style="font-weight:normal;"></label>
+                                    <div class="tooltip-bubble" data-i18n-tooltip="saveApiKeyTooltip"></div>
+                                </div>
                             </div>
-                            <input type="range" id="temperatureInput" min="0" max="1" step="0.1" value="0.7" class="w-full h-2 rounded-lg appearance-none cursor-pointer">
-                            <div class="text-xs text-center mt-1" id="temperatureValueDisplay" style="color: var(--text-color-secondary);">0.7</div>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <div class="relative group w-max">
-                                <label for="toneSelectBtn" class="icon-label"><span role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="toneTooltip"></div>
-                            </div>
-                            <button id="toneSelectBtn" class="modal-trigger-btn"></button>
-                        </div>
-                        <div>
-                            <div class="relative group w-max">
-                                <label for="langTargetSelectBtn" class="icon-label"><span role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="targetLangTooltip"></div>
-                            </div>
-                            <button id="langTargetSelectBtn" class="modal-trigger-btn"></button>
-                        </div>
-                    </div>
 
-                    <div>
-                        <div class="relative group w-max">
-                            <label for="customPromptInput" class="icon-label"><span role="img" aria-label="pencil note">📝</span> <span data-i18n="customPromptLabel"></span></label>
-                            <div class="tooltip-bubble" data-i18n-tooltip="customPromptTooltip"></div>
-                        </div>
-                        <textarea id="customPromptInput" class="w-full" style="min-height: 4.5rem;" data-i18n-placeholder="customPromptPlaceholder"></textarea>
-                    </div>
-
-                    <div>
-                        <div class="relative group w-max">
-                            <label for="chunkSizeSelectBtn" class="icon-label"><span role="img" aria-label="gauge">📊</span> <span data-i18n="chunkSizeLabel"></span></label>
-                            <div class="tooltip-bubble" data-i18n-tooltip="chunkSizeTooltip"></div>
-                        </div>
-                        <button id="chunkSizeSelectBtn" class="modal-trigger-btn"></button>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <div class="relative group w-max">
-                                <label for="rateLimitSelectBtn" class="icon-label"><span role="img" aria-label="hourglass">⏳</span> <span data-i18n="rateLimitLabel"></span></label>
-                                <div class="tooltip-bubble" data-i18n-tooltip="rateLimitTooltip"></div>
+                        <div class="field-row two-col">
+                            <div class="field">
+                                <div class="relative group w-max">
+                                    <label for="modelSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
+                                    <div class="tooltip-bubble" data-i18n-tooltip="modelTooltip"></div>
+                                </div>
+                                <button id="modelSelectBtn" class="modal-trigger-btn"></button>
                             </div>
-                            <button id="rateLimitSelectBtn" class="modal-trigger-btn"></button>
+                            <div class="field">
+                                <div class="relative group w-max">
+                                    <label for="temperatureInput" class="field-label" data-i18n="temperatureLabel"></label>
+                                    <div class="tooltip-bubble" data-i18n-tooltip="temperatureTooltip"></div>
+                                </div>
+                                <input type="range" id="temperatureInput" min="0" max="1" step="0.1" value="0.7">
+                                <div class="hint-text" id="temperatureValueDisplay" style="text-align:center;">0.7</div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="mt-1 flex items-center" style="height: 100%; align-items: flex-end; padding-bottom: 0.4rem;">
-                                <input type="checkbox" id="postProcessToggle" class="h-4 w-4 rounded focus:ring-offset-0" style="background-color: var(--input-bg); border-color: var(--input-border);">
-                                <div class="relative group ml-2">
-                                    <label for="postProcessToggle" class="text-sm" data-i18n="postProcessLabel" style="font-weight:normal; margin-bottom:0;"></label>
-                                    <div class="tooltip-bubble" data-i18n-tooltip="postProcessTooltip"></div>
+
+                        <div class="field-row two-col">
+                            <div class="field">
+                                <div class="relative group w-max">
+                                    <label for="toneSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="microphone">🎤</span> <span data-i18n="toneLabel"></span></label>
+                                    <div class="tooltip-bubble" data-i18n-tooltip="toneTooltip"></div>
+                                </div>
+                                <button id="toneSelectBtn" class="modal-trigger-btn"></button>
+                            </div>
+                            <div class="field">
+                                <div class="relative group w-max">
+                                    <label for="langTargetSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="globe">🌍</span> <span data-i18n="langTargetLabel"></span></label>
+                                    <div class="tooltip-bubble" data-i18n-tooltip="targetLangTooltip"></div>
+                                </div>
+                                <button id="langTargetSelectBtn" class="modal-trigger-btn"></button>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="relative group w-max">
+                                <label for="customPromptInput" class="field-label"><span class="field-icon" role="img" aria-label="pencil note">📝</span> <span data-i18n="customPromptLabel"></span></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="customPromptTooltip"></div>
+                            </div>
+                            <textarea id="customPromptInput" style="min-height: 4.5rem;" data-i18n-placeholder="customPromptPlaceholder"></textarea>
+                        </div>
+
+                        <hr class="section-divider" />
+
+                        <div class="field">
+                            <div class="relative group w-max">
+                                <label for="chunkSizeSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="gauge">📊</span> <span data-i18n="chunkSizeLabel"></span></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="chunkSizeTooltip"></div>
+                            </div>
+                            <button id="chunkSizeSelectBtn" class="modal-trigger-btn"></button>
+                        </div>
+
+                        <div class="field-row two-col">
+                            <div class="field">
+                                <div class="relative group w-max">
+                                    <label for="rateLimitSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="hourglass">⏳</span> <span data-i18n="rateLimitLabel"></span></label>
+                                    <div class="tooltip-bubble" data-i18n-tooltip="rateLimitTooltip"></div>
+                                </div>
+                                <button id="rateLimitSelectBtn" class="modal-trigger-btn"></button>
+                            </div>
+                            <div class="field" style="justify-content:flex-end;">
+                                <div class="toggle-row">
+                                    <input type="checkbox" id="postProcessToggle">
+                                    <div class="relative group" style="flex:1 1 auto;">
+                                        <label for="postProcessToggle" class="field-label" data-i18n="postProcessLabel" style="font-weight:normal;"></label>
+                                        <div class="tooltip-bubble" data-i18n-tooltip="postProcessTooltip"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
                     <!-- /#aiSettingsSection -->
 
-                    <div class="mt-1 flex items-center">
-                        <input type="checkbox" id="manualModeToggle" class="h-4 w-4 rounded focus:ring-offset-0" style="background-color: var(--input-bg); border-color: var(--input-border);">
-                        <div class="relative group ml-2">
-                            <label for="manualModeToggle" class="text-sm font-medium" data-i18n="manualModeLabel" style="margin-bottom:0;"></label>
+                    <hr class="section-divider" />
+
+                    <div class="toggle-row">
+                        <input type="checkbox" id="manualModeToggle">
+                        <div class="relative group" style="flex:1 1 auto;">
+                            <label for="manualModeToggle" class="field-label" data-i18n="manualModeLabel"></label>
                             <div class="tooltip-bubble" data-i18n-tooltip="manualModeTooltip"></div>
                         </div>
                     </div>
 
-                    <div>
+                    <div class="field">
                         <div class="relative group w-max">
-                            <label for="fileInput" class="block mb-2 text-sm font-medium icon-label">
-                                <span role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span>
+                            <label for="fileInput" class="field-label">
+                                <span class="field-icon" role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span>
                             </label>
-                             <div class="tooltip-bubble" data-i18n-tooltip="uploadFileTooltip"></div>
+                            <div class="tooltip-bubble" data-i18n-tooltip="uploadFileTooltip"></div>
                         </div>
-                        <label class="custom-file-upload btn btn-secondary w-full text-center cursor-pointer">
-                            <input id="fileInput" type="file" accept=".srt,.vtt,.ass,.ssa" class="hidden" />
-                            <span id="fileInputButtonText" data-i18n="fileChooseButtonText"></span>
+                        <label class="custom-file-upload">
+                            <input id="fileInput" type="file" accept=".srt,.vtt,.ass,.ssa" style="display:none;" />
+                            <span class="upload-zone">
+                                <span role="img" aria-label="upload">📤</span>
+                                <span id="fileInputButtonText" data-i18n="fileChooseButtonText"></span>
+                            </span>
                         </label>
-                        <div id="fileNameText" class="text-xs mt-1 h-4" style="color: var(--text-color-secondary);"></div>
-                        <p class="text-xs mt-1" data-i18n="assFormatNote" style="color: var(--text-color-secondary); opacity: 0.7;"></p>
+                        <div id="fileNameText" class="hint-text"></div>
+                        <p class="hint-text" data-i18n="assFormatNote"></p>
                     </div>
 
-                    <div>
+                    <div class="field">
                         <div class="relative group w-max">
-                            <label for="filenameInput" class="icon-label"><span role="img" aria-label="label">🏷️</span> <span data-i18n="filenameLabel"></span></label>
+                            <label for="filenameInput" class="field-label"><span class="field-icon" role="img" aria-label="label">🏷️</span> <span data-i18n="filenameLabel"></span></label>
                             <div class="tooltip-bubble" data-i18n-tooltip="outputFileNameTooltip"></div>
                         </div>
-                        <input type="text" id="filenameInput" class="w-full" dir="ltr" style="unicode-bidi: plaintext; text-align: start;" data-i18n-placeholder="filenamePlaceholder" />
+                        <input type="text" id="filenameInput" dir="ltr" style="unicode-bidi: plaintext; text-align: start;" data-i18n-placeholder="filenamePlaceholder" />
                     </div>
 
-                    <div>
-                        <textarea id="promptInput" class="w-full h-40" dir="ltr" style="unicode-bidi: plaintext; text-align: start;" data-i18n-placeholder="promptPlaceholder"></textarea>
-                        <div class="text-xs mt-1" id="charCountDisplay" style="color: var(--text-color-secondary); text-align: end;"></div>
+                    <div class="field">
+                        <textarea id="promptInput" style="min-height: 10rem;" dir="ltr" data-i18n-placeholder="promptPlaceholder"></textarea>
+                        <div class="status-row"><span></span><span id="charCountDisplay"></span></div>
                     </div>
 
-                    <button id="translateBtn" class="w-full btn"></button>
-                    <button id="stopBtn" class="w-full btn btn-danger mt-4" data-i18n="stopBtn" style="display: none;"></button>
+                    <div class="action-bar">
+                        <button id="translateBtn" class="btn"></button>
+                        <button id="stopBtn" class="btn btn-danger" data-i18n="stopBtn" style="display: none;"></button>
+                    </div>
 
-                    <div id="progressBarContainer" class="mt-3" style="display:none;">
+                    <div id="progressBarContainer" class="progress-wrap" style="display:none;">
                         <div class="progress-bar-track">
                             <div id="progressBarFill" class="progress-bar-fill" style="width:0%;"></div>
                         </div>
-                        <div id="progressBarText" class="text-xs text-center mt-1" style="color: var(--text-color-secondary);"></div>
+                        <div id="progressBarText" class="progress-bar-text"></div>
                     </div>
 
-                    <div id="manualEditorSection" style="display:none;">
-                        <h3 class="font-semibold text-lg mb-1" data-i18n="manualEditorTitle"></h3>
-                        <p id="manualEditorEmptyHint" class="text-sm mb-2" data-i18n="manualEditorEmptyHint" style="color: var(--text-color-secondary);"></p>
+                    <div id="manualEditorSection" class="field-group" style="display:none;">
+                        <h3 class="manual-editor-heading" data-i18n="manualEditorTitle"></h3>
+                        <p id="manualEditorEmptyHint" class="hint-text" data-i18n="manualEditorEmptyHint"></p>
                         <div id="manualEditorRows" class="manual-editor-rows"></div>
-                        <p class="text-xs mt-2" data-i18n="manualAutoSaveHint" style="color: var(--text-color-secondary); opacity:0.7;"></p>
-                        <button id="manualDownloadBtn" class="w-full btn mt-3" data-i18n="manualDownloadBtn" style="display:none;"></button>
+                        <p class="hint-text" data-i18n="manualAutoSaveHint"></p>
+                        <button id="manualDownloadBtn" class="btn" data-i18n="manualDownloadBtn" style="display:none;"></button>
                     </div>
+
+                    <div class="mobile-action-spacer"></div>
                 </section>
-                <section id="responseSection" class="card space-y-4" style="display:none;">
-                    <div class="flex justify-between items-center">
-                        <h2 id="responseTitle" class="text-2xl font-semibold" data-i18n="responseTitle"></h2>
-                        <button id="copyTranslatedBtn" class="btn btn-secondary text-sm py-1 px-3" style="display:none;">
+
+                <section id="responseSection" class="card" style="display:none;">
+                    <div class="status-row" style="font-size:inherit;">
+                        <h2 id="responseTitle" style="margin:0; font-size:1.15rem; font-weight:700; color: var(--text-primary);" data-i18n="responseTitle"></h2>
+                        <button id="copyTranslatedBtn" class="btn-secondary" style="display:none;">
                             <span role="img" aria-label="copy">📋</span> <span data-i18n="copyBtnText"></span>
                         </button>
                     </div>
-                    <div id="responseBox" class="w-full text-sm whitespace-pre-wrap p-4 rounded" style="background-color: var(--input-bg); min-height: 200px;"></div>
-                    <button id="downloadBtn" style="display:none" class="w-full btn" data-i18n="downloadBtn"></button>
+                    <div id="responseBox"></div>
+                    <button id="downloadBtn" style="display:none" class="btn" data-i18n="downloadBtn"></button>
                 </section>
             </main>
-            <footer class="text-center text-xs mt-10 py-6" style="color: var(--text-color-secondary); opacity: 0.8;">
-                <p><span data-i18n="footerMadeWith"></span> ❤️ <span data-i18n="footerBy"></span> <a href="https://github.com/GeekNeuron/SubMovies" class="underline" data-i18n="footerAuthor" style="color: var(--primary-accent);">GeekNeuron</a></p>
-                <p id="appVersionText" class="mt-1" style="opacity: 0.6; direction: ltr;"></p>
-            </footer>
         </div>
+
+        <footer class="app-footer">
+            <p><span data-i18n="footerMadeWith"></span> ❤️ <span data-i18n="footerBy"></span> <a href="https://github.com/GeekNeuron/SubMovies" data-i18n="footerAuthor">GeekNeuron</a></p>
+            <p id="appVersionText" class="version"></p>
+        </footer>
     </div>
+
     <div id="optionsModal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle" class="text-xl font-semibold">Select an Option</h3>
+                <h3 id="modalTitle">Select an Option</h3>
                 <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
             </div>
-            <div id="modalOptionsContainer" class="modal-options-container">
-            </div>
+            <div id="modalOptionsContainer" class="modal-options-container"></div>
         </div>
     </div>
 </body>

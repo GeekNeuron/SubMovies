@@ -91,6 +91,7 @@ export function displayTranslationResult(originalText, translatedText, originalF
         DOM.responseTitle.style.display = 'block';
         DOM.responseTitle.textContent = t.responseTitle || "Translation Result:"; // Ensure title is set correctly
     }
+    document.querySelector('.workspace')?.classList.add('has-result');
 }
 
 /**
@@ -102,27 +103,22 @@ export function displayTranslationResult(originalText, translatedText, originalF
  */
 function renderComparisonHTML(orig, translated, t) {
     const container = document.createElement('div');
-    container.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 mt-2';
+    container.className = 'compare-grid';
 
     const createSubtitleBox = (titleKey, defaultTitle, content) => {
         const boxContainer = document.createElement('div');
+        boxContainer.className = 'compare-col';
         const titleEl = document.createElement('h3');
-        titleEl.className = 'text-lg font-semibold mb-2';
         titleEl.textContent = t[titleKey] || defaultTitle;
         
         const preEl = document.createElement('pre');
-        preEl.className = 'p-3 rounded-md text-sm max-h-80 sm:max-h-96 overflow-y-auto border';
-        preEl.style.backgroundColor = 'var(--input-bg-actual)'; 
-        preEl.style.borderColor = 'var(--input-border-actual)'; 
-        preEl.style.color = 'var(--input-text-actual)'; // Ensure pre text color matches theme
+        preEl.className = 'compare-pre';
         // Fix: isolate this block from the page's RTL bidi context. Without this,
         // the browser's bidi algorithm visually reorders SRT timestamp lines
         // (e.g. "00:00:01,000 --> 00:00:02,000" renders reversed) because the
         // surrounding <html dir="rtl"> influences how weakly-directional
         // characters (digits, "-->", punctuation) get laid out.
         preEl.dir = 'ltr';
-        preEl.style.unicodeBidi = 'plaintext';
-        preEl.style.textAlign = 'start';
         preEl.textContent = content;
         
         boxContainer.appendChild(titleEl);

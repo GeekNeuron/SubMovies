@@ -16,7 +16,7 @@ The interface is available in 13 languages (Persian, English, Arabic, Turkish, F
 * **Cross-Chunk Consistency:** Each new chunk gets a short excerpt of how the immediately preceding part was translated, so character names/terminology/tone stay consistent across a long subtitle file instead of drifting between independently-translated chunks.
 * **Configurable Chunk Size:** Choose how many subtitle lines are sent per API request (Optimal/High/Very High) - trade off request count against desync risk.
 * **Optional Custom Instructions:** Add your own free-form guidance (e.g. "don't translate character names", "use a playful tone") that gets applied on top of the tone/style settings.
-* **Modern & Responsive UI:** Designed with Tailwind CSS and CSS variables for a fantastic visual experience across all devices.
+* **Modern & Responsive UI:** A custom "Screening Room" design system (hand-built CSS, no framework) with true light/dark themes, smooth animations, and a layout that adapts cleanly from mobile to desktop.
 * **SRT & VTT Format Support:** Upload, translate, and download subtitle files in both common formats.
 * **Multilingual UI:** Interface available in 13 languages, auto-detected from your browser (switchable anytime via the 🌐 button).
 * **Selectable Target Language:** Choose which language your subtitles get translated into, independent of the UI language.
@@ -72,7 +72,6 @@ The interface is available in 13 languages (Persian, English, Arabic, Turkish, F
 |   |       |-- providers.js       # AI provider metadata (Gemini/DeepSeek/Claude) and model->provider mapping
 |   |-- css/                       # CSS styles
 |   |   |-- main.css               # General styles and theme CSS variables
-|   |   |-- tailwind.min.css       # Local Tailwind build (no external CDN dependency)
 |   |-- lang/                      # JSON translation files (13 languages)
 |   |   |-- fa.json, en.json, ar.json, tr.json, fr.json, de.json, es.json,
 |   |   |-- ru.json, zh.json, hi.json, ja.json, pt.json, it.json
@@ -99,7 +98,7 @@ LICENSE
 ## 🛠️ Technology Stack
 
 * **HTML5**
-* **CSS3** (with [Tailwind CSS](https://tailwindcss.com/) for rapid styling and CSS Variables for theming - bundled locally, no external CDN dependency)
+* **CSS3** — a custom, hand-built design system ("Screening Room": dark cinema-inspired theme with a warm amber accent, plus a matching light theme), using CSS custom properties for theming. No CSS framework, no external CSS CDN dependency.
 * **JavaScript (ES6+ Modules)** (Vanilla JS, no framework)
 * **AI Providers (bring your own key):**
     * [Google Gemini API](https://ai.google.dev/gemini-api/docs/models) (via `generativelanguage.googleapis.com`)
