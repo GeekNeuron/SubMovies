@@ -51,8 +51,18 @@
 
             <main class="workspace">
                 <section class="card" id="settingsCard">
+                <div class="panel-shell">
+                    <nav class="panel-nav">
+                        <button class="nav-item ai-nav-item active" data-panel="provider" type="button"><span class="nav-item-icon" role="img" aria-label="brain">🧠</span><span data-i18n="navProvider"></span></button>
+                        <button class="nav-item ai-nav-item" data-panel="style" type="button"><span class="nav-item-icon" role="img" aria-label="palette">🎨</span><span data-i18n="navStyle"></span></button>
+                        <button class="nav-item ai-nav-item" data-panel="performance" type="button"><span class="nav-item-icon" role="img" aria-label="gauge">📊</span><span data-i18n="navPerformance"></span></button>
+                        <button class="nav-item" data-panel="source" type="button"><span class="nav-item-icon" role="img" aria-label="folder">📁</span><span data-i18n="navSource"></span></button>
+                    </nav>
 
-                    <div id="aiSettingsSection" class="field-group">
+                    <div class="panel-content">
+
+                    <div class="settings-panel active" data-panel="provider">
+                        <h2 class="panel-heading"><span role="img" aria-label="brain">🧠</span> <span data-i18n="navProvider"></span></h2>
                         <div class="field">
                             <div class="relative group w-max">
                                 <label for="apiKeyInput" class="field-label"><span class="field-icon" role="img" aria-label="key">🔑</span> <span data-i18n="apiKeyLabel"></span>&nbsp;<span id="apiKeyProviderTag" style="opacity:0.7; font-weight:normal;"></span></label>
@@ -68,24 +78,26 @@
                             </div>
                         </div>
 
-                        <div class="field-row two-col">
-                            <div class="field">
-                                <div class="relative group w-max">
-                                    <label for="modelSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
-                                    <div class="tooltip-bubble" data-i18n-tooltip="modelTooltip"></div>
-                                </div>
-                                <button id="modelSelectBtn" class="modal-trigger-btn"></button>
+                        <div class="field">
+                            <div class="relative group w-max">
+                                <label for="modelSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="brain">🧠</span> <span data-i18n="modelLabel"></span></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="modelTooltip"></div>
                             </div>
-                            <div class="field">
-                                <div class="relative group w-max">
-                                    <label for="temperatureInput" class="field-label" data-i18n="temperatureLabel"></label>
-                                    <div class="tooltip-bubble" data-i18n-tooltip="temperatureTooltip"></div>
-                                </div>
-                                <input type="range" id="temperatureInput" min="0" max="1" step="0.1" value="0.7">
-                                <div class="hint-text" id="temperatureValueDisplay" style="text-align:center;">0.7</div>
-                            </div>
+                            <button id="modelSelectBtn" class="modal-trigger-btn"></button>
                         </div>
 
+                        <div class="field">
+                             <div class="relative group w-max">
+                                <label for="temperatureInput" class="field-label" data-i18n="temperatureLabel"></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="temperatureTooltip"></div>
+                            </div>
+                            <input type="range" id="temperatureInput" min="0" max="1" step="0.1" value="0.7">
+                            <div class="hint-text" id="temperatureValueDisplay" style="text-align:center;">0.7</div>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" data-panel="style">
+                        <h2 class="panel-heading"><span role="img" aria-label="palette">🎨</span> <span data-i18n="navStyle"></span></h2>
                         <div class="field-row two-col">
                             <div class="field">
                                 <div class="relative group w-max">
@@ -108,11 +120,12 @@
                                 <label for="customPromptInput" class="field-label"><span class="field-icon" role="img" aria-label="pencil note">📝</span> <span data-i18n="customPromptLabel"></span></label>
                                 <div class="tooltip-bubble" data-i18n-tooltip="customPromptTooltip"></div>
                             </div>
-                            <textarea id="customPromptInput" style="min-height: 4.5rem;" data-i18n-placeholder="customPromptPlaceholder"></textarea>
+                            <textarea id="customPromptInput" style="min-height: 6rem;" data-i18n-placeholder="customPromptPlaceholder"></textarea>
                         </div>
+                    </div>
 
-                        <hr class="section-divider" />
-
+                    <div class="settings-panel" data-panel="performance">
+                        <h2 class="panel-heading"><span role="img" aria-label="gauge">📊</span> <span data-i18n="navPerformance"></span></h2>
                         <div class="field">
                             <div class="relative group w-max">
                                 <label for="chunkSizeSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="gauge">📊</span> <span data-i18n="chunkSizeLabel"></span></label>
@@ -121,89 +134,90 @@
                             <button id="chunkSizeSelectBtn" class="modal-trigger-btn"></button>
                         </div>
 
-                        <div class="field-row two-col">
-                            <div class="field">
-                                <div class="relative group w-max">
-                                    <label for="rateLimitSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="hourglass">⏳</span> <span data-i18n="rateLimitLabel"></span></label>
-                                    <div class="tooltip-bubble" data-i18n-tooltip="rateLimitTooltip"></div>
-                                </div>
-                                <button id="rateLimitSelectBtn" class="modal-trigger-btn"></button>
+                        <div class="field">
+                            <div class="relative group w-max">
+                                <label for="rateLimitSelectBtn" class="field-label"><span class="field-icon" role="img" aria-label="hourglass">⏳</span> <span data-i18n="rateLimitLabel"></span></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="rateLimitTooltip"></div>
                             </div>
-                            <div class="field" style="justify-content:flex-end;">
-                                <div class="toggle-row">
-                                    <input type="checkbox" id="postProcessToggle">
-                                    <div class="relative group" style="flex:1 1 auto;">
-                                        <label for="postProcessToggle" class="field-label" data-i18n="postProcessLabel" style="font-weight:normal;"></label>
-                                        <div class="tooltip-bubble" data-i18n-tooltip="postProcessTooltip"></div>
-                                    </div>
-                                </div>
+                            <button id="rateLimitSelectBtn" class="modal-trigger-btn"></button>
+                        </div>
+
+                        <div class="toggle-row">
+                            <input type="checkbox" id="postProcessToggle">
+                            <div class="relative group" style="flex:1 1 auto;">
+                                <label for="postProcessToggle" class="field-label" data-i18n="postProcessLabel" style="font-weight:normal;"></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="postProcessTooltip"></div>
                             </div>
                         </div>
                     </div>
-                    <!-- /#aiSettingsSection -->
 
-                    <hr class="section-divider" />
+                    <div class="settings-panel" data-panel="source">
+                        <h2 class="panel-heading"><span role="img" aria-label="folder">📁</span> <span data-i18n="navSource"></span></h2>
 
-                    <div class="toggle-row">
-                        <input type="checkbox" id="manualModeToggle">
-                        <div class="relative group" style="flex:1 1 auto;">
-                            <label for="manualModeToggle" class="field-label" data-i18n="manualModeLabel"></label>
-                            <div class="tooltip-bubble" data-i18n-tooltip="manualModeTooltip"></div>
+                        <div class="toggle-row">
+                            <input type="checkbox" id="manualModeToggle">
+                            <div class="relative group" style="flex:1 1 auto;">
+                                <label for="manualModeToggle" class="field-label" data-i18n="manualModeLabel"></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="manualModeTooltip"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="field">
-                        <div class="relative group w-max">
-                            <label for="fileInput" class="field-label">
-                                <span class="field-icon" role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span>
+                        <div class="field">
+                            <div class="relative group w-max">
+                                <label for="fileInput" class="field-label">
+                                    <span class="field-icon" role="img" aria-label="upload">📤</span> <span data-i18n="fileChooseLabel"></span>
+                                </label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="uploadFileTooltip"></div>
+                            </div>
+                            <label class="custom-file-upload">
+                                <input id="fileInput" type="file" accept=".srt,.vtt,.ass,.ssa" style="display:none;" />
+                                <span class="upload-zone">
+                                    <span role="img" aria-label="upload">📤</span>
+                                    <span id="fileInputButtonText" data-i18n="fileChooseButtonText"></span>
+                                </span>
                             </label>
-                            <div class="tooltip-bubble" data-i18n-tooltip="uploadFileTooltip"></div>
+                            <div id="fileNameText" class="hint-text"></div>
+                            <p class="hint-text" data-i18n="assFormatNote"></p>
                         </div>
-                        <label class="custom-file-upload">
-                            <input id="fileInput" type="file" accept=".srt,.vtt,.ass,.ssa" style="display:none;" />
-                            <span class="upload-zone">
-                                <span role="img" aria-label="upload">📤</span>
-                                <span id="fileInputButtonText" data-i18n="fileChooseButtonText"></span>
-                            </span>
-                        </label>
-                        <div id="fileNameText" class="hint-text"></div>
-                        <p class="hint-text" data-i18n="assFormatNote"></p>
-                    </div>
 
-                    <div class="field">
-                        <div class="relative group w-max">
-                            <label for="filenameInput" class="field-label"><span class="field-icon" role="img" aria-label="label">🏷️</span> <span data-i18n="filenameLabel"></span></label>
-                            <div class="tooltip-bubble" data-i18n-tooltip="outputFileNameTooltip"></div>
+                        <div class="field">
+                            <div class="relative group w-max">
+                                <label for="filenameInput" class="field-label"><span class="field-icon" role="img" aria-label="label">🏷️</span> <span data-i18n="filenameLabel"></span></label>
+                                <div class="tooltip-bubble" data-i18n-tooltip="outputFileNameTooltip"></div>
+                            </div>
+                            <input type="text" id="filenameInput" dir="ltr" style="unicode-bidi: plaintext; text-align: start;" data-i18n-placeholder="filenamePlaceholder" />
                         </div>
-                        <input type="text" id="filenameInput" dir="ltr" style="unicode-bidi: plaintext; text-align: start;" data-i18n-placeholder="filenamePlaceholder" />
-                    </div>
 
-                    <div class="field">
-                        <textarea id="promptInput" style="min-height: 10rem;" dir="ltr" data-i18n-placeholder="promptPlaceholder"></textarea>
-                        <div class="status-row"><span></span><span id="charCountDisplay"></span></div>
-                    </div>
-
-                    <div class="action-bar">
-                        <button id="translateBtn" class="btn"></button>
-                        <button id="stopBtn" class="btn btn-danger" data-i18n="stopBtn" style="display: none;"></button>
-                    </div>
-
-                    <div id="progressBarContainer" class="progress-wrap" style="display:none;">
-                        <div class="progress-bar-track">
-                            <div id="progressBarFill" class="progress-bar-fill" style="width:0%;"></div>
+                        <div class="field">
+                            <textarea id="promptInput" style="min-height: 10rem;" dir="ltr" data-i18n-placeholder="promptPlaceholder"></textarea>
+                            <div class="status-row"><span></span><span id="charCountDisplay"></span></div>
                         </div>
-                        <div id="progressBarText" class="progress-bar-text"></div>
+
+                        <div class="action-bar">
+                            <button id="translateBtn" class="btn"></button>
+                            <button id="stopBtn" class="btn btn-danger" data-i18n="stopBtn" style="display: none;"></button>
+                        </div>
+
+                        <div id="progressBarContainer" class="progress-wrap" style="display:none;">
+                            <div class="progress-bar-track">
+                                <div id="progressBarFill" class="progress-bar-fill" style="width:0%;"></div>
+                            </div>
+                            <div id="progressBarText" class="progress-bar-text"></div>
+                        </div>
+
+                        <div id="manualEditorSection" class="field-group" style="display:none;">
+                            <h3 class="manual-editor-heading" data-i18n="manualEditorTitle"></h3>
+                            <p id="manualEditorEmptyHint" class="hint-text" data-i18n="manualEditorEmptyHint"></p>
+                            <div id="manualEditorRows" class="manual-editor-rows"></div>
+                            <p class="hint-text" data-i18n="manualAutoSaveHint"></p>
+                            <button id="manualDownloadBtn" class="btn" data-i18n="manualDownloadBtn" style="display:none;"></button>
+                        </div>
+
+                        <div class="mobile-action-spacer"></div>
                     </div>
 
-                    <div id="manualEditorSection" class="field-group" style="display:none;">
-                        <h3 class="manual-editor-heading" data-i18n="manualEditorTitle"></h3>
-                        <p id="manualEditorEmptyHint" class="hint-text" data-i18n="manualEditorEmptyHint"></p>
-                        <div id="manualEditorRows" class="manual-editor-rows"></div>
-                        <p class="hint-text" data-i18n="manualAutoSaveHint"></p>
-                        <button id="manualDownloadBtn" class="btn" data-i18n="manualDownloadBtn" style="display:none;"></button>
                     </div>
-
-                    <div class="mobile-action-spacer"></div>
+                </div>
                 </section>
 
                 <section id="responseSection" class="card" style="display:none;">

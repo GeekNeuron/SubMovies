@@ -73,8 +73,7 @@ self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
   if (url.hostname === 'fonts.googleapis.com' ||
-      url.hostname === 'fonts.gstatic.com' ||
-      url.hostname === 'cdn.tailwindcss.com') {
+      url.hostname === 'fonts.gstatic.com') {
     event.respondWith(
       caches.open(CACHE_NAME).then(async (cache) => {
         const cachedResponse = await cache.match(event.request);
